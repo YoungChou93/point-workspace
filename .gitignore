@@ -1,0 +1,26 @@
+#maven ignorance files
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+#ignore some project files
+target
+META-INF
+.settings
+.project
+.classpath
+
+#ignore photoes and logs in his-web
+logs
+photo
+
+#ignore vi/vim temperate file
+*.sw*
+
+#ignore
+/.metadata/*
