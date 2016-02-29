@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.baseinfo.DiscountItemDao" >
+  <resultMap id="BaseResultMap" type="com.his.entity.baseinfo.DiscountItem" >
+    <id column="DiscountID" property="discountid" jdbcType="NVARCHAR" />
+    <result column="DiscountName" property="discountname" jdbcType="NVARCHAR" />
+    <result column="DiscountRate" property="discountrate" jdbcType="DECIMAL" />
+    <result column="DiscountStartTime" property="discountstarttime" jdbcType="DATE" />
+    <result column="DiscountEndTime" property="discountendtime" jdbcType="DATE" />
+    <result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+    <result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DiscountID, DiscountName, DiscountRate, DiscountStartTime, DiscountEndTime, UnUsed1, 
+    UnUsed2
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DiscountItem
+    where DiscountID = #{discountid,jdbcType=NVARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DiscountItem
+    where DiscountID = #{discountid,jdbcType=NVARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.his.entity.baseinfo.DiscountItem" >
+    insert into DiscountItem (DiscountID, DiscountName, DiscountRate, 
+      DiscountStartTime, DiscountEndTime, UnUsed1, 
+      UnUsed2)
+    values (#{discountid,jdbcType=NVARCHAR}, #{discountname,jdbcType=NVARCHAR}, #{discountrate,jdbcType=DECIMAL}, 
+      #{discountstarttime,jdbcType=DATE}, #{discountendtime,jdbcType=DATE}, #{unused1,jdbcType=NVARCHAR}, 
+      #{unused2,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.his.entity.baseinfo.DiscountItem" >
+    insert into DiscountItem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="discountid != null" >
+        DiscountID,
+      </if>
+      <if test="discountname != null" >
+        DiscountName,
+      </if>
+      <if test="discountrate != null" >
+        DiscountRate,
+      </if>
+      <if test="discountstarttime != null" >
+        DiscountStartTime,
+      </if>
+      <if test="discountendtime != null" >
+        DiscountEndTime,
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1,
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="discountid != null" >
+        #{discountid,jdbcType=NVARCHAR},
+      </if>
+      <if test="discountname != null" >
+        #{discountname,jdbcType=NVARCHAR},
+      </if>
+      <if test="discountrate != null" >
+        #{discountrate,jdbcType=DECIMAL},
+      </if>
+      <if test="discountstarttime != null" >
+        #{discountstarttime,jdbcType=DATE},
+      </if>
+      <if test="discountendtime != null" >
+        #{discountendtime,jdbcType=DATE},
+      </if>
+      <if test="unused1 != null" >
+        #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        #{unused2,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.DiscountItem" >
+    update DiscountItem
+    <set >
+      <if test="discountname != null" >
+        DiscountName = #{discountname,jdbcType=NVARCHAR},
+      </if>
+      <if test="discountrate != null" >
+        DiscountRate = #{discountrate,jdbcType=DECIMAL},
+      </if>
+      <if test="discountstarttime != null" >
+        DiscountStartTime = #{discountstarttime,jdbcType=DATE},
+      </if>
+      <if test="discountendtime != null" >
+        DiscountEndTime = #{discountendtime,jdbcType=DATE},
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where DiscountID = #{discountid,jdbcType=NVARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.his.entity.baseinfo.DiscountItem" >
+    update DiscountItem
+    set DiscountName = #{discountname,jdbcType=NVARCHAR},
+      DiscountRate = #{discountrate,jdbcType=DECIMAL},
+      DiscountStartTime = #{discountstarttime,jdbcType=DATE},
+      DiscountEndTime = #{discountendtime,jdbcType=DATE},
+      UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      UnUsed2 = #{unused2,jdbcType=NVARCHAR}
+    where DiscountID = #{discountid,jdbcType=NVARCHAR}
+  </update>
+  
+  <select id="findDiscountItem" parameterType="Map" resultMap="BaseResultMap">
+		select * from DiscountItem
+		<where>
+		    <if test="name!=null and name!='' ">
+				and Name like #{name}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by DiscountID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+	
+		
+	<select id="getTotalDiscountItem" parameterType="Map" resultType="Long">
+		select count(*) from DiscountItem
+		<where>
+		    <if test="name!=null and name!='' ">
+				and Name like #{name}
+			</if>
+		</where>
+	</select>
+	
+	<select id="generateCode" resultType="String">
+		select MAX(DiscountID)
+		from DiscountItem
+	</select>
+</mapper>

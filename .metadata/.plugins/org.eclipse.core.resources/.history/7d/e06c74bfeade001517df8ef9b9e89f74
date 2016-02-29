@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.hospital.HosTotalExpenseDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.hospital.HosTotalExpense">
+		<id column="SerialID" property="serialid" jdbcType="CHAR" />
+		<result column="PatientID" property="patientid" jdbcType="CHAR" />
+		<result column="Expense" property="expense" jdbcType="DECIMAL" />
+		<result column="BalType" property="baltype" jdbcType="INTEGER" />
+		<result column="PayType" property="paytype" jdbcType="INTEGER" />
+		<result column="CurrTime" property="currtime" jdbcType="TIMESTAMP" />
+		<result column="BillCode" property="billcode" jdbcType="CHAR" />
+
+		<association column="HosCode" property="hoscode"
+			select="com.his.dao.hospital.HosRegisterDao.selectByPrimaryKey" />
+		<association column="EmpID" property="employee"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		SerialID, HosCode, PatientID, Expense, BalType, PayType,
+		EmpID, CurrTime
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from HosTotalExpense
+		where SerialID = #{serialid,jdbcType=CHAR}
+	</select>
+
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from HosTotalExpense
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+			<if test="hoscode !=null and hoscode !=''">
+				and HosCode = #{hoscode}
+			</if>
+			<if test="patientid !=null and patentid !=''">
+				and PatientID = #{patientid}
+			</if>
+		</where>
+	</select>
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		HosTotalExpense
+		where SerialID = #{serialid,jdbcType=CHAR}
+	</delete>
+
+	<delete id="deleteByMap" parameterType="Map">
+		delete from HosTotalExpense
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+			<if test="hoscode !=null and hoscode !=''">
+				and HosCode = #{hoscode}
+			</if>
+			<if test="patientid !=null and patentid !=''">
+				and PatientID = #{patientid}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.hospital.HosTotalExpense">
+		insert into HosTotalExpense
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="serialid != null">
+				SerialID,
+			</if>
+			<if test="hoscode != null">
+				HosCode,
+			</if>
+			<if test="patientid != null">
+				PatientID,
+			</if>
+			<if test="expense != null">
+				Expense,
+			</if>
+			<if test="baltype != null">
+				BalType,
+			</if>
+			<if test="paytype != null">
+				PayType,
+			</if>
+			<if test="employee != null">
+				EmpID,
+			</if>
+			<if test="currtime != null">
+				CurrTime,
+			</if>
+			<if test="billcode != null">
+				BillCode,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="serialid != null">
+				#{serialid,jdbcType=CHAR},
+			</if>
+			<if test="hoscode != null">
+				#{hoscode.hoscode,jdbcType=CHAR},
+			</if>
+			<if test="patientid != null">
+				#{patientid,jdbcType=CHAR},
+			</if>
+			<if test="expense != null">
+				#{expense,jdbcType=DECIMAL},
+			</if>
+			<if test="baltype != null">
+				#{baltype,jdbcType=INTEGER},
+			</if>
+			<if test="paytype != null">
+				#{paytype,jdbcType=INTEGER},
+			</if>
+			<if test="employee != null">
+				#{employee.empid,jdbcType=CHAR},
+			</if>
+			<if test="currtime != null">
+				#{currtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="billcode != null">
+				#{billcode,jdbcType=CHAR},,
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.hospital.HosTotalExpense">
+		update HosTotalExpense
+		<set>
+			<if test="hoscode != null">
+				HosCode = #{hoscode.hoscode,jdbcType=CHAR},
+			</if>
+			<if test="patientid != null">
+				PatientID = #{patientid,jdbcType=CHAR},
+			</if>
+			<if test="expense != null">
+				Expense = #{expense,jdbcType=DECIMAL},
+			</if>
+			<if test="baltype != null">
+				BalType = #{baltype,jdbcType=INTEGER},
+			</if>
+			<if test="paytype != null">
+				PayType = #{paytype,jdbcType=INTEGER},
+			</if>
+			<if test="employee != null">
+				EmpID = #{employee.empid,jdbcType=CHAR},
+			</if>
+			<if test="currtime != null">
+				CurrTime = #{currtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="billcode != null">
+				BillCode = #{billcode,jdbcType=CHAR},,
+			</if>
+		</set>
+		where SerialID = #{serialid,jdbcType=CHAR}
+	</update>
+
+	<select id="findHosTotalExpense" parameterType="Map" resultMap="BaseResultMap">
+		select * from HosTotalExpense
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+			<if test="hoscode !=null and hoscode !=''">
+				and HosCode = #{hoscode}
+			</if>
+			<if test="patientid !=null and patentid !=''">
+				and PatientID = #{patientid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by SerialID offset ${start} rows fetch next
+			${size}
+			rows only
+		</if>
+	</select>
+
+	<select id="getTotalHosTotalExpense" parameterType="Map"
+		resultType="Long">
+		select count(*) from HosTotalExpense
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+			<if test="hoscode !=null and hoscode !=''">
+				and HosCode = #{hoscode}
+			</if>
+			<if test="patientid !=null and patentid !=''">
+				and PatientID = #{patientid}
+			</if>
+		</where>
+	</select>
+
+	<select id="getSerialID" parameterType="Map" resultType="String">
+		select MAX(SerialID) from HosTotalExpense
+		<where>
+			<if test="prefix!=null and prefix!='' ">
+				and SerialID like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

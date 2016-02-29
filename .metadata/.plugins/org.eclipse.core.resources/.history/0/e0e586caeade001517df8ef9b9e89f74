@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.baseinfo.BedDao">
+
+	<resultMap id="BaseResultMap" type="com.his.entity.baseinfo.Bed">
+		<id column="BedID" property="bedid" jdbcType="CHAR" />
+		<result column="BedName" property="bedname" jdbcType="NVARCHAR" />
+		<result column="BedLevel" property="bedlevel" jdbcType="INTEGER" />
+		<result column="BeState" property="bestate" jdbcType="INTEGER" />
+
+		<association column="DeptID" property="dept"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey"></association>
+		<association column="RoomID" property="sickroom"
+			select="com.his.dao.baseinfo.SickRoomDao.selectByPrimaryKey"></association>			
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		BedID, BedName, DeptID, RoomID, BedLevel, BeState
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from Bed
+		where BedID = #{bedid,jdbcType=CHAR}
+	</select>
+
+	<insert id="insertSelective" parameterType="com.his.entity.baseinfo.Bed">
+		insert into Bed
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="bedid != null">
+				BedID,
+			</if>
+			<if test="bedname != null">
+				BedName,
+			</if>
+			<if test="dept != null">
+				DeptID,
+			</if>
+			<if test="sickroom != null">
+				RoomID,
+			</if>			
+			<if test="bedlevel != null">
+				BedLevel,
+			</if>
+			<if test="bestate != null">
+				BeState,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="bedid != null">
+				#{bedid,jdbcType=CHAR},
+			</if>
+			<if test="bedname != null">
+				#{bedname,jdbcType=NVARCHAR},
+			</if>
+			<if test="dept != null">
+				#{dept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="sickroom != null">
+				#{sickroom.roomid,jdbcType=CHAR},
+			</if>			
+			<if test="bedlevel != null">
+				#{bedlevel,jdbcType=INTEGER},
+			</if>
+			<if test="bestate != null">
+				#{bestate,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.Bed">
+		update Bed
+		<set>
+			<if test="bedname != null">
+				BedName = #{bedname,jdbcType=NVARCHAR},
+			</if>
+			<if test="dept != null">
+				DeptID = #{dept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="sickroom != null">
+				RoomID = #{sickroom.roomid,jdbcType=CHAR},
+			</if>			
+			<if test="bedlevel != null">
+				BedLevel = #{bedlevel,jdbcType=INTEGER},
+			</if>
+			<if test="bestate != null">
+				BeState = #{bestate,jdbcType=INTEGER},
+			</if>
+		</set>
+		where BedID = #{bedid,jdbcType=CHAR}
+	</update>
+	
+	<select id="findBed" parameterType="Map" resultMap="BaseResultMap">
+		select * from Bed
+		<where>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID = #{deptid}
+			</if>
+			<if test="bedlevel !=null ">
+				and BedLevel = #{bedlevel}
+			</if>
+			<if test="bestate !=null ">
+				and BeState = #{bestate}
+			</if>			
+			and BeState != -1
+		</where>
+		<if test="start!=null and size!=null">
+			order by BedID offset ${start} rows fetch next ${size}
+			rows only
+		</if>
+	</select>
+	
+	<select id="getTotalBed" parameterType="Map" resultType="Long">
+		select count(*) from Bed
+		<where>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID = #{deptid}
+			</if>
+			<if test="bedlevel !=null ">
+				and BedLevel = #{bedlevel}
+			</if>
+			and BeState != -1				
+		</where>
+	</select>
+	
+	<select id="getMaxID"  resultType="String">
+		select MAX(BedID) from Bed
+	</select>
+</mapper>

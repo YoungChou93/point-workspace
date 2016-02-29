@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.downpublic.BatchItemDao" >
+  <resultMap id="BaseResultMap" type="com.his.entity.downpublic.BatchItem" >
+    <id column="SerialID" property="serialid" jdbcType="CHAR" />
+    <result column="BatchName" property="batchname" jdbcType="NVARCHAR" />
+    <result column="BatchType" property="batchtype" jdbcType="INTEGER" />
+    <result column="BatchKind" property="batchkind" jdbcType="BIT" />
+    <result column="BatchClass" property="batchclass" jdbcType="INTEGER" />
+    <result column="BeState" property="bestate" jdbcType="INTEGER" />
+    <result column="IsFinish" property="isfinish" jdbcType="BIT" />
+    <result column="PyCode" property="pycode" jdbcType="VARCHAR" />
+    <result column="WbCode" property="wbcode" jdbcType="VARCHAR" />
+    <result column="Descripting" property="descripting" jdbcType="NVARCHAR" />
+    <result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+    <result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+    
+    
+    <association column="DeptID" property="execdept"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey" />
+	<association column="EmpID" property="execemp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+	<association column="SourceDeptID" property="sourcedept"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey" />
+	<association column="SourceEmpID" property="sourceemp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SerialID, BatchName, BatchType, BatchKind,BatchClass, DeptID, EmpID, BeState,IsFinish, SourceDeptID, 
+    SourceEmpID, PyCode, WbCode, Descripting, UnUsed1, UnUsed2
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from BatchItem
+    where SerialID = #{serialid,jdbcType=CHAR}
+  </select>
+  
+   <select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from BatchItem
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID=#{serialid}
+			</if>
+		</where>
+	</select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from BatchItem
+    where SerialID = #{serialid,jdbcType=CHAR}
+  </delete>
+  
+  <delete id="deleteByMap" parameterType="Map">
+		delete from BatchItem
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID=#{serialid}
+			</if>
+		</where>
+	</delete>
+	
+  <insert id="insertSelective" parameterType="com.his.entity.downpublic.BatchItem" >
+    insert into BatchItem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serialid != null" >
+        SerialID,
+      </if>
+      <if test="batchname != null" >
+        BatchName,
+      </if>
+      <if test="batchtype != null" >
+        BatchType,
+      </if>
+      <if test="batchkind != null" >
+        BatchKind,
+      </if>
+      <if test="batchclass != null" >
+        BatchClass,
+      </if>
+      <if test="execdept != null" >
+        DeptID,
+      </if>
+      <if test="execemp != null" >
+        EmpID,
+      </if>
+      <if test="bestate != null" >
+        BeState,
+      </if>
+      <if test="isfinish != null" >
+        IsFinish,
+      </if>
+      <if test="sourcedept != null" >
+        SourceDeptID,
+      </if>
+      <if test="sourceemp != null" >
+        SourceEmpID,
+      </if>
+      <if test="pycode != null" >
+        PyCode,
+      </if>
+      <if test="wbcode != null" >
+        WbCode,
+      </if>
+      <if test="descripting != null" >
+        Descripting,
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1,
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serialid != null" >
+        #{serialid,jdbcType=CHAR},
+      </if>
+      <if test="batchname != null" >
+        #{batchname,jdbcType=NVARCHAR},
+      </if>
+      <if test="batchtype != null" >
+        #{batchtype,jdbcType=INTEGER},
+      </if>
+      <if test="batchkind != null" >
+        #{batchkind,jdbcType=BIT},
+      </if>
+      <if test="batchclass != null" >
+        #{batchclass,jdbcType=INTEGER},
+      </if>
+      <if test="execdept != null" >
+        #{execdept.deptid,jdbcType=CHAR},
+      </if>
+      <if test="execemp != null" >
+        #{execemp.empid,jdbcType=CHAR},
+      </if>
+      <if test="bestate != null" >
+        #{bestate,jdbcType=INTEGER},
+      </if>
+      <if test="isfinish != null" >
+        #{isfinish,jdbcType=BIT},
+      </if>
+      <if test="sourcedept != null" >
+        #{sourcedept.deptid,jdbcType=CHAR},
+      </if>
+      <if test="sourceemp != null" >
+        #{sourceemp.empid,jdbcType=CHAR},
+      </if>
+      <if test="pycode != null" >
+        #{pycode,jdbcType=VARCHAR},
+      </if>
+      <if test="wbcode != null" >
+        #{wbcode,jdbcType=VARCHAR},
+      </if>
+      <if test="descripting != null" >
+        #{descripting,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused1 != null" >
+        #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        #{unused2,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.downpublic.BatchItem" >
+    update BatchItem
+    <set >
+      <if test="batchname != null" >
+        BatchName = #{batchname,jdbcType=NVARCHAR},
+      </if>
+      <if test="batchtype != null" >
+        BatchType = #{batchtype,jdbcType=INTEGER},
+      </if>
+      <if test="batchkind != null" >
+        BatchKind = #{batchkind,jdbcType=BIT},
+      </if>
+      <if test="batchclass != null" >
+        BatchClass = #{batchclass,jdbcType=INTEGER},
+      </if>
+      <if test="execdept != null" >
+        DeptID = #{execdept.deptid,jdbcType=CHAR},
+      </if>
+      <if test="execemp != null" >
+        EmpID = #{execemp.empid,jdbcType=CHAR},
+      </if>
+      <if test="bestate != null" >
+        BeState = #{bestate,jdbcType=INTEGER},
+      </if>
+      <if test="isfinish != null" >
+        IsFinish = #{isfinish,jdbcType=BIT},
+      </if>
+      <if test="sourcedept != null" >
+        SourceDeptID = #{sourcedept.deptid,jdbcType=CHAR},
+      </if>
+      <if test="sourceemp != null" >
+        SourceEmpID = #{sourceemp.empid,jdbcType=CHAR},
+      </if>
+      <if test="pycode != null" >
+        PyCode = #{pycode,jdbcType=VARCHAR},
+      </if>
+      <if test="wbcode != null" >
+        WbCode = #{wbcode,jdbcType=VARCHAR},
+      </if>
+      <if test="descripting != null" >
+        Descripting = #{descripting,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where SerialID = #{serialid,jdbcType=CHAR}
+  </update>
+  
+  <select id="findBatchItem" parameterType="Map"
+		resultMap="BaseResultMap">
+		select * from BatchItem
+		<where>
+			<if test="batchkind !=null ">
+				and BatchKind =#{batchkind}
+			</if>
+			<if test="batchtype !=null ">
+				and BatchType =#{batchtype}
+			</if>
+			<if test="batchclass !=null ">
+				and BatchClass =#{batchclass}
+			</if>
+			<if test="empid !=null and empid !=''">
+				and EmpID=#{empid}
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID=#{deptid}
+			</if>
+			<if test="filter !=null and filter !=''">
+				and (PyCode like #{filter} or WbCode like #{filter} or BatchName like #{filter} )
+			</if>
+			<if test="bestate !=null ">
+				and BeState = ${bestate}
+			</if>
+				and BeState != -1
+		</where>
+		<if test="start!=null and size!=null">
+			order by SerialID DESC offset ${start} rows fetch next
+			${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalBatchItem" parameterType="Map"
+		resultType="Long">
+		select count(*) from BatchItem
+		<where>
+			<if test="batchkind !=null ">
+				and BatchKind =#{batchkind}
+			</if>
+			<if test="batchtype !=null ">
+				and BatchType =#{batchtype}
+			</if>
+			<if test="batchclass !=null ">
+				and BatchClass =#{batchclass}
+			</if>
+			<if test="empid !=null and empid !=''">
+				and EmpID=#{empid}
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID=#{deptid}
+			</if>
+			<if test="filter !=null and filter !=''">
+				and (PyCode like #{filter} or WbCode like #{filter} or BatchName like #{filter} )
+			</if>
+			<if test="bestate !=null ">
+				and BeState = ${bestate}
+			</if>
+			and BeState != -1
+		</where>
+	</select>
+
+	<select id="getMaxID" parameterType="Map" resultType="String">
+		select MAX(SerialID) from BatchItem
+		<where>
+			<if test="prefix !=null and prefix !=''">
+				and SerialID like #{prefix}
+			</if>
+		</where>
+	</select>
+  
+  
+</mapper>

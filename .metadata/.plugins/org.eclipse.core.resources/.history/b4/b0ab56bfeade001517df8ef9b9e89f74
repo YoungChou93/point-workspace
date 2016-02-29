@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.iccard.AAdvanceMoneyDao" >
+  <resultMap id="BaseResultMap" type="com.his.entity.iccard.AAdvanceMoney" >
+    <id column="AdvanceID" property="advanceid" jdbcType="INTEGER" />
+    <result column="PayMethod" property="paymethod" jdbcType="INTEGER" />
+    <result column="Account" property="account" jdbcType="DECIMAL" />
+    <result column="Operation" property="operation" jdbcType="INTEGER" />
+    <result column="OpeDate" property="opedate" jdbcType="TIMESTAMP" />
+    <result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+    <result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+    <result column="UnUsed3" property="unused3" jdbcType="NVARCHAR" />
+    
+    <association column="ICCardID" property="iccard"
+			select="com.his.dao.iccard.AICCardDao.selectByPrimaryKey" />
+	<association column="EmpID" property="employee"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AdvanceID, ICCardID, PayMethod, Account, Operation, EmpID, OpeDate, UnUsed1, UnUsed2, 
+    UnUsed3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from AAdvanceMoney
+    where AdvanceID = #{advanceid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from AAdvanceMoney
+    where AdvanceID = #{advanceid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.his.entity.iccard.AAdvanceMoney" >
+    insert into AAdvanceMoney
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="iccard != null" >
+        ICCardID,
+      </if>
+      <if test="paymethod != null" >
+        PayMethod,
+      </if>
+      <if test="account != null" >
+        Account,
+      </if>
+      <if test="operation != null" >
+        Operation,
+      </if>
+      <if test="employee != null" >
+        EmpID,
+      </if>
+      <if test="opedate != null" >
+        OpeDate,
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1,
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2,
+      </if>
+      <if test="unused3 != null" >
+        UnUsed3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="iccard != null" >
+        #{iccard.iccardid,jdbcType=VARCHAR},
+      </if>
+      <if test="paymethod != null" >
+        #{paymethod,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="operation != null" >
+        #{operation,jdbcType=INTEGER},
+      </if>
+      <if test="employee != null" >
+        #{employee.empid,jdbcType=CHAR},
+      </if>
+      <if test="opedate != null" >
+        #{opedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unused1 != null" >
+        #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        #{unused2,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused3 != null" >
+        #{unused3,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.iccard.AAdvanceMoney" >
+    update AAdvanceMoney
+    <set >
+      <if test="iccard != null" >
+        ICCardID = #{iccard.iccardid,jdbcType=VARCHAR},
+      </if>
+      <if test="paymethod != null" >
+        PayMethod = #{paymethod,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        Account = #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="operation != null" >
+        Operation = #{operation,jdbcType=INTEGER},
+      </if>
+      <if test="employee != null" >
+        EmpID = #{employee.empid,jdbcType=CHAR},
+      </if>
+      <if test="opedate != null" >
+        OpeDate = #{opedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused3 != null" >
+        UnUsed3 = #{unused3,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where AdvanceID = #{advanceid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findAAdvanceMoney" parameterType="Map" resultMap="BaseResultMap">
+		select * from AAdvanceMoney
+		<where> 
+		<if test="empid!=null and empid!=''"> 
+		and EmpID = #{empid} 
+		</if> 
+		</where> 
+		<!--  
+		<if test="start!=null and size!=null">
+			order by ICCardID offset ${start} rows fetch next ${size} rows only
+		</if>
+		-->
+	</select>
+
+	<select id="getTotalAAdvanceMoney" parameterType="Map" resultType="Long">
+		select count(*) from AAdvanceMoney
+		<where> 
+		<if test="empid!=null and empid!=''"> 
+		and EmpID = #{empid} 
+		</if> 
+		</where>
+		<!--  
+		<if test="start!=null and size!=null">
+			order by ICCardID offset ${start} rows fetch next ${size} rows only
+		</if>
+		-->
+	</select>
+	
+	<select id="selectMaxadvanceid" resultType="String">
+		select MAX(AdvanceID) from AAdvanceMoney
+		
+	</select>
+</mapper>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.his.dao.baseinfo.DepartmentDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.baseinfo.Department">
+		<id column="DeptID" jdbcType="CHAR" property="deptid" />
+		<result column="DeptName" jdbcType="NVARCHAR" property="deptname" />
+		<result column="PyCode" jdbcType="NVARCHAR" property="pycode" />
+		<result column="WbCode" jdbcType="NVARCHAR" property="wbcode" />
+		<result column="SelfDefCode" jdbcType="NVARCHAR" property="selfdefcode" />
+		<result column="IsAccounting" jdbcType="BIT" property="isaccounting" />
+		<result column="IsVirtual" jdbcType="BIT" property="isvirtual" />
+		<result column="IsActive" jdbcType="BIT" property="isactive" />
+		<result column="Tel" jdbcType="VARCHAR" property="tel" />
+		<result column="Email" jdbcType="VARCHAR" property="email" />
+		<result column="DeptAddress" jdbcType="NVARCHAR" property="deptaddress" />
+		<result column="HomePage" jdbcType="NVARCHAR" property="homepage" />
+		<result column="Descripting" jdbcType="NVARCHAR" property="descripting" />
+		<result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+		<result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+		<result column="ParentDeptID" property="parentdeptid" jdbcType="CHAR" />
+		<association column="DeptType" property="depttype"
+			select="com.his.dao.baseinfo.SystemTypeDao.selectPartByPrimaryKey" />
+	</resultMap>
+
+	<resultMap id="PartResultMap" type="com.his.entity.baseinfo.DepartmentPart">
+		<id column="DeptID" jdbcType="CHAR" property="deptid" />
+		<result column="DeptName" jdbcType="NVARCHAR" property="deptname" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		DeptID, ParentDeptID, DeptName, DeptType, PyCode,
+		WbCode,
+		SelfDefCode,
+		IsAccounting,
+		IsVirtual,
+		IsActive, Tel, Email,
+		DeptAddress, HomePage,
+		Descripting, UnUsed1, UnUsed2
+	</sql>
+	
+	<sql id="Part_Column_List">
+		DeptID, DeptName
+	</sql>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from Department
+		where DeptID = #{deptid,jdbcType=CHAR}
+	</select>
+	
+	<select id="selectPartByPrimaryKey" parameterType="java.lang.String"
+		resultMap="PartResultMap">
+		select
+		<include refid="Part_Column_List" />
+		from Department
+		where DeptID = #{deptid,jdbcType=CHAR}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		Department
+		where DeptID = #{deptid,jdbcType=CHAR}
+	</delete>
+
+
+
+	<insert id="insertSelective" parameterType="com.his.entity.baseinfo.Department">
+		insert into Department
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="deptid != null">
+				DeptID,
+			</if>
+			<if test="parentdeptid != null">
+				ParentDeptID,
+			</if>
+			<if test="deptname != null">
+				DeptName,
+			</if>
+			<if test="depttype != null">
+				DeptType,
+			</if>
+			<if test="pycode != null">
+				PyCode,
+			</if>
+			<if test="wbcode != null">
+				WbCode,
+			</if>
+			<if test="selfdefcode != null">
+				SelfDefCode,
+			</if>
+			<if test="isaccounting != null">
+				IsAccounting,
+			</if>
+			<if test="isvirtual != null">
+				IsVirtual,
+			</if>
+			<if test="isactive != null">
+				IsActive,
+			</if>
+			<if test="tel != null">
+				Tel,
+			</if>
+			<if test="email != null">
+				Email,
+			</if>
+			<if test="deptaddress != null">
+				DeptAddress,
+			</if>
+			<if test="homepage != null">
+				HomePage,
+			</if>
+			<if test="descripting != null">
+				Descripting,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="deptid != null">
+				#{deptid,jdbcType=CHAR},
+			</if>
+			<if test="parentdeptid != null">
+				#{parentdeptid,jdbcType=CHAR},
+			</if>
+			<if test="deptname != null">
+				#{deptname,jdbcType=NVARCHAR},
+			</if>
+			<if test="depttype != null">
+				#{depttype.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="pycode != null">
+				#{pycode,jdbcType=NVARCHAR},
+			</if>
+			<if test="wbcode != null">
+				#{wbcode,jdbcType=NVARCHAR},
+			</if>
+			<if test="selfdefcode != null">
+				#{selfdefcode,jdbcType=NVARCHAR},
+			</if>
+			<if test="isaccounting != null">
+				#{isaccounting,jdbcType=BIT},
+			</if>
+			<if test="isvirtual != null">
+				#{isvirtual,jdbcType=BIT},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=BIT},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="deptaddress != null">
+				#{deptaddress,jdbcType=NVARCHAR},
+			</if>
+			<if test="homepage != null">
+				#{homepage,jdbcType=NVARCHAR},
+			</if>
+			<if test="descripting != null">
+				#{descripting,jdbcType=NVARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.Department">
+		update Department
+		<set>
+			<if test="parentdeptid != null">
+				ParentDeptID = #{parentdeptid,jdbcType=CHAR},
+			</if>
+			<if test="deptname != null">
+				DeptName = #{deptname,jdbcType=NVARCHAR},
+			</if>
+			<if test="depttype != null">
+				DeptType = #{depttype.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="pycode != null">
+				PyCode = #{pycode,jdbcType=NVARCHAR},
+			</if>
+			<if test="wbcode != null">
+				WbCode = #{wbcode,jdbcType=NVARCHAR},
+			</if>
+			<if test="selfdefcode != null">
+				SelfDefCode = #{selfdefcode,jdbcType=NVARCHAR},
+			</if>
+			<if test="isaccounting != null">
+				IsAccounting = #{isaccounting,jdbcType=BIT},
+			</if>
+			<if test="isvirtual != null">
+				IsVirtual = #{isvirtual,jdbcType=BIT},
+			</if>
+			<if test="isactive != null">
+				IsActive = #{isactive,jdbcType=BIT},
+			</if>
+			<if test="tel != null">
+				Tel = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				Email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="deptaddress != null">
+				DeptAddress = #{deptaddress,jdbcType=NVARCHAR},
+			</if>
+			<if test="homepage != null">
+				HomePage = #{homepage,jdbcType=NVARCHAR},
+			</if>
+			<if test="descripting != null">
+				Descripting = #{descripting,jdbcType=NVARCHAR},
+			</if>
+		</set>
+		where DeptID = #{deptid,jdbcType=CHAR}
+	</update>
+
+	<select id="findDepartment" parameterType="Map" resultMap="BaseResultMap">
+		select * from Department
+		<where>
+			<if test="name !=null and name != ''">
+				and ( DeptName like #{name} or PyCode like #{name} or
+						WbCode like #{name} or SelfDefCode like #{name})
+			</if>
+			<if test="pid!=null and pid!='' ">
+				and ParentDeptID = #{pid}
+			</if>		
+		</where>
+		<if test="start!=null and size!=null">
+			order by DeptID offset ${start} rows fetch next ${size} rows only
+		</if>	
+	</select>
+
+	<select id="getTotalDepartment" parameterType="Map" resultType="Long">
+		select count(*) from Department
+		<where>
+			<if test="name !=null and name != ''">
+				and ( DeptName like #{name} or PyCode like #{name} or
+						WbCode like #{name} or SelfDefCode like #{name})
+			</if>
+			<if test="pid!=null and pid!='' ">
+				and ParentDeptID = #{pid}
+			</if>
+		</where>
+	</select>
+
+	<select id="generateCode" resultType="String">
+		select max(DeptID) from Department
+		<!--
+		where
+		DeptType=#{depttype}
+		-->
+	</select>
+	
+	<!--loadDepartmentByLoginCombo(String loginid)、  loadDepartmentCombo(Map)、
+	    findDepartmentBypid(Map)、loadDepartmentByServiceItemCombo(String serviceitemid)
+	          改成 loadDepartmentPart(Map)-->
+	<select id="loadDepartmentPart" parameterType="Map" resultMap="PartResultMap">
+		select <include refid="Part_Column_List" /> from Department
+		<where>
+			<if test="depttype!=null and depttype!='' ">
+				and DeptType = #{depttype}
+			</if>
+			<if test="pid!=null and pid!='' ">
+				and ParentDeptID = #{pid}
+			</if>
+			<if test="loginid!=null and loginid!='' ">
+				and DeptID in(
+			        select DeptID from DeptEmpMap where EmpID in (
+				          select EmpID from LoginAccount where LoginID=#{loginid}
+				          	)
+		            )
+			</if>
+			<if test="empid !=null and empid !='' ">
+				and DeptID in( select DeptID from DeptEmpMap where EmpID = #{empid} )
+			</if>			
+			<if test="serviceitemid !=null and serviceitemid!='' ">
+				and DeptID in (
+					select DeptID from ServiceItemDepartmentMap where ServiceItemId = #{serviceitemid}
+				)
+			</if>
+			<if test="start!=null and size!=null">
+			order by DeptID offset ${start} rows fetch next ${size} rows only
+		    </if>
+		</where>
+	</select>          
+	          
+	
+	<!--  
+	<select id="loadDepartmentByLoginCombo" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select * from Department where DeptID in(
+			select DeptID from DeptEmpMap where EmpID in (
+				select EmpID from LoginAccount where LoginID=#{loginid}
+			)
+		)
+	</select>
+	
+	<select id="loadDepartmentCombo" parameterType="Map" resultMap="BaseResultMap">
+		select * from Department
+		<where>
+			<if test="depttype!=null and depttype!='' ">
+				and DeptType = #{depttype}
+			</if>
+				<if test="pid!=null and pid!='' ">
+				and ParentDeptID = #{pid}
+			</if>
+		</where>
+	</select>
+	
+	
+	 <select id="findDepartmentBypid" parameterType="Map" resultMap="BaseResultMap">
+		select * from Department
+		<where>
+			<if test="pid!=null and pid!=''">
+				and ParentDeptId like #{pid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by DeptID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+	-->
+	<!--  处方开立界面，选择某诊疗项目的执行科室
+	<select id="loadDepartmentByServiceItemCombo" parameterType="java.lang.String" resultMap="PartResultMap">
+		select  <include refid="Part_Column_List" /> from Department
+			where DeptID in (
+					select DeptID from ServiceItemDepartmentMap where ServiceItemId = #{serviceitemid,jdbcType=CHAR}
+				) 
+	</select>
+	  -->
+</mapper>

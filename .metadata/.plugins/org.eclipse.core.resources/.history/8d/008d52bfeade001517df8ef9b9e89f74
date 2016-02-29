@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.downpublic.MedicineBatchSubItemDao" >
+  <resultMap id="BaseResultMap" type="com.his.entity.downpublic.MedicineBatchSubItem" >
+    <id column="SerialID" property="serialid" jdbcType="CHAR" />
+    <result column="MedicineType" property="medicinetype" jdbcType="INTEGER" />
+    <result column="UseDays" property="usedays" jdbcType="INTEGER" />
+    <result column="AdviceDos" property="advicedos" jdbcType="DECIMAL" />
+    <result column="Suits" property="suits" jdbcType="INTEGER" />
+    <result column="SumNum" property="sumnum" jdbcType="DECIMAL" />
+    <result column="SkintestType" property="skintesttype" jdbcType="INTEGER" />
+    <result column="HerbMemo" property="herbmemo" jdbcType="NVARCHAR" />
+    <result column="OtherMemo" property="othermemo" jdbcType="NVARCHAR" />
+    <result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+    <result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+    <result column="UnUsed3" property="unused3" jdbcType="NVARCHAR" />
+    
+    <association column="BatchItemSerialID" property="batchitem"
+			select="com.his.dao.downpublic.BatchItemDao.selectByPrimaryKey" />
+	<association column="MedicineID" property="medicine"
+			select="com.his.dao.baseinfo.MedicineBaseInfoDao.selectByPrimaryKey" />
+	<association column="FrequencyID" property="frequency"
+			select="com.his.dao.baseinfo.FrequencyDao.selectByPrimaryKey" />
+	<association column="ExecuteMethodID" property="executemethod"
+			select="com.his.dao.baseinfo.ExecuteMethodDao.selectByPrimaryKey" />		
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    SerialID, BatchItemSerialID, MedicineID, MedicineType, FrequencyID, UseDays, AdviceDos, 
+    Suits, ExecuteMethodID, SumNum, SkintestType, HerbMemo, OtherMemo, UnUsed1, UnUsed2, 
+    UnUsed3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from MedicineBatchSubItem
+    where SerialID = #{serialid,jdbcType=CHAR}
+  </select>
+  
+  <select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from MedicineBatchSubItem
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID=#{serialid}
+			</if>
+		</where>
+	</select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from MedicineBatchSubItem
+    where SerialID = #{serialid,jdbcType=CHAR}
+  </delete>
+  
+  <delete id="deleteByMap" parameterType="Map">
+		delete from MedicineBatchSubItem
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID=#{serialid}
+			</if>
+		</where>
+	</delete>
+  
+  <insert id="insertSelective" parameterType="com.his.entity.downpublic.MedicineBatchSubItem" >
+    insert into MedicineBatchSubItem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serialid != null" >
+        SerialID,
+      </if>
+      <if test="batchitem != null" >
+        BatchItemSerialID,
+      </if>
+      <if test="medicine != null" >
+        MedicineID,
+      </if>
+      <if test="medicinetype != null" >
+        MedicineType,
+      </if>
+      <if test="frequency != null" >
+        FrequencyID,
+      </if>
+      <if test="usedays != null" >
+        UseDays,
+      </if>
+      <if test="advicedos != null" >
+        AdviceDos,
+      </if>
+      <if test="suits != null" >
+        Suits,
+      </if>
+      <if test="executemethod != null" >
+        ExecuteMethodID,
+      </if>
+      <if test="sumnum != null" >
+        SumNum,
+      </if>
+      <if test="skintesttype != null" >
+        SkintestType,
+      </if>
+      <if test="herbmemo != null" >
+        HerbMemo,
+      </if>
+      <if test="othermemo != null" >
+        OtherMemo,
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1,
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2,
+      </if>
+      <if test="unused3 != null" >
+        UnUsed3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serialid != null" >
+        #{serialid,jdbcType=CHAR},
+      </if>
+      <if test="batchitem != null" >
+        #{batchitem.serialid,jdbcType=CHAR},
+      </if>
+      <if test="medicine != null" >
+        #{medicine.medicineid,jdbcType=CHAR},
+      </if>
+      <if test="medicinetype != null" >
+        #{medicinetype,jdbcType=INTEGER},
+      </if>
+      <if test="frequency != null" >
+        #{frequency.frequencyid,jdbcType=CHAR},
+      </if>
+      <if test="usedays != null" >
+        #{usedays,jdbcType=INTEGER},
+      </if>
+      <if test="advicedos != null" >
+        #{advicedos,jdbcType=DECIMAL},
+      </if>
+      <if test="suits != null" >
+        #{suits,jdbcType=INTEGER},
+      </if>
+      <if test="executemethod != null" >
+        #{executemethod.methodid,jdbcType=CHAR},
+      </if>
+      <if test="sumnum != null" >
+        #{sumnum,jdbcType=DECIMAL},
+      </if>
+      <if test="skintesttype != null" >
+        #{skintesttype,jdbcType=INTEGER},
+      </if>
+      <if test="herbmemo != null" >
+        #{herbmemo,jdbcType=NVARCHAR},
+      </if>
+      <if test="othermemo != null" >
+        #{othermemo,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused1 != null" >
+        #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        #{unused2,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused3 != null" >
+        #{unused3,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.downpublic.MedicineBatchSubItem" >
+    update MedicineBatchSubItem
+    <set >
+      <if test="batchitem != null" >
+        BatchItemSerialID = #{batchitem.serialid,jdbcType=CHAR},
+      </if>
+      <if test="medicine != null" >
+        MedicineID = #{medicine.medicineid,jdbcType=CHAR},
+      </if>
+      <if test="medicinetype != null" >
+        MedicineType = #{medicinetype,jdbcType=INTEGER},
+      </if>
+      <if test="frequency != null" >
+        FrequencyID = #{frequency.frequencyid,jdbcType=CHAR},
+      </if>
+      <if test="usedays != null" >
+        UseDays = #{usedays,jdbcType=INTEGER},
+      </if>
+      <if test="advicedos != null" >
+        AdviceDos = #{advicedos,jdbcType=DECIMAL},
+      </if>
+      <if test="suits != null" >
+        Suits = #{suits,jdbcType=INTEGER},
+      </if>
+      <if test="executemethod != null" >
+        ExecuteMethodID = #{executemethod.methodid,jdbcType=CHAR},
+      </if>
+      <if test="sumnum != null" >
+        SumNum = #{sumnum,jdbcType=DECIMAL},
+      </if>
+      <if test="skintesttype != null" >
+        SkintestType = #{skintesttype,jdbcType=INTEGER},
+      </if>
+      <if test="herbmemo != null" >
+        HerbMemo = #{herbmemo,jdbcType=NVARCHAR},
+      </if>
+      <if test="othermemo != null" >
+        OtherMemo = #{othermemo,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused3 != null" >
+        UnUsed3 = #{unused3,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where SerialID = #{serialid,jdbcType=CHAR}
+  </update>
+  
+  <select id="findMedicineBatchSubItem" parameterType="Map"
+		resultMap="BaseResultMap">
+		select * from MedicineBatchSubItem
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID=#{serialid}
+			</if>
+			<if test="batchserialid !=null and batchserialid !=''">
+				and BatchItemSerialID=#{batchserialid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by SerialID DESC offset ${start} rows fetch next
+			${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalMedicineBatchSubItem" parameterType="Map"
+		resultType="Long">
+		select count(*) from MedicineBatchSubItem
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID=#{serialid}
+			</if>
+			<if test="batchserialid !=null and batchserialid !=''">
+				and BatchItemSerialID=#{batchserialid}
+			</if>
+		</where>
+	</select>
+
+	<select id="getMaxID" parameterType="Map" resultType="String">
+		select MAX(SerialID) from MedicineBatchSubItem
+		<where>
+			<if test="prefix !=null and prefix !=''">
+				and SerialID like #{prefix}
+			</if>
+		</where>
+	</select>
+  
+</mapper>

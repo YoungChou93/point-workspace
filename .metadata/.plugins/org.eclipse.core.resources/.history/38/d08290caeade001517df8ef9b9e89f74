@@ -1,0 +1,981 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.his.dao.baseinfo.MedicineBaseInfoDao">
+
+	<resultMap id="BaseResultMap" type="com.his.entity.baseinfo.MedicineBaseInfo">
+		<id column="MedicineID" property="medicineid" jdbcType="CHAR" />
+		<result column="MedicineName" property="medicinename" jdbcType="NVARCHAR" />
+		<result column="GeneralName" property="generalname" jdbcType="NVARCHAR" />
+		<result column="DrugSpecification" property="drugspecification"
+			jdbcType="NVARCHAR" />
+		<result column="SplitCoefficient" property="splitcoefficient"
+			jdbcType="INTEGER" />
+		<result column="MinDoseCoefficient" property="mindosecoefficient"
+			jdbcType="DECIMAL" />
+		<result column="ProposedPrice" property="proposedprice"
+			jdbcType="DECIMAL" />
+		<result column="PricingScale" property="pricingscale" jdbcType="DECIMAL" />
+		<result column="StandardCode" property="standardcode" jdbcType="NVARCHAR" />
+		<result column="DrugState" property="drugstate" jdbcType="INTEGER" />
+		<result column="MedInsuranceNo" property="medinsuranceno"
+			jdbcType="NVARCHAR" />
+			
+		<result column="InsuranceType1" property="insurancetype1" jdbcType="INTEGER" />
+		<result column="InsuranceType2" property="insurancetype2" jdbcType="INTEGER" />
+		<result column="InsuranceType3" property="insurancetype3" jdbcType="INTEGER" />
+		<result column="RuralCoopType" property="ruralcooptype" jdbcType="INTEGER" />
+		
+		<result column="RuralCoopNo" property="ruralcoopno" jdbcType="NVARCHAR" />
+		<result column="Remarks" property="remarks" jdbcType="NVARCHAR" />
+		<result column="PyCode" property="pycode" jdbcType="VARCHAR" />
+		<result column="WbCode" property="wbcode" jdbcType="VARCHAR" />
+		<result column="SelfDefCode" property="selfdefcode" jdbcType="VARCHAR" />
+		<result column="IsBasic" property="isbasic" jdbcType="BIT" />
+		<result column="IsOTC" property="isotc" jdbcType="BIT" />
+		<result column="IsAntibiotic" property="isantibiotic" jdbcType="BIT" />
+		<result column="IsSkinTest" property="isskintest" jdbcType="BIT" />
+		<result column="IsAnesthesia" property="isanesthesia" jdbcType="BIT" />
+		<result column="IsPoisonous" property="ispoisonous" jdbcType="BIT" />
+		<result column="IsPsychotropic" property="ispsychotropic"
+			jdbcType="BIT" />
+		<result column="IsExpensive" property="isexpensive" jdbcType="BIT" />
+		<result column="IsBidding" property="isbidding" jdbcType="BIT" />
+		<result column="IsImported" property="isimported" jdbcType="BIT" />
+		<result column="IsSplitSail" property="issplitsail" jdbcType="BIT" />
+		<result column="Usage" property="usage" jdbcType="NVARCHAR" />
+		<result column="HighestDosageForAdult" property="highestdosageforadult"
+			jdbcType="NVARCHAR" />
+		<result column="HighestDosageForChildren" property="highestdosageforchildren"
+			jdbcType="NVARCHAR" />
+		<result column="StoreCondition1" property="storecondition1"
+			jdbcType="NVARCHAR" />
+		<result column="StoreCondition2" property="storecondition2"
+			jdbcType="NVARCHAR" />
+		<result column="StoreCondition3" property="storecondition3"
+			jdbcType="NVARCHAR" />
+		<result column="StoreCondition4" property="storecondition4"
+			jdbcType="NVARCHAR" />
+		<result column="StoreCondition5" property="storecondition5"
+			jdbcType="NVARCHAR" />
+		<result column="StoreCondition6" property="storecondition6"
+			jdbcType="NVARCHAR" />
+		<result column="StoreCondition7" property="storecondition7"
+			jdbcType="NVARCHAR" />
+		<result column="StoreCondition8" property="storecondition8"
+			jdbcType="NVARCHAR" />
+		<result column="StoreCondition9" property="storecondition9"
+			jdbcType="NVARCHAR" />
+		<result column="StorePlace" property="storeplace" jdbcType="NVARCHAR" />
+		<result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+		<result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+
+		<association column="PharmacologicalTypeID" property="pharmacologicaltype"
+			select="com.his.dao.baseinfo.SystemTypeDao.selectPartByPrimaryKey" />
+		<association column="MedicineTypeID" property="medicinetype"
+			select="com.his.dao.baseinfo.MedicineTypeDao.selectByPrimaryKey"/>
+		<association column="DosFormID" property="dosageform"
+			select="com.his.dao.baseinfo.DosFormDao.selectByPrimaryKey" />
+		<association column="AccountID" property="accountclass"
+			select="com.his.dao.baseinfo.AccountClassDao.selectByPrimaryKey" />
+		<association column="CheckID" property="checkclass"
+			select="com.his.dao.baseinfo.CheckClassDao.selectByPrimaryKey" />
+		<association column="MedicalID" property="medicalclass"
+			select="com.his.dao.baseinfo.MedicalClassDao.selectByPrimaryKey" />
+		<association column="OutpatientID" property="outpatientinvoice"
+			select="com.his.dao.baseinfo.OutpatientInvoiceDao.selectByPrimaryKey" />
+		<association column="HospitalizationID" property="hospitalizationinvoice"
+			select="com.his.dao.baseinfo.HospitalizationInvoiceDao.selectByPrimaryKey" />
+		<association column="ControlClassID" property="controlclass"
+			select="com.his.dao.baseinfo.SystemTypeDao.selectPartByPrimaryKey" />
+			
+		<association column="StockUnit" property="stockunit"
+			select="com.his.dao.baseinfo.SystemTypeDao.selectPartByPrimaryKey" />
+		<association column="RetailUnit" property="retailunit"
+			select="com.his.dao.baseinfo.SystemTypeDao.selectPartByPrimaryKey" />
+		<association column="MinDoseUnit" property="mindoseunit"
+			select="com.his.dao.baseinfo.SystemTypeDao.selectPartByPrimaryKey" />
+	</resultMap>
+	
+	
+	<resultMap id="PartResultMap" type="com.his.entity.baseinfo.MedicineBasePart">
+		<id column="MedicineID" property="medicineid" jdbcType="VARCHAR" />
+		<result column="MedicineName" property="medicinename" jdbcType="NVARCHAR" />
+		<result column="DrugSpecification" property="drugspecification"
+			jdbcType="NVARCHAR" />
+		<result column="SplitCoefficient" property="splitcoefficient"
+			jdbcType="INTEGER" />
+		<result column="MinDoseCoefficient" property="mindosecoefficient"
+			jdbcType="DECIMAL" />
+		<result column="IsSkinTest" property="isskintest" jdbcType="BIT" />
+			
+		<association column="StockUnit" property="stockunit"
+			select="com.his.dao.baseinfo.SystemTypeDao.selectPartByPrimaryKey" />
+		<association column="RetailUnit" property="retailunit"
+			select="com.his.dao.baseinfo.SystemTypeDao.selectPartByPrimaryKey" />
+		<association column="MinDoseUnit" property="mindoseunit"
+			select="com.his.dao.baseinfo.SystemTypeDao.selectPartByPrimaryKey" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		MedicineID, MedicineName, GeneralName,
+		PharmacologicalTypeID, MedicineTypeID,
+		DosFormID,
+		DrugSpecification,
+		StockUnit, RetailUnit, SplitCoefficient, MinDoseUnit, MinDoseCoefficient,
+		ProposedPrice, PricingScale,
+		StandardCode,
+		AccountID, CheckID,
+		MedicalID, OutpatientID, HospitalizationID, DrugState,
+		MedInsuranceNo,
+		InsuranceType1, InsuranceType2, InsuranceType3, RuralCoopNo, RuralCoopType, Remarks, PyCode,
+		WbCode, SelfDefCode,
+		IsBasic, IsOTC, IsAntibiotic, IsSkinTest,
+		IsAnesthesia, IsPoisonous,
+		IsPsychotropic,
+		IsExpensive, IsBidding,
+		IsImported, IsSplitSail, ControlClassID, Usage, HighestDosageForAdult,
+		HighestDosageForChildren, StoreCondition1, StoreCondition2,
+		StoreCondition3, StoreCondition4,
+		StoreCondition5, StoreCondition6,
+		StoreCondition7, StoreCondition8, StoreCondition9,
+		StorePlace, UnUsed1,
+		UnUsed2
+	</sql>
+	
+	<sql id="Part_Column_List">
+		MedicineID, MedicineName,  DrugSpecification,
+		StockUnit, RetailUnit, SplitCoefficient, MinDoseUnit, MinDoseCoefficient,IsSkinTest
+	</sql>
+	
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from MedicineBaseInfo
+		where MedicineID = #{medicineid,jdbcType=CHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		MedicineBaseInfo
+		where MedicineID = #{medicineid,jdbcType=CHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.his.entity.baseinfo.MedicineBaseInfo">
+		insert into MedicineBaseInfo
+		(MedicineID, MedicineName, GeneralName,
+		PharmacologicalTypeID,
+		MedicineTypeID, DosFormID,
+		DrugSpecification, StockUnit, RetailUnit,
+		SplitCoefficient, 
+		MinDoseUnit,
+		MinDoseCoefficient, ProposedPrice, PricingScale,
+		StandardCode, AccountID, CheckID,
+		MedicalID, OutpatientID,
+		HospitalizationID,
+		DrugState, MedInsuranceNo, InsuranceType1, InsuranceType2, InsuranceType3,
+	    RuralCoopNo, RuralCoopType, Remarks,
+		PyCode, WbCode, SelfDefCode,
+		IsBasic, IsOTC, IsAntibiotic, IsSkinTest,
+		IsAnesthesia, IsPoisonous,
+		IsPsychotropic,
+		IsExpensive, IsBidding, IsImported, IsSplitSail,
+		ControlClassID,
+		Usage, HighestDosageForAdult,
+		HighestDosageForChildren,
+		StoreCondition1,
+		StoreCondition2, StoreCondition3, StoreCondition4,
+		StoreCondition5, StoreCondition6, StoreCondition7,
+		StoreCondition8,
+		StoreCondition9, StorePlace,
+		UnUsed1, UnUsed2)
+		values
+		(#{medicineid,jdbcType=CHAR}, #{medicinename,jdbcType=NVARCHAR},
+		#{generalname,jdbcType=NVARCHAR},
+		#{pharmacologicaltype.typeid,jdbcType=VARCHAR},
+		#{medicinetype.typeid,jdbcType=VARCHAR}, #{dosageform.formid,jdbcType=CHAR},
+		#{drugspecification,jdbcType=NVARCHAR}, #{stockunit.typeid,jdbcType=VARCHAR},
+		#{retailunit.typeid,jdbcType=VARCHAR},
+		#{splitcoefficient,jdbcType=INTEGER},
+		#{mindoseunit.typeid,jdbcType=VARCHAR},
+		#{mindosecoefficient,jdbcType=DECIMAL},
+		#{proposedprice,jdbcType=DECIMAL}, #{pricingscale,jdbcType=DECIMAL},
+		#{standardcode,jdbcType=NVARCHAR}, #{accountclass.accountid,jdbcType=VARCHAR},
+		#{checkclass.checkid,jdbcType=VARCHAR},
+		#{medicalclass.medicalid,jdbcType=VARCHAR},
+		#{outpatientinvoice.outpatientid,jdbcType=VARCHAR},
+		#{hospitalizationinvoice.hospitalizationid,jdbcType=VARCHAR},
+		#{drugstate,jdbcType=INTEGER},
+		#{medinsuranceno,jdbcType=NVARCHAR},
+		#{insurancetype1,jdbcType=INTEGER},#{insurancetype2,jdbcType=INTEGER},#{insurancetype3,jdbcType=INTEGER},
+		#{ruralcoopno,jdbcType=NVARCHAR}, #{ruralcooptype,jdbcType=INTEGER},
+		#{remarks,jdbcType=NVARCHAR},
+		#{pycode,jdbcType=VARCHAR},
+		#{wbcode,jdbcType=VARCHAR}, #{selfdefcode,jdbcType=VARCHAR},
+		#{isbasic,jdbcType=BIT}, #{isotc,jdbcType=BIT},
+		#{isantibiotic,jdbcType=BIT}, #{isskintest,jdbcType=BIT},
+		#{isanesthesia,jdbcType=BIT}, #{ispoisonous,jdbcType=BIT},
+		#{ispsychotropic,jdbcType=BIT},
+		#{isexpensive,jdbcType=BIT},
+		#{isbidding,jdbcType=BIT}, #{isimported,jdbcType=BIT}, #{issplitsail,jdbcType=BIT},
+		#{controlclass.typeid,jdbcType=VARCHAR}, #{usage,jdbcType=NVARCHAR},
+		#{highestdosageforadult,jdbcType=NVARCHAR},
+		#{highestdosageforchildren,jdbcType=NVARCHAR},
+		#{storecondition1,jdbcType=NVARCHAR},
+		#{storecondition2,jdbcType=NVARCHAR},
+		#{storecondition3,jdbcType=NVARCHAR},
+		#{storecondition4,jdbcType=NVARCHAR},
+		#{storecondition5,jdbcType=NVARCHAR},
+		#{storecondition6,jdbcType=NVARCHAR},
+		#{storecondition7,jdbcType=NVARCHAR},
+		#{storecondition8,jdbcType=NVARCHAR},
+		#{storecondition9,jdbcType=NVARCHAR}, #{storeplace,jdbcType=NVARCHAR},
+		#{unused1,jdbcType=NVARCHAR}, #{unused2,jdbcType=NVARCHAR})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.his.entity.baseinfo.MedicineBaseInfo">
+		insert into MedicineBaseInfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="medicineid != null">
+				MedicineID,
+			</if>
+			<if test="medicinename != null">
+				MedicineName,
+			</if>
+			<if test="generalname != null">
+				GeneralName,
+			</if>
+			<if test="pharmacologicaltype != null">
+				PharmacologicalTypeID,
+			</if>
+			<if test="medicinetype != null">
+				MedicineTypeID,
+			</if>
+			<if test="dosageform != null">
+				DosFormID,
+			</if>
+			<if test="drugspecification != null">
+				DrugSpecification,
+			</if>
+			<if test="stockunit != null">
+				StockUnit,
+			</if>
+			<if test="retailunit != null">
+				RetailUnit,
+			</if>
+			<if test="splitcoefficient != null">
+				SplitCoefficient,
+			</if>
+			<if test="mindoseunit != null">
+				MinDoseUnit,
+			</if>
+			<if test="mindosecoefficient != null">
+				MinDoseCoefficient,
+			</if>
+			<if test="proposedprice != null">
+				ProposedPrice,
+			</if>
+			<if test="pricingscale != null">
+				PricingScale,
+			</if>
+			<if test="standardcode != null">
+				StandardCode,
+			</if>
+			<if test="accountclass != null">
+				AccountID,
+			</if>
+			<if test="checkclass != null">
+				CheckID,
+			</if>
+			<if test="medicalclass != null">
+				MedicalID,
+			</if>
+			<if test="outpatientinvoice != null">
+				OutpatientID,
+			</if>
+			<if test="hospitalizationinvoice != null">
+				HospitalizationID,
+			</if>
+			<if test="drugstate != null">
+				DrugState,
+			</if>
+			<if test="medinsuranceno != null">
+				MedInsuranceNo,
+			</if>
+			<if test="insurancetype1 != null">
+				InsuranceType1,
+			</if>
+			<if test="insurancetype2 != null">
+				InsuranceType2,
+			</if>
+			<if test="insurancetype3 != null">
+				InsuranceType3,
+			</if>
+			<if test="ruralcoopno != null">
+				RuralCoopNo,
+			</if>
+			<if test="ruralcooptype != null">
+				RuralCoopType,
+			</if>
+			<if test="remarks != null">
+				Remarks,
+			</if>
+			<if test="pycode != null">
+				PyCode,
+			</if>
+			<if test="wbcode != null">
+				WbCode,
+			</if>
+			<if test="selfdefcode != null">
+				SelfDefCode,
+			</if>
+			<if test="isbasic != null">
+				IsBasic,
+			</if>
+			<if test="isotc != null">
+				IsOTC,
+			</if>
+			<if test="isantibiotic != null">
+				IsAntibiotic,
+			</if>
+			<if test="isskintest != null">
+				IsSkinTest,
+			</if>
+			<if test="isanesthesia != null">
+				IsAnesthesia,
+			</if>
+			<if test="ispoisonous != null">
+				IsPoisonous,
+			</if>
+			<if test="ispsychotropic != null">
+				IsPsychotropic,
+			</if>
+			<if test="isexpensive != null">
+				IsExpensive,
+			</if>
+			<if test="isbidding != null">
+				IsBidding,
+			</if>
+			<if test="isimported != null">
+				IsImported,
+			</if>
+			<if test="issplitsail != null">
+				IsSplitSail,
+			</if>
+			<if test="controlclass != null">
+				ControlClassID,
+			</if>
+			<if test="usage != null">
+				Usage,
+			</if>
+			<if test="highestdosageforadult != null">
+				HighestDosageForAdult,
+			</if>
+			<if test="highestdosageforchildren != null">
+				HighestDosageForChildren,
+			</if>
+			<if test="storecondition1 != null">
+				StoreCondition1,
+			</if>
+			<if test="storecondition2 != null">
+				StoreCondition2,
+			</if>
+			<if test="storecondition3 != null">
+				StoreCondition3,
+			</if>
+			<if test="storecondition4 != null">
+				StoreCondition4,
+			</if>
+			<if test="storecondition5 != null">
+				StoreCondition5,
+			</if>
+			<if test="storecondition6 != null">
+				StoreCondition6,
+			</if>
+			<if test="storecondition7 != null">
+				StoreCondition7,
+			</if>
+			<if test="storecondition8 != null">
+				StoreCondition8,
+			</if>
+			<if test="storecondition9 != null">
+				StoreCondition9,
+			</if>
+			<if test="storeplace != null">
+				StorePlace,
+			</if>
+			<if test="unused1 != null">
+				UnUsed1,
+			</if>
+			<if test="unused2 != null">
+				UnUsed2,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="medicineid != null">
+				#{medicineid,jdbcType=CHAR},
+			</if>
+			<if test="medicinename != null">
+				#{medicinename,jdbcType=NVARCHAR},
+			</if>
+			<if test="generalname != null">
+				#{generalname,jdbcType=NVARCHAR},
+			</if>
+			<if test="pharmacologicaltype != null">
+				#{pharmacologicaltype.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="medicinetype != null">
+				#{medicinetype.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="dosageform != null">
+				#{dosageform.formid,jdbcType=CHAR},
+			</if>
+			<if test="drugspecification != null">
+				#{drugspecification,jdbcType=NVARCHAR},
+			</if>
+			<if test="stockunit != null">
+				#{stockunit.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="retailunit != null">
+				#{retailunit.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="splitcoefficient != null">
+				#{splitcoefficient,jdbcType=INTEGER},
+			</if>
+			<if test="mindoseunit != null">
+				#{mindoseunit.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="mindosecoefficient != null">
+				#{mindosecoefficient,jdbcType=DECIMAL},
+			</if>
+			<if test="proposedprice != null">
+				#{proposedprice,jdbcType=DECIMAL},
+			</if>
+			<if test="pricingscale != null">
+				#{pricingscale,jdbcType=DECIMAL},
+			</if>
+			<if test="standardcode != null">
+				#{standardcode,jdbcType=NVARCHAR},
+			</if>
+			<if test="accountclass != null">
+				#{accountclass.accountid,jdbcType=VARCHAR},
+			</if>
+			<if test="checkclass != null">
+				#{checkclass.checkid,jdbcType=VARCHAR},
+			</if>
+			<if test="medicalclass != null">
+				#{medicalclass.medicalid,jdbcType=VARCHAR},
+			</if>
+			<if test="outpatientinvoice != null">
+				#{outpatientinvoice.outpatientid,jdbcType=VARCHAR},
+			</if>
+			<if test="hospitalizationinvoice != null">
+				#{hospitalizationinvoice.hospitalizationid,jdbcType=VARCHAR},
+			</if>
+			<if test="drugstate != null">
+				#{drugstate,jdbcType=INTEGER},
+			</if>
+			<if test="medinsuranceno != null">
+				#{medinsuranceno,jdbcType=NVARCHAR},
+			</if>
+			<if test="insurancetype1 != null">
+				#{insurancetype1,jdbcType=INTEGER},
+			</if>
+			<if test="insurancetype2 != null">
+				#{insurancetype2,jdbcType=INTEGER},
+			</if>
+			<if test="insurancetype3 != null">
+				#{insurancetype3,jdbcType=INTEGER},
+			</if>
+			<if test="ruralcoopno != null">
+				#{ruralcoopno,jdbcType=NVARCHAR},
+			</if>
+			<if test="ruralcooptype != null">
+				#{ruralcooptype,jdbcType=INTEGER},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=NVARCHAR},
+			</if>
+			<if test="pycode != null">
+				#{pycode,jdbcType=VARCHAR},
+			</if>
+			<if test="wbcode != null">
+				#{wbcode,jdbcType=VARCHAR},
+			</if>
+			<if test="selfdefcode != null">
+				#{selfdefcode,jdbcType=VARCHAR},
+			</if>
+			<if test="isbasic != null">
+				#{isbasic,jdbcType=BIT},
+			</if>
+			<if test="isotc != null">
+				#{isotc,jdbcType=BIT},
+			</if>
+			<if test="isantibiotic != null">
+				#{isantibiotic,jdbcType=BIT},
+			</if>
+			<if test="isskintest != null">
+				#{isskintest,jdbcType=BIT},
+			</if>
+			<if test="isanesthesia != null">
+				#{isanesthesia,jdbcType=BIT},
+			</if>
+			<if test="ispoisonous != null">
+				#{ispoisonous,jdbcType=BIT},
+			</if>
+			<if test="ispsychotropic != null">
+				#{ispsychotropic,jdbcType=BIT},
+			</if>
+			<if test="isexpensive != null">
+				#{isexpensive,jdbcType=BIT},
+			</if>
+			<if test="isbidding != null">
+				#{isbidding,jdbcType=BIT},
+			</if>
+			<if test="isimported != null">
+				#{isimported,jdbcType=BIT},
+			</if>
+			<if test="issplitsail != null">
+				#{issplitsail,jdbcType=BIT},
+			</if>
+			<if test="controlclass != null">
+				#{controlclass.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="usage != null">
+				#{usage,jdbcType=NVARCHAR},
+			</if>
+			<if test="highestdosageforadult != null">
+				#{highestdosageforadult,jdbcType=NVARCHAR},
+			</if>
+			<if test="highestdosageforchildren != null">
+				#{highestdosageforchildren,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition1 != null">
+				#{storecondition1,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition2 != null">
+				#{storecondition2,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition3 != null">
+				#{storecondition3,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition4 != null">
+				#{storecondition4,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition5 != null">
+				#{storecondition5,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition6 != null">
+				#{storecondition6,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition7 != null">
+				#{storecondition7,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition8 != null">
+				#{storecondition8,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition9 != null">
+				#{storecondition9,jdbcType=NVARCHAR},
+			</if>
+			<if test="storeplace != null">
+				#{storeplace,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused1 != null">
+				#{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				#{unused2,jdbcType=NVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.MedicineBaseInfo">
+		update MedicineBaseInfo
+		<set>
+			<if test="medicinename != null">
+				MedicineName = #{medicinename,jdbcType=NVARCHAR},
+			</if>
+			<if test="generalname != null">
+				GeneralName = #{generalname,jdbcType=NVARCHAR},
+			</if>
+			<if test="pharmacologicaltype != null">
+				PharmacologicalTypeID =
+				#{pharmacologicaltype.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="medicinetype != null">
+				MedicineTypeID = #{medicinetype.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="dosageform != null">
+				DosFormID = #{dosageform.formid,jdbcType=CHAR},
+			</if>
+			<if test="drugspecification != null">
+				DrugSpecification =
+				#{drugspecification,jdbcType=NVARCHAR},
+			</if>
+			<if test="stockunit != null">
+				StockUnit = #{stockunit.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="retailunit != null">
+				RetailUnit = #{retailunit.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="splitcoefficient != null">
+				SplitCoefficient = #{splitcoefficient,jdbcType=INTEGER},
+			</if>
+			<if test="mindoseunit != null">
+				MinDoseUnit = #{mindoseunit.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="mindosecoefficient != null">
+				MinDoseCoefficient =
+				#{mindosecoefficient,jdbcType=DECIMAL},
+			</if>
+			<if test="proposedprice != null">
+				ProposedPrice = #{proposedprice,jdbcType=DECIMAL},
+			</if>
+			<if test="pricingscale != null">
+				PricingScale = #{pricingscale,jdbcType=DECIMAL},
+			</if>
+			<if test="standardcode != null">
+				StandardCode = #{standardcode,jdbcType=NVARCHAR},
+			</if>
+			<if test="accountclass != null">
+				AccountID = #{accountclass.accountid,jdbcType=VARCHAR},
+			</if>
+			<if test="checkclass != null">
+				CheckID = #{checkclass.checkid,jdbcType=VARCHAR},
+			</if>
+			<if test="medicalclass != null">
+				MedicalID = #{medicalclass.medicalid,jdbcType=VARCHAR},
+			</if>
+			<if test="outpatientinvoice != null">
+				OutpatientID = #{outpatientinvoice.outpatientid,jdbcType=VARCHAR},
+			</if>
+			<if test="hospitalizationinvoice != null">
+				HospitalizationID =
+				#{hospitalizationinvoice.hospitalizationid,jdbcType=VARCHAR},
+			</if>
+			<if test="drugstate != null">
+				DrugState = #{drugstate,jdbcType=INTEGER},
+			</if>
+			<if test="medinsuranceno != null">
+				MedInsuranceNo = #{medinsuranceno,jdbcType=NVARCHAR},
+			</if>
+			<if test="insurancetype1 != null">
+			    InsuranceType1 =
+				#{insurancetype1,jdbcType=INTEGER},
+			</if>
+			<if test="insurancetype2 != null">
+			    InsuranceType2 =
+				#{insurancetype2,jdbcType=INTEGER},
+			</if>
+			<if test="insurancetype3 != null">
+			    InsuranceType3 =
+				#{insurancetype3,jdbcType=INTEGER},
+			</if>
+			<if test="ruralcoopno != null">
+				RuralCoopNo = #{ruralcoopno,jdbcType=NVARCHAR},
+			</if>
+			<if test="ruralcooptype != null">
+				RuralCoopType = #{ruralcooptype,jdbcType=INTEGER},
+			</if>
+			
+			<if test="remarks != null">
+				Remarks = #{remarks,jdbcType=NVARCHAR},
+			</if>
+			<if test="pycode != null">
+				PyCode = #{pycode,jdbcType=VARCHAR},
+			</if>
+			<if test="wbcode != null">
+				WbCode = #{wbcode,jdbcType=VARCHAR},
+			</if>
+			<if test="selfdefcode != null">
+				SelfDefCode = #{selfdefcode,jdbcType=VARCHAR},
+			</if>
+			<if test="isbasic != null">
+				IsBasic = #{isbasic,jdbcType=BIT},
+			</if>
+			<if test="isotc != null">
+				IsOTC = #{isotc,jdbcType=BIT},
+			</if>
+			<if test="isantibiotic != null">
+				IsAntibiotic = #{isantibiotic,jdbcType=BIT},
+			</if>
+			<if test="isskintest != null">
+				IsSkinTest = #{isskintest,jdbcType=BIT},
+			</if>
+			<if test="isanesthesia != null">
+				IsAnesthesia = #{isanesthesia,jdbcType=BIT},
+			</if>
+			<if test="ispoisonous != null">
+				IsPoisonous = #{ispoisonous,jdbcType=BIT},
+			</if>
+			<if test="ispsychotropic != null">
+				IsPsychotropic = #{ispsychotropic,jdbcType=BIT},
+			</if>
+			<if test="isexpensive != null">
+				IsExpensive = #{isexpensive,jdbcType=BIT},
+			</if>
+			<if test="isbidding != null">
+				IsBidding = #{isbidding,jdbcType=BIT},
+			</if>
+			<if test="isimported != null">
+				IsImported = #{isimported,jdbcType=BIT},
+			</if>
+			<if test="issplitsail != null">
+				IsSplitSail = #{issplitsail,jdbcType=BIT},
+			</if>
+			<if test="controlclass != null">
+				ControlClassID = #{controlclass.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="usage != null">
+				Usage = #{usage,jdbcType=NVARCHAR},
+			</if>
+			<if test="highestdosageforadult != null">
+				HighestDosageForAdult =
+				#{highestdosageforadult,jdbcType=NVARCHAR},
+			</if>
+			<if test="highestdosageforchildren != null">
+				HighestDosageForChildren =
+				#{highestdosageforchildren,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition1 != null">
+				StoreCondition1 = #{storecondition1,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition2 != null">
+				StoreCondition2 = #{storecondition2,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition3 != null">
+				StoreCondition3 = #{storecondition3,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition4 != null">
+				StoreCondition4 = #{storecondition4,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition5 != null">
+				StoreCondition5 = #{storecondition5,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition6 != null">
+				StoreCondition6 = #{storecondition6,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition7 != null">
+				StoreCondition7 = #{storecondition7,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition8 != null">
+				StoreCondition8 = #{storecondition8,jdbcType=NVARCHAR},
+			</if>
+			<if test="storecondition9 != null">
+				StoreCondition9 = #{storecondition9,jdbcType=NVARCHAR},
+			</if>
+			<if test="storeplace != null">
+				StorePlace = #{storeplace,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused1 != null">
+				UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+			</if>
+		</set>
+		where MedicineID = #{medicineid,jdbcType=CHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.his.entity.baseinfo.MedicineBaseInfo">
+		update
+		MedicineBaseInfo
+		set MedicineName = #{medicinename,jdbcType=NVARCHAR},
+		GeneralName = #{generalname,jdbcType=NVARCHAR},
+		PharmacologicalTypeID =
+		#{pharmacologicaltype.typeid,jdbcType=VARCHAR},
+		MedicineTypeID =
+		#{medicinetype.typeid,jdbcType=VARCHAR},
+		DosFormID =
+		#{dosageform.formid,jdbcType=VARCHAR},
+		DrugSpecification =
+		#{drugspecification,jdbcType=NVARCHAR},
+		StockUnit =
+		#{stockunit.typeid,jdbcType=VARCHAR},
+		RetailUnit =
+		#{retailunit.typeid,jdbcType=VARCHAR},
+		SplitCoefficient =
+		#{splitcoefficient,jdbcType=INTEGER},
+		MinDoseUnit =
+		#{mindoseunit.typeid,jdbcType=VARCHAR},
+		MinDoseCoefficient =
+		#{mindosecoefficient,jdbcType=DECIMAL},
+		ProposedPrice =
+		#{proposedprice,jdbcType=DECIMAL},
+		PricingScale =
+		#{pricingscale,jdbcType=DECIMAL},
+		StandardCode =
+		#{standardcode,jdbcType=NVARCHAR},
+		AccountID =
+		#{accountclass.accountid,jdbcType=VARCHAR},
+		CheckID = #{checkclass.checkid,jdbcType=VARCHAR},
+		MedicalID = #{medicalclass.medicalid,jdbcType=VARCHAR},
+		OutpatientID =
+		#{outpatientinvoice.outpatientid,jdbcType=VARCHAR},
+		HospitalizationID =
+		#{hospitalizationinvoice.hospitalizationid,jdbcType=VARCHAR},
+		DrugState =
+		#{drugstate,jdbcType=INTEGER},
+		MedInsuranceNo =
+		#{medinsuranceno,jdbcType=NVARCHAR},
+		InsuranceType1 =
+		#{insurancetype1,jdbcType=INTEGER},
+		InsuranceType2 =
+		#{insurancetype2,jdbcType=INTEGER},
+		InsuranceType3 =
+		#{insurancetype3,jdbcType=INTEGER},
+		RuralCoopNo =
+		#{ruralcoopno,jdbcType=NVARCHAR},
+		RuralCoopType =
+		#{ruralcooptype,jdbcType=INTEGER},
+		Remarks =
+		#{remarks,jdbcType=NVARCHAR},
+		PyCode = #{pycode,jdbcType=VARCHAR},
+		WbCode = #{wbcode,jdbcType=VARCHAR},
+		SelfDefCode =
+		#{selfdefcode,jdbcType=VARCHAR},
+		IsBasic = #{isbasic,jdbcType=BIT},
+		IsOTC = #{isotc,jdbcType=BIT},
+		IsAntibiotic =
+		#{isantibiotic,jdbcType=BIT},
+		IsSkinTest = #{isskintest,jdbcType=BIT},
+		IsAnesthesia = #{isanesthesia,jdbcType=BIT},
+		IsPoisonous =
+		#{ispoisonous,jdbcType=BIT},
+		IsPsychotropic =
+		#{ispsychotropic,jdbcType=BIT},
+		IsExpensive =
+		#{isexpensive,jdbcType=BIT},
+		IsBidding = #{isbidding,jdbcType=BIT},
+		IsImported = #{isimported,jdbcType=BIT},
+		IsSplitSail = #{issplitsail,jdbcType=BIT},
+		ControlClassID =
+		#{controlclass.typeid,jdbcType=VARCHAR},
+		Usage = #{usage,jdbcType=NVARCHAR},
+		HighestDosageForAdult = #{highestdosageforadult,jdbcType=NVARCHAR},
+		HighestDosageForChildren =
+		#{highestdosageforchildren,jdbcType=NVARCHAR},
+		StoreCondition1 =
+		#{storecondition1,jdbcType=NVARCHAR},
+		StoreCondition2 =
+		#{storecondition2,jdbcType=NVARCHAR},
+		StoreCondition3 =
+		#{storecondition3,jdbcType=NVARCHAR},
+		StoreCondition4 =
+		#{storecondition4,jdbcType=NVARCHAR},
+		StoreCondition5 =
+		#{storecondition5,jdbcType=NVARCHAR},
+		StoreCondition6 =
+		#{storecondition6,jdbcType=NVARCHAR},
+		StoreCondition7 =
+		#{storecondition7,jdbcType=NVARCHAR},
+		StoreCondition8 =
+		#{storecondition8,jdbcType=NVARCHAR},
+		StoreCondition9 =
+		#{storecondition9,jdbcType=NVARCHAR},
+		StorePlace =
+		#{storeplace,jdbcType=NVARCHAR},
+		UnUsed1 =
+		#{unused1,jdbcType=NVARCHAR},
+		UnUsed2 = #{unused2,jdbcType=NVARCHAR}
+		where MedicineID = #{medicineid,jdbcType=CHAR}
+	</update>
+
+	<select id="findMedicineBaseInfo" parameterType="Map" resultMap="BaseResultMap">
+		select * from MedicineBaseInfo
+		<where>
+			<!-- 按权限ID查询 -->
+			<if test="id!=null and id!=''">
+				and MedicineID like #{id}
+			</if>
+			<if test="name!=null and name!='' ">
+				and MedicineName like #{name}
+			</if>
+			<if test="filter !=null and filter !='' ">
+				and (PyCode like #{filter} OR WbCode like #{filter} OR SelfDefCode like #{filter} OR 
+						MedicineName like #{filter})
+			</if>
+			<if test="medicinetype !=null  ">
+				and MedicineTypeID = ${medicinetype}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by MedicineID offset ${start} rows fetch next
+			${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalMedicineBaseInfo" parameterType="Map"
+		resultType="Long">
+		select count(*) from MedicineBaseInfo
+		<where>
+			<!-- 按权限ID查询 -->
+			<if test="id!=null and id!=''">
+				and MedicineID like #{id}
+			</if>
+			<if test="name!=null and name!='' ">
+				and MedicineName like #{name}
+			</if>
+			<if test="filter !=null and filter !='' ">
+				and (PyCode like #{filter} OR WbCode like #{filter} OR SelfDefCode like #{filter} OR 
+						MedicineName like #{filter})
+			</if>
+			<if test="medicinetype !=null  ">
+				and MedicineTypeID = ${medicinetype}
+			</if>
+		</where>
+	</select>
+
+	<select id="getMaxMedicineID" parameterType="Map" resultType="String">
+		select MAX(MedicineID) from MedicineBaseInfo
+		<where>
+			<!-- 药剂类别id 前6bit -->
+			<if test="prefix!=null and prefix!='' ">
+				and MedicineID like #{prefix}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findMedicineBasePart" parameterType="Map" resultMap="PartResultMap">
+		select <include refid="Part_Column_List" /> 
+ 		from MedicineBaseInfo
+		<where>
+			<if test="medicineid !=null and medicineid !=''">
+				and MedicineID = #{medicineid}
+			</if>
+			<if test="filter !=null and filter !='' ">
+				and (PyCode like #{filter} OR WbCode like #{filter} OR SelfDefCode like #{filter} OR 
+						MedicineName like #{filter})
+			</if>
+			<if test="medicinetype !=null  ">
+				and MedicineTypeID = ${medicinetype}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by MedicineID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+	
+	<select id="getTotalMedicineBasePart" parameterType="Map" resultType="Long">
+		select count(*) from MedicineBaseInfo
+		<where>
+			<if test="medicineid !=null and medicineid !=''">
+				and MedicineID = #{medicineid}
+			</if>
+			<if test="filter !=null and filter !='' ">
+				and (PyCode like #{filter} OR WbCode like #{filter} OR SelfDefCode like #{filter} OR 
+						MedicineName like #{filter})
+			</if>
+			<if test="medicinetype !=null  ">
+				and MedicineTypeID = ${medicinetype}
+			</if>
+		</where>		
+	</select>
+	
+	<select id="selectPartByPrimaryKey"  parameterType="java.lang.String" resultMap="PartResultMap">
+		select
+		<include refid="Part_Column_List" />
+		from MedicineBaseInfo
+		where MedicineID = #{medicineid,jdbcType=CHAR}
+	</select>
+</mapper>

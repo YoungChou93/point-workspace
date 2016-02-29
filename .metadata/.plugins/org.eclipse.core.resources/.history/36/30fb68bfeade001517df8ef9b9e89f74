@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.drugroom.InputPlanDrugMapDao" >
+  <resultMap id="BaseResultMap" type="com.his.entity.drugroom.InputPlanDrugMap" >
+    <id column="SerialID" property="serialid" jdbcType="CHAR" />
+    <result column="PlanID" property="planid" jdbcType="CHAR" />
+    <result column="PlanState" property="planstate" jdbcType="INTEGER" />
+    <result column="PlanNumber" property="plannumber" jdbcType="DECIMAL" />
+    <result column="ActualNumber" property="actualnumber" jdbcType="DECIMAL" />
+    <result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+    <result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+    <result column="UnUsed3" property="unused3" jdbcType="NVARCHAR" />
+    
+	<association column="DeptID" property="dept"
+		select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey"></association>
+	<association column="MedicineID" property="medicine"
+		select="com.his.dao.baseinfo.MedicineBaseInfoDao.selectPartByPrimaryKey"></association>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    SerialID, PlanID, MedicineID, PlanState, PlanNumber, ActualNumber, DeptID, UnUsed1, 
+    UnUsed2, UnUsed3
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from InputPlanDrugMap
+    where SerialID = #{serialid,jdbcType=CHAR}
+  </select>
+  
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from InputPlanDrugMap
+		<where>
+			<if test="planid !=null and planid !=''">
+				and PlanID = #{planid}
+			</if>
+		</where>
+	</select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from InputPlanDrugMap
+    where SerialID = #{serialid,jdbcType=CHAR}
+  </delete>
+  
+	<delete id="deleteByMap" parameterType="Map">
+		delete from InputPlanDrugMap
+		<where>
+			<if test="planid !=null and planid !=''">
+				and PlanID = #{planid}
+			</if>
+		</where>
+	</delete>
+  
+  <insert id="insertSelective" parameterType="com.his.entity.drugroom.InputPlanDrugMap" >
+    insert into InputPlanDrugMap
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serialid != null" >
+        SerialID,
+      </if>
+      <if test="planid != null" >
+        PlanID,
+      </if>
+      <if test="medicine != null" >
+        MedicineID,
+      </if>
+      <if test="planstate != null" >
+        PlanState,
+      </if>
+      <if test="plannumber != null" >
+        PlanNumber,
+      </if>
+      <if test="actualnumber != null" >
+        ActualNumber,
+      </if>
+      <if test="dept != null" >
+        DeptID,
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1,
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2,
+      </if>
+      <if test="unused3 != null" >
+        UnUsed3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serialid != null" >
+        #{serialid,jdbcType=CHAR},
+      </if>
+      <if test="planid != null" >
+        #{planid,jdbcType=CHAR},
+      </if>
+      <if test="medicine != null" >
+        #{medicine.medicineid,jdbcType=CHAR},
+      </if>
+      <if test="planstate != null" >
+        #{planstate,jdbcType=INTEGER},
+      </if>
+      <if test="plannumber != null" >
+        #{plannumber,jdbcType=DECIMAL},
+      </if>
+      <if test="actualnumber != null" >
+        #{actualnumber,jdbcType=DECIMAL},
+      </if>
+      <if test="dept != null" >
+        #{dept.deptid,jdbcType=CHAR},
+      </if>
+      <if test="unused1 != null" >
+        #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        #{unused2,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused3 != null" >
+        #{unused3,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.drugroom.InputPlanDrugMap" >
+    update InputPlanDrugMap
+    <set >
+      <if test="planid != null" >
+        PlanID = #{planid,jdbcType=CHAR},
+      </if>
+      <if test="medicine != null" >
+        MedicineID = #{medicine.medicineid,jdbcType=CHAR},
+      </if>
+      <if test="planstate != null" >
+        PlanState = #{planstate,jdbcType=INTEGER},
+      </if>
+      <if test="plannumber != null" >
+        PlanNumber = #{plannumber,jdbcType=DECIMAL},
+      </if>
+      <if test="actualnumber != null" >
+        ActualNumber = #{actualnumber,jdbcType=DECIMAL},
+      </if>
+      <if test="dept != null" >
+        DeptID = #{dept.deptid,jdbcType=CHAR},
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused3 != null" >
+        UnUsed3 = #{unused3,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where SerialID = #{serialid,jdbcType=CHAR}
+  </update>
+
+	<select id="findInputPlanDrugMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from InputPlanDrugMap
+		<where>
+			<if test="medicineid !=null and medicineid !=''">
+				and MedicineID = #{medicineid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by SerialID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalInputPlanDrugMap" parameterType="Map"
+		resultType="Long">
+		select count(*) from InputPlanDrugMap
+		<where>
+			<if test="medicineid !=null and medicineid !=''">
+				and MedicineID = #{medicineid}
+			</if>
+		</where>
+	</select>
+
+	<select id="getMaxID" parameterType="Map" resultType="String">
+		select MAX(SerialID) from InputPlanDrugMap
+		<where>
+			<if test="prefix !=null and prefix !=''">
+				and SerialID like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

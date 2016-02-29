@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.baseinfo.SubSystemRightDao" >
+  <resultMap id="BaseResultMap" type="com.his.entity.baseinfo.SubSystemRight" >
+    <id column="RightID" property="rightid" jdbcType="VARCHAR" />
+    <result column="ParentRightID" property="parentrightid" jdbcType="VARCHAR" />
+    <result column="RightName" property="rightname" jdbcType="NVARCHAR" />
+    <result column="IsActive" property="isactive" jdbcType="BIT" />
+    <result column="RightUrl" property="righturl" jdbcType="VARCHAR" />
+    <result column="Descripting" property="descripting" jdbcType="NVARCHAR" />
+    <result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+    <result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+    <association column="SubSystemID" property="subsystem"  select="com.his.dao.baseinfo.SubSystemDao.selectByPrimaryKey"></association>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    RightID, SubSystemID, ParentRightID, RightName, IsActive, RightUrl, Descripting, UnUsed1, UnUsed2
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SubSystemRight
+    where RightID = #{rightid,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SubSystemRight
+    where RightID = #{rightid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.his.entity.baseinfo.SubSystemRight" >
+    insert into SubSystemRight (RightID, SubSystemID, ParentRightID, RightName, IsActive, RightUrl, Descripting, UnUsed1, UnUsed2)
+    values (#{rightid,jdbcType=VARCHAR}, #{subsystem.subsystemid,jdbcType=VARCHAR}, #{parentrightid,jdbcType=VARCHAR}, #{rightname,jdbcType=NVARCHAR}, 
+      #{isactive,jdbcType=BIT}, #{righturl,jdbcType=VARCHAR}, #{descripting,jdbcType=NVARCHAR},#{unused1,jdbcType=NVARCHAR},#{unused2,jdbcType=NVARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.his.entity.baseinfo.SubSystemRight" >
+    insert into SubSystemRight
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rightid != null" >
+        RightID,
+      </if>
+      <if test="subsystem.subsystemid != null" >
+        SubSystemID,
+      </if>
+      <if test="parentrightid != null" >
+        ParentRightID,
+      </if>
+      <if test="rightname != null" >
+        RightName,
+      </if>
+      <if test="isactive != null" >
+        IsActive,
+      </if>
+      <if test="righturl != null" >
+        RightUrl,
+      </if>
+      <if test="descripting != null" >
+        Descripting,
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1,
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rightid != null" >
+        #{rightid,jdbcType=VARCHAR},
+      </if>
+      <if test="subsystem.subsystemid != null" >
+        #{subsystem.subsystemid,jdbcType=VARCHAR},
+      </if>
+      <if test="parentrightid != null" >
+        #{parentrightid,jdbcType=VARCHAR},
+      </if>
+      <if test="rightname != null" >
+        #{rightname,jdbcType=NVARCHAR},
+      </if>
+      <if test="isactive != null" >
+        #{isactive,jdbcType=BIT},
+      </if>
+      <if test="righturl != null" >
+        #{righturl,jdbcType=VARCHAR},
+      </if>
+      <if test="descripting != null" >
+        #{descripting,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused1 != null" >
+        #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        #{unused2,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.SubSystemRight" >
+    update SubSystemRight
+    <set >
+      <if test="subsystem.subsystemid != null" >
+        SubSystemID = #{subsystem.subsystemid,jdbcType=VARCHAR},
+      </if>
+      <if test="parentrightid != null" >
+        ParentRightID = #{parentrightid,jdbcType=VARCHAR},
+      </if>
+      <if test="rightname != null" >
+        RightName = #{rightname,jdbcType=NVARCHAR},
+      </if>
+      <if test="isactive != null" >
+        IsActive = #{isactive,jdbcType=BIT},
+      </if>
+      <if test="righturl != null" >
+        RightUrl = #{righturl,jdbcType=VARCHAR},
+      </if>
+      <if test="descripting != null" >
+        Descripting = #{descripting,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where RightID = #{rightid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.his.entity.baseinfo.SubSystemRight" >
+    update SubSystemRight
+    set SubSystemID = #{subsystem.subsystemid,jdbcType=VARCHAR},
+      ParentRightID = #{parentrightid,jdbcType=VARCHAR},
+      RightName = #{rightname,jdbcType=NVARCHAR},
+      IsActive = #{isactive,jdbcType=BIT},
+      RightUrl = #{righturl,jdbcType=VARCHAR},
+      Descripting = #{descripting,jdbcType=NVARCHAR},
+      UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      UnUsed2 = #{unused2,jdbcType=NVARCHAR}
+    where RightID = #{rightid,jdbcType=VARCHAR}
+  </update>
+  
+	  <select id="findSubSystemRight" parameterType="Map" resultMap="BaseResultMap">
+		select * from SubSystemRight
+		<where>
+			<!-- 按权限ID查询 -->
+			<if test="rightid!=null and rightid!=''">
+				and RightID = #{rightid}
+			</if>
+			<if test="rightname!=null and rightname!='' ">
+				and RightName like #{rightname}
+			</if>
+			<if test="subsystemid !=null and subsystemid !=''">
+				and SubSystemID = #{subsystemid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by RightID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+	
+	<select id="getTotalSubSystemRight" parameterType="Map" resultType="Long">
+		select count(*) from SubSystemRight
+		<where>
+			<!-- 按权限ID查询 -->
+			<if test="rightid!=null and rightid!=''">
+				and RightID = #{rightid}
+			</if>
+			<if test="rightname!=null and rightname!='' ">
+				and RightName like #{rightname}
+			</if>
+			<if test="subsystemid !=null and subsystemid !=''">
+				and SubSystemID = #{subsystemid}
+			</if>
+		</where>
+	</select>
+	
+	<select id="generateCode" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select MAX(RightID)
+		from SubSystemRight
+		where SubSystemID = #{subsystemid,jdbcType=VARCHAR}
+	</select>
+</mapper>

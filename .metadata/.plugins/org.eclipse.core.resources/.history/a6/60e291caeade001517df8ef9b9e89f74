@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.baseinfo.OtherItemCostDao" >
+  <resultMap id="BaseResultMap" type="com.his.entity.baseinfo.OtherItemCost" >
+    <id column="OtherItemCostID" property="otheritemcostid" jdbcType="CHAR" />
+    <result column="OtherItemCostName" property="otheritemcostname" jdbcType="NVARCHAR" />
+    <result column="BeState" property="bestate" jdbcType="INTEGER" />
+    <result column="OtherCostSpecification" property="othercostspecification" jdbcType="NVARCHAR" />
+    <result column="OutpatientPrice" property="outpatientprice" jdbcType="DECIMAL" />
+    <result column="InhospitalPrice" property="inhospitalprice" jdbcType="DECIMAL" />
+    <result column="InsuranceType1" property="insurancetype1" jdbcType="INTEGER" />
+    <result column="InsuranceType2" property="insurancetype2" jdbcType="INTEGER" />
+    <result column="InsuranceType3" property="insurancetype3" jdbcType="INTEGER" />
+    <result column="RuralCoopType" property="ruralcooptype" jdbcType="INTEGER" />
+    <result column="IsLockPrice" property="islockprice" jdbcType="BIT" />
+    <result column="IsActiveOutpatient" property="isactiveoutpatient" jdbcType="BIT" />
+    <result column="IsActiveInhospital" property="isactiveinhospital" jdbcType="BIT" />
+    <result column="IsEqual" property="isequal" jdbcType="BIT" />
+    <result column="PyCode" property="pycode" jdbcType="NVARCHAR" />
+    <result column="WbCode" property="wbcode" jdbcType="NVARCHAR" />
+    <result column="SelfDefCode" property="selfdefcode" jdbcType="NVARCHAR" />
+    <result column="StandardCode" property="standardcode" jdbcType="NVARCHAR" />
+    <result column="Descripting" property="descripting" jdbcType="NVARCHAR" />
+    <result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+    <result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+    <result column="UnUsed3" property="unused3" jdbcType="NVARCHAR" />
+    
+    <association column="AccountID" property="accountclass"
+			select="com.his.dao.baseinfo.AccountClassDao.selectByPrimaryKey" />
+	<association column="CheckID" property="checkclass"
+		select="com.his.dao.baseinfo.CheckClassDao.selectByPrimaryKey" />
+	<association column="MedicalID" property="medicalclass"
+		select="com.his.dao.baseinfo.MedicalClassDao.selectByPrimaryKey" />
+	<association column="OutpatientID" property="outpatientinvoice"
+		select="com.his.dao.baseinfo.OutpatientInvoiceDao.selectByPrimaryKey" />
+	<association column="HospitalizationID" property="hospitalizationinvoice"
+		select="com.his.dao.baseinfo.HospitalizationInvoiceDao.selectByPrimaryKey" />
+		
+	<association column="OtherItemUnit" property="otheritemunit"
+		select="com.his.dao.baseinfo.SystemTypeDao.selectPartByPrimaryKey" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    OtherItemCostID, OtherItemCostName, BeState, OtherCostSpecification, OtherItemUnit, 
+    AccountID, CheckID, MedicalID, OutpatientID, HospitalizationID, OutpatientPrice, 
+    InhospitalPrice, InsuranceType1, InsuranceType2, InsuranceType3, RuralCoopType, IsLockPrice, 
+    IsActiveOutpatient, IsActiveInhospital, IsEqual, PyCode, WbCode, SelfDefCode, StandardCode, 
+    Descripting, UnUsed1, UnUsed2, UnUsed3
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from OtherItemCost
+    where OtherItemCostID = #{otheritemcostid,jdbcType=CHAR}
+  </select>
+  
+  <select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from OtherItemCost
+		<where>
+			<if test="otheritemcostid !=null and otheritemcostid !=''">
+				and OtherItemCostID = #{otheritemcostid}
+			</if>
+		</where>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from OtherItemCost
+    where OtherItemCostID = #{otheritemcostid,jdbcType=CHAR}
+  </delete>
+  
+  <delete id="deleteByMap" parameterType="Map">
+		delete from OtherItemCost
+		<where>
+			<if test="otheritemcostid !=null and otheritemcostid !=''">
+				and OtherItemCostID = #{otheritemcostid}
+			</if>
+		</where>
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.his.entity.baseinfo.OtherItemCost" >
+    insert into OtherItemCost
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="otheritemcostid != null" >
+        OtherItemCostID,
+      </if>
+      <if test="otheritemcostname != null" >
+        OtherItemCostName,
+      </if>
+      <if test="bestate != null" >
+        BeState,
+      </if>
+      <if test="othercostspecification != null" >
+        OtherCostSpecification,
+      </if>
+      <if test="otheritemunit != null" >
+        OtherItemUnit,
+      </if>
+      <if test="accountclass != null" >
+        AccountID,
+      </if>
+      <if test="checkclass != null" >
+        CheckID,
+      </if>
+      <if test="medicalclass != null" >
+        MedicalID,
+      </if>
+      <if test="outpatientinvoice != null" >
+        OutpatientID,
+      </if>
+      <if test="hospitalizationinvoice != null" >
+        HospitalizationID,
+      </if>
+      <if test="outpatientprice != null" >
+        OutpatientPrice,
+      </if>
+      <if test="inhospitalprice != null" >
+        InhospitalPrice,
+      </if>
+      <if test="insurancetype1 != null" >
+        InsuranceType1,
+      </if>
+      <if test="insurancetype2 != null" >
+        InsuranceType2,
+      </if>
+      <if test="insurancetype3 != null" >
+        InsuranceType3,
+      </if>
+      <if test="ruralcooptype != null" >
+        RuralCoopType,
+      </if>
+      <if test="islockprice != null" >
+        IsLockPrice,
+      </if>
+      <if test="isactiveoutpatient != null" >
+        IsActiveOutpatient,
+      </if>
+      <if test="isactiveinhospital != null" >
+        IsActiveInhospital,
+      </if>
+      <if test="isequal != null" >
+        IsEqual,
+      </if>
+      <if test="pycode != null" >
+        PyCode,
+      </if>
+      <if test="wbcode != null" >
+        WbCode,
+      </if>
+      <if test="selfdefcode != null" >
+        SelfDefCode,
+      </if>
+      <if test="standardcode != null" >
+        StandardCode,
+      </if>
+      <if test="descripting != null" >
+        Descripting,
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1,
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2,
+      </if>
+      <if test="unused3 != null" >
+        UnUsed3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="otheritemcostid != null" >
+        #{otheritemcostid,jdbcType=CHAR},
+      </if>
+      <if test="otheritemcostname != null" >
+        #{otheritemcostname,jdbcType=NVARCHAR},
+      </if>
+      <if test="bestate != null" >
+        #{bestate,jdbcType=INTEGER},
+      </if>
+      <if test="othercostspecification != null" >
+        #{othercostspecification,jdbcType=NVARCHAR},
+      </if>
+      <if test="otheritemunit != null" >
+        #{otheritemunit.typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="accountclass != null" >
+        #{accountclass.accountid,jdbcType=VARCHAR},
+      </if>
+      <if test="checkclass != null" >
+        #{checkclass.checkid,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalclass != null" >
+        #{medicalclass.medicalid,jdbcType=VARCHAR},
+      </if>
+      <if test="outpatientinvoice != null" >
+        #{outpatientinvoice.outpatientid,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalizationinvoice != null" >
+        #{hospitalizationinvoice.hospitalizationid,jdbcType=VARCHAR},
+      </if>
+      <if test="outpatientprice != null" >
+        #{outpatientprice,jdbcType=DECIMAL},
+      </if>
+      <if test="inhospitalprice != null" >
+        #{inhospitalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="insurancetype1 != null" >
+        #{insurancetype1,jdbcType=INTEGER},
+      </if>
+      <if test="insurancetype2 != null" >
+        #{insurancetype2,jdbcType=INTEGER},
+      </if>
+      <if test="insurancetype3 != null" >
+        #{insurancetype3,jdbcType=INTEGER},
+      </if>
+      <if test="ruralcooptype != null" >
+        #{ruralcooptype,jdbcType=INTEGER},
+      </if>
+      <if test="islockprice != null" >
+        #{islockprice,jdbcType=BIT},
+      </if>
+      <if test="isactiveoutpatient != null" >
+        #{isactiveoutpatient,jdbcType=BIT},
+      </if>
+      <if test="isactiveinhospital != null" >
+        #{isactiveinhospital,jdbcType=BIT},
+      </if>
+      <if test="isequal != null" >
+        #{isequal,jdbcType=BIT},
+      </if>
+      <if test="pycode != null" >
+        #{pycode,jdbcType=NVARCHAR},
+      </if>
+      <if test="wbcode != null" >
+        #{wbcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="selfdefcode != null" >
+        #{selfdefcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="standardcode != null" >
+        #{standardcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="descripting != null" >
+        #{descripting,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused1 != null" >
+        #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        #{unused2,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused3 != null" >
+        #{unused3,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.OtherItemCost" >
+    update OtherItemCost
+    <set >
+      <if test="otheritemcostname != null" >
+        OtherItemCostName = #{otheritemcostname,jdbcType=NVARCHAR},
+      </if>
+      <if test="bestate != null" >
+        BeState = #{bestate,jdbcType=INTEGER},
+      </if>
+      <if test="othercostspecification != null" >
+        OtherCostSpecification = #{othercostspecification,jdbcType=NVARCHAR},
+      </if>
+      <if test="otheritemunit != null" >
+        OtherItemUnit = #{otheritemunit.typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="accountclass != null" >
+        AccountID = #{accountclass.accountid,jdbcType=VARCHAR},
+      </if>
+      <if test="checkclass != null" >
+        CheckID = #{checkclass.checkid,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalclass != null" >
+        MedicalID = #{medicalclass.medicalid,jdbcType=VARCHAR},
+      </if>
+      <if test="outpatientinvoice != null" >
+        OutpatientID = #{outpatientinvoice.outpatientid,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalizationinvoice != null" >
+        HospitalizationID = #{hospitalizationinvoice.hospitalizationid,jdbcType=VARCHAR},
+      </if>
+      <if test="outpatientprice != null" >
+        OutpatientPrice = #{outpatientprice,jdbcType=DECIMAL},
+      </if>
+      <if test="inhospitalprice != null" >
+        InhospitalPrice = #{inhospitalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="insurancetype1 != null" >
+        InsuranceType1 = #{insurancetype1,jdbcType=INTEGER},
+      </if>
+      <if test="insurancetype2 != null" >
+        InsuranceType2 = #{insurancetype2,jdbcType=INTEGER},
+      </if>
+      <if test="insurancetype3 != null" >
+        InsuranceType3 = #{insurancetype3,jdbcType=INTEGER},
+      </if>
+      <if test="ruralcooptype != null" >
+        RuralCoopType = #{ruralcooptype,jdbcType=INTEGER},
+      </if>
+      <if test="islockprice != null" >
+        IsLockPrice = #{islockprice,jdbcType=BIT},
+      </if>
+      <if test="isactiveoutpatient != null" >
+        IsActiveOutpatient = #{isactiveoutpatient,jdbcType=BIT},
+      </if>
+      <if test="isactiveinhospital != null" >
+        IsActiveInhospital = #{isactiveinhospital,jdbcType=BIT},
+      </if>
+      <if test="isequal != null" >
+        IsEqual = #{isequal,jdbcType=BIT},
+      </if>
+      <if test="pycode != null" >
+        PyCode = #{pycode,jdbcType=NVARCHAR},
+      </if>
+      <if test="wbcode != null" >
+        WbCode = #{wbcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="selfdefcode != null" >
+        SelfDefCode = #{selfdefcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="standardcode != null" >
+        StandardCode = #{standardcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="descripting != null" >
+        Descripting = #{descripting,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused3 != null" >
+        UnUsed3 = #{unused3,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where OtherItemCostID = #{otheritemcostid,jdbcType=CHAR}
+  </update>
+  
+  <select id="findOtherItemCost" parameterType="Map" resultMap="BaseResultMap">
+		select * from OtherItemCost
+		<where>
+			<if test="otheritemcostid !=null and otheritemcostid !=''">
+				and OtherItemCostID = #{otheritemcostid}
+			</if>
+			<if test="otheritemcostname !=null and otheritemcostname !=''">
+				and OtherItemCostName like #{otheritemcostname} or PyCode like #{otheritemcostname} or WbCode like #{otheritemcostname}
+			</if>
+			<if test="bestate !=null and bestate !=''">
+				and BeState = #{bestate} 
+			</if>
+			<if test="isactiveinhospital !=null and isactiveinhospital !=''">
+				and IsActiveInhospital = #{isactiveinhospital} 
+			</if>
+			<if test="isactiveoutpatient !=null and isactiveoutpatient !=''">
+				and IsActiveOutpatient = #{isactiveoutpatient} 
+			</if>
+			<if test="bedid !=null and bedid !=''">
+				and OtherItemCostID in ( select OtherItemCostID from BedCost
+						where BedID = #{bedid}
+					)  
+			</if>			
+			<if test="state !=null and state !=''">
+				and BeState = 1 or BeState = 0
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by OtherItemCostID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalOtherItemCost" parameterType="Map"
+		resultType="Long">
+		select count(*) from OtherItemCost
+		<where>
+			<if test="otheritemcostid !=null and otheritemcostid !=''">
+				and OtherItemCostID = #{otheritemcostid}
+			</if>
+			<if test="otheritemcostname !=null and otheritemcostname !=''">
+				and OtherItemCostName like #{otheritemcostname} or PyCode like #{otheritemcostname} or WbCode like #{otheritemcostname}
+			</if>
+			<if test="bestate !=null and bestate !=''">
+				and BeState = #{bestate} 
+			</if>
+			<if test="isactiveinhospital !=null and isactiveinhospital !=''">
+				and IsActiveInhospital = #{isactiveinhospital} 
+			</if>
+			<if test="isactiveoutpatient !=null and isactiveoutpatient !=''">
+				and IsActiveOutpatient = #{isactiveoutpatient} 
+			</if>
+			<if test="bedid !=null and bedid !=''">
+				and OtherItemCostID in ( select OtherItemCostID from BedCost
+						where BedID = #{bedid}
+					)  
+			</if>			
+			<if test="state !=null and state !=''">
+				and BeState = 1 or BeState = 0
+			</if>
+		</where>
+	</select>
+	
+	<select id="getMaxID" parameterType="Map" resultType="String" >
+	select MAX(OtherItemCostID) from OtherItemCost
+	<where>
+	     <if test="prefix!=null and prefix!='' ">
+	     and OtherItemCostID like #{prefix}
+	     </if>
+	</where>
+	</select>
+</mapper>

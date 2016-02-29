@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.outdoctor.TotalExpenseDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.outdoctor.TotalExpense">
+		<id column="SerialID" property="serialid" jdbcType="CHAR" />
+		<result column="ICCardID" property="iccardid" jdbcType="VARCHAR" />
+		<result column="PatientID" property="patientid" jdbcType="CHAR" />
+		<result column="Expense" property="expense" jdbcType="DECIMAL" />
+		<result column="BalType" property="baltype" jdbcType="INTEGER" />
+		<result column="InsureType" property="insuretype" jdbcType="INTEGER" />
+		<result column="PayType" property="paytype" jdbcType="INTEGER" />
+		<result column="CurrTime" property="currtime" jdbcType="TIMESTAMP" />
+		<result column="BillCode" property="billcode" jdbcType="CHAR" />
+
+		<association column="MarkID" property="mark"
+			select="com.his.dao.outpatientmark.BOutpatientMarkDao.selectByPrimaryKey" />
+		<association column="EmpID" property="employee"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		SerialID, MarkID, ICCardID, PatientID, Expense,
+		CurrTime,BalType,InsureType,PayType,EmpID
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from TotalExpense
+		where SerialID = #{serialid,jdbcType=CHAR}
+	</select>
+
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from TotalExpense
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from TotalExpense
+		where SerialID = #{serialid,jdbcType=CHAR}
+	</delete>
+
+	<delete id="deleteByMap" parameterType="Map">
+		delete from TotalExpense
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+			<if test="markid !=null and markid !=''">
+				and MarkID = #{markid}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID = #{iccardid}
+			</if>
+			<if test="patientid !=null and patientid !=''">
+				and PatientID = #{patientid}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.outdoctor.TotalExpense">
+		insert into TotalExpense
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="serialid != null">
+				SerialID,
+			</if>
+			<if test="mark != null">
+				MarkID,
+			</if>
+			<if test="iccardid != null">
+				ICCardID,
+			</if>
+			<if test="patientid != null">
+				PatientID,
+			</if>
+			<if test="expense != null">
+				Expense,
+			</if>
+			<if test="baltype != null">
+				BalType,
+			</if>
+			<if test="insuretype != null">
+				InsureType,
+			</if>
+			<if test="paytype != null">
+				PayType,
+			</if>
+			<if test="employee != null">
+				EmpID,
+			</if>
+			<if test="currtime != null">
+				CurrTime,
+			</if>
+			<if test="billcode != null">
+				BillCode,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="serialid != null">
+				#{serialid,jdbcType=CHAR},
+			</if>
+			<if test="mark != null">
+				#{mark.markid,jdbcType=CHAR},
+			</if>
+			<if test="iccardid != null">
+				#{iccardid,jdbcType=VARCHAR},
+			</if>
+			<if test="patientid != null">
+				#{patientid,jdbcType=CHAR},
+			</if>
+			<if test="expense != null">
+				#{expense,jdbcType=DECIMAL},
+			</if>
+			<if test="baltype != null">
+				#{baltype,jdbcType=INTEGER},
+			</if>
+			<if test="insuretype != null">
+				#{insuretype,jdbcType=INTEGER},
+			</if>
+			<if test="paytype != null">
+				#{paytype,jdbcType=INTEGER},
+			</if>
+			<if test="employee != null">
+				#{employee.empid,jdbcType=CHAR},
+			</if>
+			<if test="currtime != null">
+				#{currtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="billcode != null">
+				#{billcode,jdbcType=CHAR},,
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.outdoctor.TotalExpense">
+		update TotalExpense
+		<set>
+			<if test="mark != null">
+				MarkID = #{mark.markid,jdbcType=CHAR},
+			</if>
+			<if test="iccardid != null">
+				ICCardID = #{iccardid,jdbcType=VARCHAR},
+			</if>
+			<if test="patientid != null">
+				PatientID = #{patientid,jdbcType=CHAR},
+			</if>
+			<if test="expense != null">
+				Expense = #{expense,jdbcType=DECIMAL},
+			</if>
+			<if test="baltype != null">
+				BalType= #{baltype,jdbcType=INTEGER},
+			</if>
+			<if test="insuretype != null">
+				InsureType=#{insuretype,jdbcType=INTEGER},
+			</if>
+			<if test="paytype != null">
+				PayType= #{paytype,jdbcType=INTEGER},
+			</if>
+			<if test="employee != null">
+				EmpID #{employee.empid,jdbcType=CHAR},
+			</if>
+			<if test="currtime != null">
+				CurrTime = #{currtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="billcode != null">
+				BillCode = #{billcode,jdbcType=CHAR},,
+			</if>
+		</set>
+		where SerialID = #{serialid,jdbcType=CHAR}
+	</update>
+
+	<select id="findTotalExpense" parameterType="Map" resultMap="BaseResultMap">
+		select * from TotalExpense
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+			<if test="markid !=null and markid !=''">
+				and MarkID = #{markid}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID = #{iccardid}
+			</if>
+			<if test="patientid !=null and patientid !=''">
+				and PatientID = #{patientid}
+			</if>
+			<!-- 根据挂号科室进行查询 -->
+			<if test="deptid !=null and deptid !=''">
+				and MarkID in (select MarkID from BOutpatientMark where ExecuteDeptID = #{deptid})
+			</if>
+			<if test="baltype !=null">
+				and BalType = ${baltype}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by SerialID offset ${start} rows fetch next
+			${size}
+			rows only
+		</if>
+	</select>
+
+	<select id="getTotalTotalExpense" parameterType="Map"
+		resultType="Long">
+		select count(*) from TotalExpense
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+			<if test="markid !=null and markid !=''">
+				and MarkID = #{markid}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID = #{iccardid}
+			</if>
+			<if test="patientid !=null and patientid !=''">
+				and PatientID = #{patientid}
+			</if>
+		</where>
+	</select>
+
+	<select id="getMaxID" parameterType="Map" resultType="String">
+		select MAX(SerialID) from TotalExpense
+		<where>
+			<if test="prefix!=null and prefix!='' ">
+				and SerialID like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

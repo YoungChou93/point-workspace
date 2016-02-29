@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.baseinfo.OnlineUserDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.baseinfo.OnlineUser">
+		<id column="LoginID" property="loginid" jdbcType="VARCHAR" />
+		<result column="SessionID" property="sessionid" jdbcType="VARCHAR" />
+		<result column="IPCode" property="ipcode" jdbcType="VARCHAR" />
+		
+		<association column="DeptID" property="department" select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey"></association>
+		<association column="EmpID" property="emp" select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" ></association>
+		<association column="RoleID" property="role" select="com.his.dao.baseinfo.RoleDao.selectByPrimaryKey" ></association>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		LoginID, SessionID, IPCode, DeptID, EmpID, RoleID
+	</sql>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from OnlineUser
+		where LoginID = #{loginid,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from OnlineUser
+		where LoginID = #{loginid,jdbcType=VARCHAR}
+	</delete>
+	
+	<delete id="deleteSessionTimeout" parameterType="java.lang.String">
+		delete from OnlineUser
+		where SessionID = #{sessionid,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insertSelective" parameterType="com.his.entity.baseinfo.OnlineUser">
+		insert into OnlineUser
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="loginid != null">
+				LoginID,
+			</if>
+			<if test="sessionid != null">
+				SessionID,
+			</if>
+			<if test="ipcode != null">
+				IPCode,
+			</if>
+			<if test="department != null">
+				DeptID,
+			</if>
+			<if test="emp != null">
+				EmpID,
+			</if>
+			<if test="role != null">
+				RoleID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="loginid != null">
+				#{loginid,jdbcType=VARCHAR},
+			</if>
+			<if test="sessionid != null">
+				#{sessionid,jdbcType=VARCHAR},
+			</if>
+			<if test="ipcode != null">
+				#{ipcode,jdbcType=VARCHAR},
+			</if>
+			<if test="department != null">
+				#{department.deptid,jdbcType=CHAR},
+			</if>
+			<if test="emp != null">
+				#{emp.empid,jdbcType=CHAR},
+			</if>
+			<if test="role != null">
+				#{role.roleid,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.OnlineUser">
+		update OnlineUser
+		<set>
+			<if test="sessionid != null">
+				SessionID = #{sessionid,jdbcType=VARCHAR},
+			</if>
+			<if test="ipcode != null">
+				IPCode = #{ipcode,jdbcType=VARCHAR},
+			</if>
+			<if test="department != null">
+				DeptID = #{department.deptid,jdbcType=CHAR},
+			</if>
+			<if test="emp != null">
+				EmpID = #{emp.empid,jdbcType=CHAR},
+			</if>
+			<if test="role != null">
+				RoleID =#{role.roleid,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where LoginID = #{loginid,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="findOnlineUser" parameterType="Map" resultMap="BaseResultMap">
+		select * from OnlineUser
+		<where>
+			<if test="loginid!=null and loginid!='' ">
+				and LoginID = #{loginid}
+			</if>
+			<if test="roleid !=null and roleid !='' ">
+				and RoleID = #{roleid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by LoginID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+	
+	
+	<select id="getTotalOnlineUser" resultType="Long" parameterType="Map">
+		select count(*) from OnlineUser
+		<where>
+			<if test="loginid!=null and loginid!='' ">
+				and LoginID = #{loginid}
+			</if>
+			<if test="roleid !=null and roleid !='' ">
+				and RoleID = #{roleid}
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="getOnlineExisting" resultType="Long" parameterType="Map">
+		select count(*) from OnlineUser
+		<where>
+			<if test="sessionid !=null and sessionid !='' ">
+				and SessionID = #{sessionid}
+			</if>
+			<if test="roleid !=null and roleid !='' ">
+				and RoleID = #{roleid}
+			</if>
+			<if test="loginid!=null and loginid!='' ">
+				and LoginID = #{loginid}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getLoginID" parameterType="java.lang.String" resultType="String">
+	     select LoginID from OnlineUser
+	     where SessionID = #{sessionid,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectByMap" resultMap="BaseResultMap" parameterType="Map">
+		select * from OnlineUser
+		<where>
+			<if test=" sessionid !=null and sessionid !='' ">
+				and SessionID = #{sessionid}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectBySessionID" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select <include refid="Base_Column_List" /> from OnlineUser
+		where SessionID = #{sessionid,jdbcType=VARCHAR}
+	</select>
+		
+</mapper>

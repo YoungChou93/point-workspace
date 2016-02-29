@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.hospital.HosArchiveMedicineCostDao">
+	<resultMap id="BaseResultMap"
+		type="com.his.entity.hospital.HosArchiveMedicineCost">
+		<id column="SerialID" property="serialid" jdbcType="CHAR" />
+		<result column="PatientID" property="patientid" jdbcType="CHAR" />
+		<result column="UnitPrice" property="unitprice" jdbcType="DECIMAL" />
+		<result column="SumNum" property="sumnum" jdbcType="DECIMAL" />
+		<result column="ShouldMoney" property="shouldmoney" jdbcType="DECIMAL" />
+		<result column="ActualMoney" property="actualmoney" jdbcType="DECIMAL" />
+		<result column="CostState" property="coststate" jdbcType="INTEGER" />
+		<result column="IsBabyCost" property="isbabycost" jdbcType="BIT" />
+
+		<result column="AdviceID" property="adviceid" jdbcType="CHAR" />
+		<result column="AdviceSerialID" property="adviceserialid"
+			jdbcType="CHAR" />
+		<result column="InsureType" property="insuretype" jdbcType="INTEGER" />
+
+		<result column="ChargeTime" property="chargetime" jdbcType="TIMESTAMP" />
+		<result column="InvoiceCode" property="invoicecode" jdbcType="NVARCHAR" />
+		<result column="BillCode" property="billcode" jdbcType="CHAR" />
+		<result column="BillCodeTake" property="billcodetake" jdbcType="CHAR" />
+		<result column="SourceDate" property="sourcedate" jdbcType="TIMESTAMP" />
+		<result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+		<result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+		<result column="InvoiceState" property="invoicestate" jdbcType="INTEGER" />
+
+		<association column="HosCode" property="hosregister"
+			select="com.his.dao.hospital.HosRegisterDao.selectByPrimaryKey" />
+		<association column="HospitalizationID" property="hospitalization"
+			select="com.his.dao.baseinfo.HospitalizationInvoiceDao.selectByPrimaryKey" />
+		<association column="AccountID" property="account"
+			select="com.his.dao.baseinfo.AccountClassDao.selectByPrimaryKey" />
+		<association column="CheckID" property="check"
+			select="com.his.dao.baseinfo.CheckClassDao.selectByPrimaryKey" />
+		<association column="MedicalID" property="medical"
+			select="com.his.dao.baseinfo.MedicalClassDao.selectByPrimaryKey" />
+		<association column="RoomStoreID" property="roomstore"
+			select="com.his.dao.drugroom.DrugRoomStoreDao.selectByPrimaryKey" />
+		<association column="RetailUnit" property="retailunit"
+			select="com.his.dao.baseinfo.SystemTypeDao.selectPartByPrimaryKey" />
+		<association column="ChargeEmpID" property="chargeemp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+		<association column="ChargeDeptID" property="chargedept"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey" />
+		<association column="SourceEmpID" property="sourceemp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+		<association column="SourceDeptID" property="sourcedept"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		SerialID, HosCode, PatientID, HospitalizationID, AccountID,
+		CheckID, MedicalID,
+		RoomStoreID,
+		UnitPrice, RetailUnit, SumNum,
+		ShouldMoney, ActualMoney, CostState, IsBabyCost,
+		AdviceID,
+		AdviceSerialID, InsureType, ChargeEmpID, ChargeDeptID, ChargeTime,
+		InvoiceCode,
+		BillCode,BillCodeTake,
+		SourceDeptID, SourceEmpID,
+		SourceDate, UnUsed1, UnUsed2,InvoiceState
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from HosArchiveMedicineCost
+		where SerialID = #{serialid,jdbcType=CHAR}
+	</select>
+
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from HosArchiveMedicineCost
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		HosArchiveMedicineCost
+		where SerialID = #{serialid,jdbcType=CHAR}
+	</delete>
+
+	<delete id="deleteByMap" parameterType="Map">
+		delete from HosArchiveMedicineCost
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.hospital.HosArchiveMedicineCost">
+		insert into HosArchiveMedicineCost
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="serialid != null">
+				SerialID,
+			</if>
+			<if test="hosregister != null">
+				HosCode,
+			</if>
+			<if test="patientid != null">
+				PatientID,
+			</if>
+			<if test="hospitalization != null">
+				HospitalizationID,
+			</if>
+			<if test="account != null">
+				AccountID,
+			</if>
+			<if test="check != null">
+				CheckID,
+			</if>
+			<if test="medical != null">
+				MedicalID,
+			</if>
+			<if test="roomstore != null">
+				RoomStoreID,
+			</if>
+			<if test="unitprice != null">
+				UnitPrice,
+			</if>
+			<if test="retailunit != null">
+				RetailUnit,
+			</if>
+			<if test="sumnum != null">
+				SumNum,
+			</if>
+			<if test="shouldmoney != null">
+				ShouldMoney,
+			</if>
+			<if test="actualmoney != null">
+				ActualMoney,
+			</if>
+			<if test="coststate != null">
+				CostState,
+			</if>
+			<if test="isbabycost != null">
+				IsBabyCost,
+			</if>
+			<if test="adviceid != null">
+				AdviceID,
+			</if>
+			<if test="adviceserialid != null">
+				AdviceSerialID,
+			</if>
+			<if test="insuretype != null">
+				InsureType,
+			</if>
+			<if test="chargeemp != null">
+				ChargeEmpID,
+			</if>
+			<if test="chargedept != null">
+				ChargeDeptID,
+			</if>
+			<if test="chargetime != null">
+				ChargeTime,
+			</if>
+			<if test="invoicecode != null">
+				InvoiceCode,
+			</if>
+			<if test="billcode != null">
+				BillCode,
+			</if>
+			<if test="billcodetake != null">
+				BillCodeTake,
+			</if>
+			<if test="sourcedept != null">
+				SourceDeptID,
+			</if>
+			<if test="sourceemp != null">
+				SourceEmpID,
+			</if>
+			<if test="sourcedate != null">
+				SourceDate,
+			</if>
+			<if test="unused1 != null">
+				UnUsed1,
+			</if>
+			<if test="unused2 != null">
+				UnUsed2,
+			</if>
+			<if test="invoicestate != null">
+				InvoiceState,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="serialid != null">
+				#{serialid,jdbcType=CHAR},
+			</if>
+			<if test="hosregister != null">
+				#{hosregister.hoscode,jdbcType=CHAR},
+			</if>
+			<if test="patientid != null">
+				#{patientid,jdbcType=CHAR},
+			</if>
+			<if test="hospitalization != null">
+				#{hospitalization.hospitalizationid,jdbcType=VARCHAR},
+			</if>
+			<if test="account != null">
+				#{account.accountid,jdbcType=VARCHAR},
+			</if>
+			<if test="check != null">
+				#{check.checkid,jdbcType=VARCHAR},
+			</if>
+			<if test="medical != null">
+				#{medical.medicalid,jdbcType=VARCHAR},
+			</if>
+			<if test="roomstore != null">
+				#{roomstore.storeid,jdbcType=CHAR},
+			</if>
+			<if test="unitprice != null">
+				#{unitprice,jdbcType=DECIMAL},
+			</if>
+			<if test="retailunit != null">
+				#{retailunit.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="sumnum != null">
+				#{sumnum,jdbcType=DECIMAL},
+			</if>
+			<if test="shouldmoney != null">
+				#{shouldmoney,jdbcType=DECIMAL},
+			</if>
+			<if test="actualmoney != null">
+				#{actualmoney,jdbcType=DECIMAL},
+			</if>
+			<if test="coststate != null">
+				#{coststate,jdbcType=INTEGER},
+			</if>
+			<if test="isbabycost != null">
+				#{isbabycost,jdbcType=BIT},
+			</if>
+			<if test="adviceid != null">
+				#{adviceid,jdbcType=CHAR},
+			</if>
+			<if test="adviceserialid != null">
+				#{adviceserialid,jdbcType=CHAR},
+			</if>
+			<if test="insuretype != null">
+				#{insuretype,jdbcType=INTEGER},
+			</if>
+			<if test="chargeemp != null">
+				#{chargeemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="chargedept != null">
+				#{chargedept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="chargetime != null">
+				#{chargetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="invoicecode != null">
+				#{invoicecode,jdbcType=NVARCHAR},
+			</if>
+			<if test="billcode != null">
+				#{billcode,jdbcType=CHAR},
+			</if>
+			<if test="billcodetake != null">
+				#{billcodetake,jdbcType=CHAR},
+			</if>
+			<if test="sourcedept != null">
+				#{sourcedept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="sourceemp != null">
+				#{sourceemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="sourcedate != null">
+				#{sourcedate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="unused1 != null">
+				#{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				#{unused2,jdbcType=NVARCHAR},
+			</if>
+			<if test="invoicestate != null">
+				#{invoicestate,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.hospital.HosArchiveMedicineCost">
+		update HosArchiveMedicineCost
+		<set>
+			<if test="hosregister != null">
+				HosCode = #{hosregister.hoscode,jdbcType=CHAR},
+			</if>
+			<if test="patientid != null">
+				PatientID = #{patientid,jdbcType=CHAR},
+			</if>
+			<if test="hospitalization != null">
+				HospitalizationID =
+				#{hospitalization.hospitalizationid,jdbcType=VARCHAR},
+			</if>
+			<if test="account != null">
+				AccountID = #{account.accountid,jdbcType=VARCHAR},
+			</if>
+			<if test="check != null">
+				CheckID = #{check.checkid,jdbcType=VARCHAR},
+			</if>
+			<if test="medical != null">
+				MedicalID = #{medical.medicalid,jdbcType=VARCHAR},
+			</if>
+			<if test="roomstore != null">
+				RoomStoreID = #{roomstore.storeid,jdbcType=CHAR},
+			</if>
+			<if test="unitprice != null">
+				UnitPrice = #{unitprice,jdbcType=DECIMAL},
+			</if>
+			<if test="retailunit != null">
+				RetailUnit = #{retailunit.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="sumnum != null">
+				SumNum = #{sumnum,jdbcType=DECIMAL},
+			</if>
+			<if test="shouldmoney != null">
+				ShouldMoney = #{shouldmoney,jdbcType=DECIMAL},
+			</if>
+			<if test="actualmoney != null">
+				ActualMoney = #{actualmoney,jdbcType=DECIMAL},
+			</if>
+			<if test="coststate != null">
+				CostState = #{coststate,jdbcType=INTEGER},
+			</if>
+			<if test="isbabycost != null">
+				IsBabyCost = #{isbabycost,jdbcType=BIT},
+			</if>
+			<if test="adviceid != null">
+				AdviceID = #{adviceid,jdbcType=CHAR},
+			</if>
+			<if test="adviceserialid != null">
+				AdviceSerialID = #{adviceserialid,jdbcType=CHAR},
+			</if>
+			<if test="insuretype != null">
+				InsureType = #{insuretype,jdbcType=INTEGER},
+			</if>
+			<if test="chargeemp != null">
+				ChargeEmpID = #{chargeemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="chargedept != null">
+				ChargeDeptID = #{chargedept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="chargetime != null">
+				ChargeTime = #{chargetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="invoicecode != null">
+				InvoiceCode = #{invoicecode,jdbcType=NVARCHAR},
+			</if>
+			<if test="billcode != null">
+				BillCode = #{billcode,jdbcType=CHAR},
+			</if>
+			<if test="billcodetake != null">
+				BillCodeTake = #{billcodetake,jdbcType=CHAR},
+			</if>
+			<if test="sourcedept != null">
+				SourceDeptID = #{sourcedept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="sourceemp != null">
+				SourceEmpID = #{sourceemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="sourcedate != null">
+				SourceDate = #{sourcedate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="unused1 != null">
+				UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+			</if>
+			<if test="invoicestate != null">
+				InvoiceState = #{invoicestate,jdbcType=INTEGER},
+			</if>
+		</set>
+		where SerialID = #{serialid,jdbcType=CHAR}
+	</update>
+
+	<select id="findHosArchiveMedicineCost" parameterType="Map"
+		resultMap="BaseResultMap">
+		select * from HosArchiveMedicineCost
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+			<if test="hoscode !=null and hoscode !=''">
+				and HosCode = #{hoscode}
+			</if>
+			<!-- 用于检索需要打印发票的记录 -->
+			<if test="invoicestate != null">
+				and InvoiceState = ${invoicestate}
+			</if>
+			<if test="coststate != null">
+				and CostState = ${coststate}
+			</if>
+			<!-- 用于检索正常收费的项目 -->
+			<if test="costmode != null">
+				and CostState > 0
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by SerialID offset ${start} rows fetch next ${size}
+			rows only
+		</if>
+	</select>
+
+	<select id="getTotalHosArchiveMedicineCost" parameterType="Map"
+		resultType="Long">
+		select count(*) from HosArchiveMedicineCost
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+		</where>
+	</select>
+
+	<select id="getMaxID" parameterType="Map" resultType="String">
+		select MAX(SerialID) from HosArchiveMedicineCost
+		<where>
+			<if test="prefix !=null and prefix !=''">
+				and SerialID like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.outdoctor.ServiceItemReturnApplyDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.outdoctor.ServiceItemReturnApply">
+		<id column="ApplyID" property="applyid" jdbcType="CHAR" />
+		<id column="MarkID" property="markid" jdbcType="CHAR" />
+		<result column="ICCardID" property="iccardid" jdbcType="VARCHAR" />
+		<result column="PatientID" property="patientid" jdbcType="CHAR" />
+		<result column="ReturnMemo" property="returnmemo" jdbcType="NVARCHAR" />
+		<result column="ApplyState" property="applystate" jdbcType="BIT" />
+		<result column="ApplyTime" property="applytime" jdbcType="TIMESTAMP" />
+		<result column="ExecuteTime" property="executetime" jdbcType="TIMESTAMP" />
+		
+		<result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+		<result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+		<result column="UnUsed3" property="unused3" jdbcType="NVARCHAR" />
+
+		<association column="BillCode" property="billcode"
+			select="com.his.dao.drugrepo.BillRecDao.selectByPrimaryKey" />
+		<association column="ApplyDeptID" property="applydept"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey" />
+		<association column="ApplyEmpID" property="applyemp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+		<association column="ExecuteDeptID" property="executedept"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey" />
+		<association column="ExecuteEmpID" property="executeemp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+		<association column="AirServiceItemCostSerialID" property="airserviceitemcost"
+			select="com.his.dao.outdoctor.AirServiceItemCostDao.selectByPrimaryKey" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ApplyID, MarkID, ICCardID, PatientID,AirServiceItemCostSerialID,
+		ReturnMemo, BillCode,ApplyState,ApplyDeptID,
+		ApplyEmpID, ApplyTime, ExecuteDeptID, ExecuteEmpID, ExecuteDate, UnUsed1, UnUsed2, UnUsed3
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from ServiceItemReturnApply
+		where ApplyID = #{applyid,jdbcType=CHAR}
+	</select>
+
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from ServiceItemReturnApply
+		<where>
+			<if test="applyid !=null and applyid !=''">
+				and ApplyID=#{applyid}
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		ServiceItemReturnApply
+		where ApplyID = #{applyid,jdbcType=CHAR}
+	</delete>
+
+	<delete id="deleteByMap" parameterType="Map">
+
+		delete from ServiceItemReturnApply
+		<where>
+			<if test="applyid !=null and applyid !=''">
+				and ApplyID=#{applyid}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID=#{iccardid}
+			</if>
+			<if test="patientid !=null and patientid !=''">
+				and PatientID=#{patientid}
+			</if>
+			<if test="markid !=null and markid !=''">
+				and MarkID=#{markid}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.outdoctor.ServiceItemReturnApply">
+		insert into ServiceItemReturnApply
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="applyid != null">
+				ApplyID,
+			</if>
+			<if test="markid != null">
+				MarkID,
+			</if>
+			<if test="iccardid != null">
+				ICCardID,
+			</if>
+			<if test="patientid != null">
+				PatientID,
+			</if>
+			<if test="airserviceitemcost != null">
+				AirServiceItemCostSerialID,
+			</if>
+			<if test="returnmemo != null">
+				ReturnMemo,
+			</if>
+			<if test="billcode != null">
+				BillCode,
+			</if>
+			<if test="applystate != null">
+				ApplyState,
+			</if>
+			<if test="applydept != null">
+				ApplyDeptID,
+			</if>
+			<if test="applyemp != null">
+				ApplyEmpID,
+			</if>
+			<if test="applytime != null">
+				ApplyTime,
+			</if>
+			<if test="executedept != null">
+				ExecuteDeptID,
+			</if>
+			<if test="executeemp != null">
+				ExecuteEmpID,
+			</if>
+			<if test="executetime != null">
+				ExecuteTime,
+			</if>
+			<if test="unused1 != null">
+				UnUsed1,
+			</if>
+			<if test="unused2 != null">
+				UnUsed2,
+			</if>
+			<if test="unused3 != null">
+				UnUsed3,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="applyid != null">
+				#{applyid,jdbcType=CHAR},
+			</if>
+			<if test="markid != null">
+				#{markid,jdbcType=CHAR},
+			</if>
+			<if test="iccardid != null">
+				#{iccardid,jdbcType=VARCHAR},
+			</if>
+			<if test="patientid != null">
+				#{patientid,jdbcType=CHAR},
+			</if>
+			<if test="airserviceitemcost != null">
+			    #{airserviceitemcost.serialid,jdbcType=CHAR},
+			</if>
+			<if test="returnmemo != null">
+				#{returnmemo,jdbcType=NVARCHAR},
+			</if>
+			<if test="billcode != null">
+				#{billcode.billrecid,jdbcType=CHAR},
+			</if>
+			<if test="applystate != null">
+				#{applystate,jdbcType=BIT},
+			</if>
+			<if test="applydept != null">
+				#{applydept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="applyemp != null">
+				#{applyemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="applytime != null">
+				#{applytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="executedept != null">
+				#{executedept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="executeemp != null">
+				#{executeemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="executetime != null">
+				#{executetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="unused1 != null">
+				#{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				#{unused2,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused3 != null">
+				#{unused3,jdbcType=NVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.outdoctor.ServiceItemReturnApply">
+		update ServiceItemReturnApply
+		<set>
+			<if test="markid != null">
+				MarkID = #{markid,jdbcType=CHAR},
+			</if>
+			<if test="iccardid != null">
+				ICCardID = #{iccardid,jdbcType=VARCHAR},
+			</if>
+			<if test="patientid != null">
+				PatientID = #{patientid,jdbcType=CHAR},
+			</if>
+			<if test="airserviceitemcost != null">
+			    AirServiceItemCostSerialID=#{airserviceitemcost.serialid,jdbcType=CHAR},
+			</if>
+			<if test="returnmemo != null">
+				ReturnMemo = #{returnmemo,jdbcType=NVARCHAR},
+			</if>
+			<if test="billcode != null">
+				BillCode = #{billcode.billrecid,jdbcType=CHAR},
+			</if>
+			<if test="applystate != null">
+				ApplyState=#{applystate,jdbcType=BIT},
+			</if>
+			<if test="applydept != null">
+				ApplyDeptID = #{applydept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="applyemp != null">
+				ApplyEmpID = #{applyemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="applytime != null">
+				ApplyTime = #{applytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="executedept != null">
+				ExecuteDeptID = #{executedept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="executeemp != null">
+				ExecuteEmpID = #{executeemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="executetime != null">
+				ExecuteTime = #{executetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="unused1 != null">
+				UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused3 != null">
+				UnUsed3 = #{unused3,jdbcType=NVARCHAR},
+			</if>
+		</set>
+		where ApplyID = #{applyid,jdbcType=CHAR}
+	</update>
+
+	<select id="findServiceItemReturnApply" parameterType="Map"
+		resultMap="BaseResultMap">
+		select * from ServiceItemReturnApply
+		<where>
+			<if test="applyid !=null and applyid !=''">
+				and ApplyID=#{applyid}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID=#{iccardid}
+			</if>
+			<if test="patientid !=null and patientid !=''">
+				and PatientID=#{patientid}
+			</if>
+			<if test="markid !=null and markid !=''">
+				and MarkID=#{markid}
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and ReceiveDeptID=#{deptid}
+			</if>
+			<if test="applystate !=null">
+				and ApplyState= ${applystate}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by MarkID DESC offset ${start} rows fetch next
+			${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalServiceItemReturnApply" parameterType="Map"
+		resultType="Long">
+		select count(*) from ServiceItemReturnApply
+		<where>
+			<if test="applyid !=null and applyid !=''">
+				and ApplyID=#{applyid}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID=#{iccardid}
+			</if>
+			<if test="patientid !=null and patientid !=''">
+				and PatientID=#{patientid}
+			</if>
+			<if test="markid !=null and markid !=''">
+				and MarkID=#{markid}
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and ReceiveDeptID=#{deptid}
+			</if>
+			<if test="applystate !=null">
+				and ApplyState=#{applystate}
+			</if>
+		</where>
+	</select>
+
+	<select id="getApplyID" parameterType="Map" resultType="String">
+		select MAX(ApplyID) from ServiceItemReturnApply
+		<where>
+			<if test="prefix !=null and prefix !=''">
+				and ApplyID like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

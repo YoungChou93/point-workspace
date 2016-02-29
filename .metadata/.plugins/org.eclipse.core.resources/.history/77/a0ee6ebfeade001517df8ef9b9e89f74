@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.hospital.HosDeptRegisterDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.hospital.HosDeptRegister">
+
+		<id column="DeptRegCode" property="deptregcode" jdbcType="CHAR" />
+		<result column="RegState" property="regstate" jdbcType="INTEGER" />
+		<result column="TempTreatment" property="temptreatment"
+			jdbcType="NVARCHAR" />
+		<result column="Breathing" property="breathing" jdbcType="NVARCHAR" />
+		<result column="Temperature" property="temperature" jdbcType="NVARCHAR" />
+		<result column="Pulse" property="pulse" jdbcType="NVARCHAR" />
+		<result column="HeartRate" property="heartrate" jdbcType="NVARCHAR" />
+		<result column="Height" property="height" jdbcType="NVARCHAR" />
+		<result column="Weight" property="weight" jdbcType="NVARCHAR" />
+		<result column="ApexBeat" property="apexbeat" jdbcType="NVARCHAR" />
+		<result column="BloodPressure" property="bloodpressure"
+			jdbcType="NVARCHAR" />
+		<result column="Pupil" property="pupil" jdbcType="NVARCHAR" />
+		<result column="HeartSound" property="heartsound" jdbcType="NVARCHAR" />
+		<result column="Memo" property="memo" jdbcType="NVARCHAR" />
+		<result column="NurseClass" property="nurseclass" jdbcType="INTEGER" />
+		<result column="InTime" property="intime" jdbcType="TIMESTAMP" />
+		<result column="OutTime" property="outtime" jdbcType="TIMESTAMP" />
+		<result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+		<result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+
+		<association column="HosCode" property="hosregister"
+			select="com.his.dao.hospital.HosRegisterDao.selectByPrimaryKey" />
+
+		<association column="DeptID" property="department"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey" />
+
+		<association column="DeptRegDiagnoseID" property="icd10"
+			select="com.his.dao.baseinfo.ICD10Dao.selectByPrimaryKey" />
+
+		<association column="PrimaryDocID" property="primarydoc"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+
+		<association column="HosDocID" property="hosdoc"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+
+		<association column="AdmissionsNurseID" property="admissionsnurse"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+
+		<association column="InOprEmpID" property="inopremp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+
+		<association column="AdmissionsDocID" property="admissionsdoc"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+
+		<association column="ChiefDocID" property="chiefdoc"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+
+		<association column="OutOprEmpID" property="outopremp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+
+		<association column="BedID" property="bed"
+			select="com.his.dao.baseinfo.BedDao.selectByPrimaryKey" />
+
+	</resultMap>
+	<sql id="Base_Column_List">
+		DeptRegCode, HosCode, DeptID, RegState, DeptRegDiagnoseID,
+		TempTreatment,
+		Breathing,
+		Temperature, Pulse, HeartRate, Height, Weight,
+		ApexBeat, BloodPressure, Pupil,
+		HeartSound,
+		Memo, AdmissionsDocID,
+		PrimaryDocID, HosDocID, ChiefDocID,
+		AdmissionsNurseID, NurseClass,
+		BedID, InTime, OutTime, InOprEmpID, OutOprEmpID, UnUsed1, UnUsed2
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from HosDeptRegister
+		where DeptRegCode = #{deptregcode,jdbcType=CHAR}
+	</select>
+
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from HosDeptRegister
+		<where>
+			<if test="deptregcode !=null and deptregcode !=''">
+				and DeptRegCode = #{deptregcode}
+			</if>
+			<if test="hoscode !=null and hoscode !=''">
+				and HosCode = #{hoscode}
+			</if>
+			<if test="regstate !=null and regstate !=''">
+				and RegState = #{regstate}
+			</if>
+			<if test="patientid !=null and patientid !=''">
+				and HosCode in (select HosCode from HosRegister where PatientID = #{patientid} and RegState=0)
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID = #{deptid}
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		HosDeptRegister
+		where DeptRegCode = #{deptregcode,jdbcType=CHAR}
+	</delete>
+
+	<delete id="deleteByMap" parameterType="Map">
+		delete from HosDeptRegister
+		<where>
+			<if test="deptregcode !=null and deptregcode !=''">
+				and DeptRegCode = #{deptregcode}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.hospital.HosDeptRegister">
+		insert into HosDeptRegister
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="deptregcode != null">
+				DeptRegCode,
+			</if>
+			<if test="hosregister != null">
+				HosCode,
+			</if>
+			<if test="department != null">
+				DeptID,
+			</if>
+			<if test="regstate != null">
+				RegState,
+			</if>
+			<if test="icd10 != null">
+				DeptRegDiagnoseID,
+			</if>
+			<if test="temptreatment != null">
+				TempTreatment,
+			</if>
+			<if test="breathing != null">
+				Breathing,
+			</if>
+			<if test="temperature != null">
+				Temperature,
+			</if>
+			<if test="pulse != null">
+				Pulse,
+			</if>
+			<if test="heartrate != null">
+				HeartRate,
+			</if>
+			<if test="height != null">
+				Height,
+			</if>
+			<if test="weight != null">
+				Weight,
+			</if>
+			<if test="apexbeat != null">
+				ApexBeat,
+			</if>
+			<if test="bloodpressure != null">
+				BloodPressure,
+			</if>
+			<if test="pupil != null">
+				Pupil,
+			</if>
+			<if test="heartsound != null">
+				HeartSound,
+			</if>
+			<if test="memo != null">
+				Memo,
+			</if>
+			<if test="admissionsdoc != null">
+				AdmissionsDocID,
+			</if>
+			<if test="primarydoc != null">
+				PrimaryDocID,
+			</if>
+			<if test="hosdoc != null">
+				HosDocID,
+			</if>
+			<if test="chiefdoc != null">
+				ChiefDocID,
+			</if>
+			<if test="admissionsnurse != null">
+				AdmissionsNurseID,
+			</if>
+			<if test="nurseclass != null">
+				NurseClass,
+			</if>
+			<if test="bed != null">
+				BedID,
+			</if>
+			<if test="intime != null">
+				InTime,
+			</if>
+			<if test="outtime != null">
+				OutTime,
+			</if>
+			<if test="inopremp != null">
+				InOprEmpID,
+			</if>
+			<if test="outopremp != null">
+				OutOprEmpID,
+			</if>
+			<if test="unused1 != null">
+				UnUsed1,
+			</if>
+			<if test="unused2 != null">
+				UnUsed2,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="deptregcode != null">
+				#{deptregcode,jdbcType=CHAR},
+			</if>
+			<if test="hosregister != null">
+				#{hosregister.hoscode,jdbcType=CHAR},
+			</if>
+			<if test="department != null">
+				#{department.deptid,jdbcType=CHAR},
+			</if>
+			<if test="regstate != null">
+				#{regstate,jdbcType=INTEGER},
+			</if>
+			<if test="icd10 != null">
+				#{icd10.id,jdbcType=INTEGER},
+			</if>
+			<if test="temptreatment != null">
+				#{temptreatment,jdbcType=NVARCHAR},
+			</if>
+			<if test="breathing != null">
+				#{breathing,jdbcType=NVARCHAR},
+			</if>
+			<if test="temperature != null">
+				#{temperature,jdbcType=NVARCHAR},
+			</if>
+			<if test="pulse != null">
+				#{pulse,jdbcType=NVARCHAR},
+			</if>
+			<if test="heartrate != null">
+				#{heartrate,jdbcType=NVARCHAR},
+			</if>
+			<if test="height != null">
+				#{height,jdbcType=NVARCHAR},
+			</if>
+			<if test="weight != null">
+				#{weight,jdbcType=NVARCHAR},
+			</if>
+			<if test="apexbeat != null">
+				#{apexbeat,jdbcType=NVARCHAR},
+			</if>
+			<if test="bloodpressure != null">
+				#{bloodpressure,jdbcType=NVARCHAR},
+			</if>
+			<if test="pupil != null">
+				#{pupil,jdbcType=NVARCHAR},
+			</if>
+			<if test="heartsound != null">
+				#{heartsound,jdbcType=NVARCHAR},
+			</if>
+			<if test="memo != null">
+				#{memo,jdbcType=NVARCHAR},
+			</if>
+			<if test="admissionsdoc != null">
+				#{admissionsdoc.empid,jdbcType=CHAR},
+			</if>
+			<if test="primarydoc != null">
+				#{primarydoc.empid,jdbcType=CHAR},
+			</if>
+			<if test="hosdoc != null">
+				#{hosdoc.empid,jdbcType=CHAR},
+			</if>
+			<if test="chiefdoc != null">
+				#{chiefdoc.empid,jdbcType=CHAR},
+			</if>
+			<if test="admissionsnurse != null">
+				#{admissionsnurse.empid,jdbcType=CHAR},
+			</if>
+			<if test="nurseclass != null">
+				#{nurseclass,jdbcType=INTEGER},
+			</if>
+			<if test="bed != null">
+				#{bed.bedid,jdbcType=CHAR},
+			</if>
+			<if test="intime != null">
+				#{intime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="outtime != null">
+				#{outtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="inopremp != null">
+				#{inopremp.empid,jdbcType=CHAR},
+			</if>
+			<if test="outopremp != null">
+				#{outopremp.empid,jdbcType=CHAR},
+			</if>
+			<if test="unused1 != null">
+				#{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				#{unused2,jdbcType=NVARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.hospital.HosDeptRegister">
+		update HosDeptRegister
+		<set>
+			<if test="hosregister != null">
+				HosCode = #{hosregister.hoscode,jdbcType=CHAR},
+			</if>
+			<if test="department != null">
+				DeptID = #{department.deptid,jdbcType=CHAR},
+			</if>
+			<if test="regstate != null">
+				RegState = #{regstate,jdbcType=INTEGER},
+			</if>
+			<if test="icd10 != null">
+				DeptRegDiagnoseID = #{icd10.id,jdbcType=INTEGER},
+			</if>
+			<if test="temptreatment != null">
+				TempTreatment = #{temptreatment,jdbcType=NVARCHAR},
+			</if>
+			<if test="breathing != null">
+				Breathing = #{breathing,jdbcType=NVARCHAR},
+			</if>
+			<if test="temperature != null">
+				Temperature = #{temperature,jdbcType=NVARCHAR},
+			</if>
+			<if test="pulse != null">
+				Pulse = #{pulse,jdbcType=NVARCHAR},
+			</if>
+			<if test="heartrate != null">
+				HeartRate = #{heartrate,jdbcType=NVARCHAR},
+			</if>
+			<if test="height != null">
+				Height = #{height,jdbcType=NVARCHAR},
+			</if>
+			<if test="weight != null">
+				Weight = #{weight,jdbcType=NVARCHAR},
+			</if>
+			<if test="apexbeat != null">
+				ApexBeat = #{apexbeat,jdbcType=NVARCHAR},
+			</if>
+			<if test="bloodpressure != null">
+				BloodPressure = #{bloodpressure,jdbcType=NVARCHAR},
+			</if>
+			<if test="pupil != null">
+				Pupil = #{pupil,jdbcType=NVARCHAR},
+			</if>
+			<if test="heartsound != null">
+				HeartSound = #{heartsound,jdbcType=NVARCHAR},
+			</if>
+			<if test="memo != null">
+				Memo = #{memo,jdbcType=NVARCHAR},
+			</if>
+			<if test="admissionsdoc != null">
+				AdmissionsDocID = #{admissionsdoc.empid,jdbcType=CHAR},
+			</if>
+			<if test="primarydoc != null">
+				PrimaryDocID = #{primarydoc.empid,jdbcType=CHAR},
+			</if>
+			<if test="hosdoc != null">
+				HosDocID = #{hosdoc.empid,jdbcType=CHAR},
+			</if>
+			<if test="chiefdoc != null">
+				ChiefDocID = #{chiefdoc.empid,jdbcType=CHAR},
+			</if>
+			<if test="admissionsnurse != null">
+				AdmissionsNurseID =
+				#{admissionsnurse.empid,jdbcType=CHAR},
+			</if>
+			<if test="nurseclass != null">
+				NurseClass = #{nurseclass,jdbcType=INTEGER},
+			</if>
+			<if test="bed != null">
+				BedID = #{bed.bedid,jdbcType=CHAR},
+			</if>
+			<if test="intime != null">
+				InTime = #{intime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="outtime != null">
+				OutTime = #{outtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="inopremp != null">
+				InOprEmpID = #{inopremp.empid,jdbcType=CHAR},
+			</if>
+			<if test="outopremp != null">
+				OutOprEmpID = #{outopremp.empid,jdbcType=CHAR},
+			</if>
+			<if test="unused1 != null">
+				UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+			</if>
+		</set>
+		where DeptRegCode = #{deptregcode,jdbcType=CHAR}
+	</update>
+
+	<select id="findHosDeptRegister" parameterType="Map" resultMap="BaseResultMap">
+		select * from HosDeptRegister
+		<where>
+			<if test="deptregcode !=null and deptregcode !=''">
+				and DeptRegCode = #{deptregcode}
+			</if>
+			<if test="hoscode !=null and hoscode !=''">
+				and HosCode like #{hoscode}
+			</if>
+			<if test="regstate !=null">
+				and RegState = ${regstate}
+			</if>
+			<!-- 检索未出院的病人 -->
+			<if test="inhospital !=null">
+				and HosCode in (select HosCode from HosRegister where regstate=0)
+			</if>
+			<if test="lockaccount !=null">
+				and HosCode in(select HosCode from HosRegister
+				where
+				LockAccount=${lockaccount})
+			</if>
+			<if test="name !=null and name !=''">
+				and HosCode in(select HosCode from HosRegister
+				where
+				PatientID in(
+				select PatientID from APatientInfo
+				where Name like
+				#{name}
+				))
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID = #{deptid}
+			</if>
+			<if test="primarydocid !=null and primarydocid !=''">
+				and PrimaryDocID = #{primarydocid}
+			</if>
+			<if test="admissionsnurseid !=null and admissionsnurseid !=''">
+				and AdmissionsNurseID = #{admissionsnurseid}
+			</if>
+			<if test="begindate !=null and begindate !=''">
+				and DATEDIFF(day,InTime, #{begindate}) <![CDATA[ <= ]]>
+				0
+			</if>
+			<if test="enddate !=null and enddate !=''">
+				and DATEDIFF(day,InTime, #{enddate}) <![CDATA[ >= ]]>
+				0
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by DeptRegCode offset ${start} rows fetch next
+			${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalHosDeptRegister" parameterType="Map"
+		resultType="Long">
+		select count(*) from HosDeptRegister
+		<where>
+			<if test="deptregcode !=null and deptregcode !=''">
+				and DeptRegCode = #{deptregcode}
+			</if>
+			<if test="hoscode !=null and hoscode !=''">
+				and HosCode = #{hoscode}
+			</if>
+			<if test="regstate !=null ">
+				and RegState = ${regstate}
+			</if>
+			<if test="lockaccount !=null">
+				and HosCode in(select HosCode from HosRegister
+				where
+				LockAccount=${lockaccount})
+			</if>
+			<if test="name !=null and name !=''">
+				and HosCode in(select HosCode from HosRegister
+				where
+				PatientID in(
+				select PatientID from APatientInfo
+				where Name like
+				#{name}
+				))
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID = #{deptid}
+			</if>
+			<if test="primarydocid !=null and primarydocid !=''">
+				and PrimaryDocID = #{primarydocid}
+			</if>
+			<if test="admissionsnurseid !=null and admissionsnurseid !=''">
+				and AdmissionsNurseID = #{admissionsnurseid}
+			</if>
+			<if test="begindate !=null and begindate !=''">
+				and DATEDIFF(day,InTime, #{begindate}) <![CDATA[ <= ]]>
+				0
+			</if>
+			<if test="enddate !=null and enddate !=''">
+				and DATEDIFF(day,InTime, #{enddate}) <![CDATA[ >= ]]>
+				0
+			</if>
+		</where>
+	</select>
+
+	<select id="getDeptRegCode" parameterType="Map" resultType="String">
+		select MAX(DeptRegCode) from HosDeptRegister
+		<where>
+			<if test="prefix!=null and prefix!='' ">
+				and DeptRegCode like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

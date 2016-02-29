@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.baseinfo.LoginAccountDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.baseinfo.LoginAccount">
+		<id column="LoginID" property="loginid" jdbcType="VARCHAR" />
+		<result column="LoginPassword" property="loginpassword"
+			jdbcType="VARCHAR" />
+		<result column="Locked" property="locked" jdbcType="BIT" />
+		<result column="LastTime" property="lasttime" jdbcType="TIMESTAMP" />
+		<result column="LastIp" property="lastip" jdbcType="VARCHAR" />
+		<result column="LoginCounts" property="logincounts" jdbcType="INTEGER" />
+		<result column="LoginState" property="loginstate" jdbcType="BIT" />
+		<result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+		<result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+		<association column="EmpID" property="employee"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey"></association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		LoginID, LoginPassword, Locked, EmpID, LastTime, LastIp, LoginCounts,
+		LoginState, UnUsed1, UnUsed2
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from LoginAccount
+		where LoginID = #{loginid,jdbcType=VARCHAR}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from LoginAccount
+		where LoginID = #{loginid,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="com.his.entity.baseinfo.LoginAccount">
+		insert into LoginAccount (LoginID, LoginPassword, Locked,
+		EmpID, LastTime, LastIp, LoginCounts, LoginState, UnUsed1, UnUsed2
+		)
+		values (#{loginid,jdbcType=VARCHAR}, #{loginpassword,jdbcType=VARCHAR},
+		#{locked,jdbcType=BIT},
+		#{employee.empid,jdbcType=CHAR}, #{lasttime,jdbcType=TIMESTAMP},
+		#{lastip,jdbcType=VARCHAR}, #{logincounts,jdbcType=INTEGER}, #{loginstate,jdbcType=BIT},
+		#{unuse1,jdbcType=NVARCHAR}, #{unuse2,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.his.entity.baseinfo.LoginAccount">
+		insert into LoginAccount
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="loginid != null">
+				LoginID,
+			</if>
+			<if test="loginpassword != null">
+				LoginPassword,
+			</if>
+			<if test="locked != null">
+				Locked,
+			</if>
+			<if test="employee != null">
+				EmpID,
+			</if>
+			<if test="lasttime != null">
+				LastTime,
+			</if>
+			<if test="lastip != null">
+				LastIp,
+			</if>
+			<if test="logincounts != null">
+				LoginCounts,
+			</if>
+			<if test="loginstate != null">
+				LoginState,
+			</if>
+			<if test="unused1 != null">
+				UnUsed1,
+			</if>
+			<if test="unused2 != null">
+				UnUsed2,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="loginid != null">
+				#{loginid,jdbcType=VARCHAR},
+			</if>
+			<if test="loginpassword != null">
+				#{loginpassword,jdbcType=VARCHAR},
+			</if>
+			<if test="locked != null">
+				#{locked,jdbcType=BIT},
+			</if>
+			<if test="employee != null">
+				#{employee.empid,jdbcType=CHAR},
+			</if>
+			<if test="lasttime != null">
+				#{lasttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastip != null">
+				#{lastip,jdbcType=VARCHAR},
+			</if>
+			<if test="logincounts != null">
+				#{logincounts,jdbcType=INTEGER},
+			</if>
+			<if test="loginstate != null">
+				#{loginstate,jdbcType=BIT},
+			</if>
+			<if test="unused1 != null">
+				#{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				#{unused2,jdbcType=NVARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.LoginAccount">
+		update LoginAccount
+		<set>
+			<if test="loginpassword != null">
+				LoginPassword = #{loginpassword,jdbcType=VARCHAR},
+			</if>
+			<if test="locked != null">
+				Locked = #{locked,jdbcType=BIT},
+			</if>
+			<if test="employee != null">
+				EmpID = #{employee.empid,jdbcType=CHAR},
+			</if>
+			<if test="lasttime != null">
+				LastTime = #{lasttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastip != null">
+				LastIp = #{lastip,jdbcType=VARCHAR},
+			</if>
+			<if test="logincounts != null">
+				LoginCounts = #{logincounts,jdbcType=INTEGER},
+			</if>
+			<if test="loginstate != null">
+				LoginState = #{loginstate,jdbcType=BIT},
+			</if>
+			<if test="unused1 != null">
+				UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+			</if>
+		</set>
+		where LoginID = #{loginid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.his.entity.baseinfo.LoginAccount">
+		update LoginAccount
+		set LoginPassword = #{loginpassword,jdbcType=VARCHAR},
+		Locked = #{locked,jdbcType=BIT},
+		EmpID = #{employee.empid,jdbcType=CHAR},
+		LastTime = #{lasttime,jdbcType=TIMESTAMP},
+		LastIp = #{lastip,jdbcType=VARCHAR},
+		LoginCounts = #{logincounts,jdbcType=INTEGER},
+		LoginState = #{loginstate,jdbcType=BIT},
+		UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+		UnUsed2 = #{unused2,jdbcType=NVARCHAR}
+		where LoginID = #{loginid,jdbcType=VARCHAR}
+	</update>
+
+	<select id="findLoginAccount" parameterType="Map" resultMap="BaseResultMap">
+		select * from LoginAccount
+		<where>
+			<if test="loginid!=null and loginid!=''">
+				and LoginID like #{loginid}
+			</if>
+			<if test="empid !=null and empid !=''">
+				and EmpID = #{empid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by LoginID offset ${start} rows fetch next ${size}
+			rows only
+		</if>
+	</select>
+
+	<select id="getLoginValidate" parameterType="Map" resultMap="BaseResultMap">
+		select * from LoginAccount
+		<where>
+			<if test="loginid !=null and loginid !=''">
+				and LoginID = #{loginid}
+			</if>
+			<if test="password !=null and password !=''">
+				and LoginPassword = #{password}
+			</if>
+		</where>
+	</select>
+
+	<select id="getTotalLoginAccount" parameterType="Map"
+		resultType="Long">
+		select count(*) from LoginAccount
+		<where>
+			<if test="loginid !=null and loginid!=''">
+				and LoginID like #{loginid}
+			</if>
+			<if test="empid !=null and empid !=''">
+				and EmpID = #{empid}
+			</if>
+		</where>
+	</select>
+</mapper>

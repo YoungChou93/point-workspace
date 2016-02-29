@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.drugrepo.DrugRepoBackDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.drugrepo.DrugRepoBack">
+		<id column="BackID" property="backid" jdbcType="CHAR" />
+		<result column="StoreID" property="storeid" jdbcType="CHAR" />
+		<result column="InputPrice" property="inputprice" jdbcType="DECIMAL" />
+		<result column="RetailPrice" property="retailprice" jdbcType="DECIMAL" />
+		<result column="LimitTime" property="limittime" jdbcType="DATE" />
+		<result column="BackTime" property="backtime" jdbcType="TIMESTAMP" />
+		<result column="BackState" property="backstate" jdbcType="INTEGER" />
+		<result column="ReturnID" property="returnid" jdbcType="CHAR" />
+		<result column="BackNumber" property="backnumber" jdbcType="DECIMAL" />
+		<result column="BackMemo" property="backmemo" jdbcType="NVARCHAR" />
+
+		<association column="DeptID" property="department"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey"></association>
+		<association column="OriginDrugRoom" property="origindrugroom"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey"></association>
+		<association column="BackEmpID" property="backemp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey"></association>
+		<association column="MedicineID" property="medicine"
+			select="com.his.dao.baseinfo.MedicineBaseInfoDao.selectPartByPrimaryKey"></association>
+		<association column="FactoryID" property="factory"
+			select="com.his.dao.drugrepo.FactoryInfoDao.selectPartByPrimaryKey"></association>
+		<association column="BillCode" property="billcode"
+			select="com.his.dao.drugrepo.BillRecDao.selectByPrimaryKey"></association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		BackID, StoreID, MedicineID, InputPrice, RetailPrice,
+		LimitTime, FactoryID,
+		OriginDrugRoom,
+		DeptID, BackState, ReturnID, BackTime, BackEmpID,
+		BackNumber, BackMemo, BillCode
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from DrugRepoBack
+		where BackID = #{backid,jdbcType=CHAR}
+	</select>
+
+	<select id="selectByMap" parameterType="Map">
+		select * from DrugRepoBack
+		<where>
+			<if test="backid !=null and backid !=''">
+				and BackID=#{backid}
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		DrugRepoBack
+		where BackID = #{backid,jdbcType=CHAR}
+	</delete>
+
+	<delete id="deleteByMap" parameterType="Map">
+		delete from DrugRepoBack
+		<where>
+			<if test="backid !=null and backid !=''">
+				and BackID=#{backid}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.drugrepo.DrugRepoBack">
+		insert into DrugRepoBack
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="backid != null">
+				BackID,
+			</if>
+			<if test="storeid != null">
+				StoreID,
+			</if>
+			<if test="medicine != null">
+				MedicineID,
+			</if>
+			<if test="inputprice != null">
+				InputPrice,
+			</if>
+			<if test="retailprice != null">
+				RetailPrice,
+			</if>
+			<if test="limittime != null">
+				LimitTime,
+			</if>
+			<if test="factory != null">
+				FactoryID,
+			</if>
+			<if test="origindrugroom != null">
+				OriginDrugRoom,
+			</if>
+			<if test="department != null">
+				DeptID,
+			</if>
+		      <if test="backstate != null" >
+		        BackState,
+		      </if>
+			<if test="returnid != null">
+				ReturnID,
+			</if>
+			<if test="backtime != null">
+				BackTime,
+			</if>
+			<if test="backemp != null">
+				BackEmpID,
+			</if>
+			<if test="backnumber != null">
+				BackNumber,
+			</if>
+			<if test="backmemo != null">
+				BackMemo,
+			</if>
+			<if test="billcode != null">
+				BillCode,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="backid != null">
+				#{backid,jdbcType=CHAR},
+			</if>
+			<if test="storeid != null">
+				#{storeid,jdbcType=CHAR},
+			</if>
+			<if test="medicine != null">
+				#{medicine.medicineid,jdbcType=CHAR},
+			</if>
+			<if test="inputprice != null">
+				#{inputprice,jdbcType=DECIMAL},
+			</if>
+			<if test="retailprice != null">
+				#{retailprice,jdbcType=DECIMAL},
+			</if>
+			<if test="limittime != null">
+				#{limittime,jdbcType=DATE},
+			</if>
+			<if test="factory != null">
+				#{factory.factoryid,jdbcType=CHAR},
+			</if>
+			<if test="origindrugroom != null">
+				#{origindrugroom.deptid,jdbcType=CHAR},
+			</if>
+			<if test="department != null">
+				#{department.deptid,jdbcType=CHAR},
+			</if>
+		      <if test="backstate != null" >
+		        #{backstate,jdbcType=INTEGER},
+		      </if>
+			<if test="returnid != null">
+				#{returnid,jdbcType=CHAR},
+			</if>		      
+			<if test="backtime != null">
+				#{backtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="backemp != null">
+				#{backemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="backnumber != null">
+				#{backnumber,jdbcType=DECIMAL},
+			</if>
+			<if test="backmemo != null">
+				#{backmemo,jdbcType=NVARCHAR},
+			</if>
+			<if test="billcode != null">
+				#{billcode.billrecid,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.drugrepo.DrugRepoBack">
+		update DrugRepoBack
+		<set>
+			<if test="storeid != null">
+				StoreID = #{storeid,jdbcType=CHAR},
+			</if>
+			<if test="medicine != null">
+				MedicineID = #{medicine.medicineid,jdbcType=CHAR},
+			</if>
+			<if test="inputprice != null">
+				InputPrice = #{inputprice,jdbcType=DECIMAL},
+			</if>
+			<if test="retailprice != null">
+				RetailPrice = #{retailprice,jdbcType=DECIMAL},
+			</if>
+			<if test="limittime != null">
+				LimitTime = #{limittime,jdbcType=DATE},
+			</if>
+			<if test="factory != null">
+				FactoryID = #{factory.factoryid,jdbcType=CHAR},
+			</if>
+			<if test="origindrugroom != null">
+				OriginDrugRoom =
+				#{origindrugroom.deptid,jdbcType=CHAR},
+			</if>
+			<if test="department != null">
+				DeptID = #{department.deptid,jdbcType=CHAR},
+			</if>
+		      <if test="backstate != null" >
+		        BackState = #{backstate,jdbcType=INTEGER},
+		      </if>
+			<if test="returnid != null">
+				ReturnID = #{returnid,jdbcType=CHAR},
+			</if>		      
+			<if test="backtime != null">
+				BackTime = #{backtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="backemp != null">
+				BackEmpID = #{backemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="backnumber != null">
+				BackNumber = #{backnumber,jdbcType=DECIMAL},
+			</if>
+			<if test="backmemo != null">
+				BackMemo = #{backmemo,jdbcType=NVARCHAR},
+			</if>
+			<if test="billcode != null">
+				BillCode = #{billcode.billrecid,jdbcType=CHAR},
+			</if>
+		</set>
+		where BackID = #{backid,jdbcType=CHAR}
+	</update>
+
+	<select id="findDrugRepoBack" parameterType="Map" resultMap="BaseResultMap">
+		select * from DrugRepoBack
+		<where>
+			<!-- 根据确认认操作员查询入库记录 -->
+			<if test="backempid !=null and backempid !=''">
+				and BackEmpID = #{backempid}
+			</if>
+			<if test="billcode !=null and billcode !=''">
+				and BillCode = #{billcode}
+			</if>
+			<if test="backstate !=null ">
+				and BackState = #{backstate}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by BackID DESC offset ${start} rows fetch next
+			${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalDrugRepoBack" parameterType="Map"
+		resultType="Long">
+		select count(*) from DrugRepoBack
+		<where>
+			<!-- 根据确认认操作员查询入库记录 -->
+			<if test="backempid !=null and backempid !=''">
+				and BackEmpID = #{backempid}
+			</if>
+			<if test="billcode !=null and billcode !=''">
+				and BillCode = #{billcode}
+			</if>
+			<if test="backstate !=null ">
+				and BackState = #{backstate}
+			</if>
+		</where>
+	</select>
+
+	<select id="getMaxID" parameterType="Map"
+		resultType="String">
+		select Max(BackID) from DrugRepoBack
+		<where>
+			<if test="prefix !=null and prefix !=''">
+				and BackID like #{prefix}
+			</if>
+		</where>
+	</select>
+
+	<select id="getBillCode" parameterType="Map"
+		resultType="String">
+		select Max(BillCode) from DrugRepoBack
+		<where>
+			<if test="prefix !=null and prefix !=''">
+				and BillCode like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

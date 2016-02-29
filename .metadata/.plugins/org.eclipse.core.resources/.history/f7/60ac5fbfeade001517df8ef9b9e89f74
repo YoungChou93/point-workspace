@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.drugrepo.DrugRepoOutputDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.drugrepo.DrugRepoOutput">
+		<id column="OutputID" property="outputid" jdbcType="CHAR" />
+		<result column="StoreID" property="storeid" jdbcType="CHAR" />
+		<result column="OutputNumber" property="outputnumber" jdbcType="DECIMAL" />
+		<result column="OutputTime" property="outputtime" jdbcType="TIMESTAMP" />
+		<result column="OutputState" property="outputstate" jdbcType="INTEGER" />
+		<result column="LimitTime" property="limittime" jdbcType="DATE" />
+		<result column="InputPrice" property="inputprice" jdbcType="DECIMAL" />
+		<result column="RetailPrice" property="retailprice" jdbcType="DECIMAL" />
+	    <result column="OutputType" property="outputtype" jdbcType="INTEGER" />
+	    <result column="PlanID" property="planid" jdbcType="CHAR" />	
+
+		<association column="MedicineID" property="medicine"
+			select="com.his.dao.baseinfo.MedicineBaseInfoDao.selectPartByPrimaryKey" />
+		<association column="ExecuteEmpID" property="executeemp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+		<association column="TakeEmpID" property="takeemp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+		<association column="FactoryID" property="factory"
+			select="com.his.dao.drugrepo.FactoryInfoDao.selectPartByPrimaryKey" />
+		<association column="DestDeptID" property="destdept"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey" />
+		<association column="DeptID" property="dept"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey" />
+		<association column="BillCode" property="billcode"
+			select="com.his.dao.drugrepo.BillRecDao.selectByPrimaryKey"></association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		OutputID, StoreID, MedicineID, OutputNumber, OutputTime,
+		ExecuteEmpID,
+		OutputState,
+		DestDeptID, TakeEmpID, BillCode,
+		LimitTime,
+		InputPrice, RetailPrice, FactoryID,
+	    DeptID, OutputType, PlanID
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from DrugRepoOutput
+		where OutputID = #{outputid,jdbcType=CHAR}
+	</select>
+
+	<select id="selectByMap" parameterType="Map">
+		select * from DrugRepoOutput
+		<where>
+			<if test="outputid !=null and outputid !=''">
+				and OutputID = #{outputid}
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		DrugRepoOutput
+		where OutputID = #{outputid,jdbcType=CHAR}
+	</delete>
+
+	<delete id="deleteByMap" parameterType="Map">
+		delete from DrugRepoOutput
+		<where>
+			<if test="outputid !=null and outputid !=''">
+				and OutputID = #{outputid}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.drugrepo.DrugRepoOutput">
+		insert into DrugRepoOutput
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="outputid != null">
+				OutputID,
+			</if>
+			<if test="storeid != null">
+				StoreID,
+			</if>
+			<if test="medicine != null">
+				MedicineID,
+			</if>
+			<if test="outputnumber != null">
+				OutputNumber,
+			</if>
+			<if test="outputtime != null">
+				OutputTime,
+			</if>
+			<if test="executeemp != null">
+				ExecuteEmpID,
+			</if>
+			<if test="outputstate != null">
+				OutputState,
+			</if>
+			<if test="destdept != null">
+				DestDeptID,
+			</if>
+			<if test="takeemp != null">
+				TakeEmpID,
+			</if>
+			<if test="billcode != null">
+				BillCode,
+			</if>
+			<if test="limittime != null">
+				LimitTime,
+			</if>
+			<if test="inputprice != null">
+				InputPrice,
+			</if>
+			<if test="retailprice != null">
+				RetailPrice,
+			</if>
+			<if test="factory != null">
+				FactoryID,
+			</if>
+			<if test="dept != null">
+				DeptID,
+			</if>
+	      <if test="outputtype != null" >
+	        OutputType,
+	      </if>	     
+	      <if test="planid != null" >
+	        PlanID,
+	      </if>	   		
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="outputid != null">
+				#{outputid,jdbcType=CHAR},
+			</if>
+			<if test="storeid != null">
+				#{storeid,jdbcType=CHAR},
+			</if>
+			<if test="medicine != null">
+				#{medicine.medicineid,jdbcType=CHAR},
+			</if>
+			<if test="outputnumber != null">
+				#{outputnumber,jdbcType=DECIMAL},
+			</if>
+			<if test="outputtime != null">
+				#{outputtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="executeemp != null">
+				#{executeemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="outputstate != null">
+				#{outputstate,jdbcType=INTEGER},
+			</if>
+			<if test="destdept != null">
+				#{destdept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="takeemp != null">
+				#{takeemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="billcode != null">
+				#{billcode.billrecid,jdbcType=CHAR},
+			</if>
+			<if test="limittime != null">
+				#{limittime,jdbcType=DATE},
+			</if>
+			<if test="inputprice != null">
+				#{inputprice,jdbcType=DECIMAL},
+			</if>
+			<if test="retailprice != null">
+				#{retailprice,jdbcType=DECIMAL},
+			</if>
+			<if test="factory != null">
+				#{factory.factoryid,jdbcType=CHAR},
+			</if>
+			<if test="dept != null">
+				#{dept.deptid,jdbcType=CHAR},
+			</if>
+	      <if test="outputtype != null" >
+	         #{outputtype,jdbcType=INTEGER},
+	      </if>	     
+	      <if test="planid != null" >
+	        #{planid,jdbcType=CHAR},
+	      </if>	   			
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.drugrepo.DrugRepoOutput">
+		update DrugRepoOutput
+		<set>
+			<if test="storeid != null">
+				StoreID = #{storeid,jdbcType=CHAR},
+			</if>
+			<if test="medicine != null">
+				MedicineID = #{medicine.medicineid,jdbcType=CHAR},
+			</if>
+			<if test="outputnumber != null">
+				OutputNumber = #{outputnumber,jdbcType=DECIMAL},
+			</if>
+			<if test="outputtime != null">
+				OutputTime = #{outputtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="executeemp != null">
+				ExecuteEmpID = #{executeemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="outputstate != null">
+				OutputState = #{outputstate,jdbcType=INTEGER},
+			</if>
+			<if test="destdept != null">
+				DestDeptID =
+				#{destdept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="takeemp != null">
+				TakeEmpID = #{takeemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="billcode != null">
+				BillCode = #{billcode.billrecid,jdbcType=CHAR},
+			</if>
+			<if test="limittime != null">
+				LimitTime = #{limittime,jdbcType=DATE},
+			</if>
+			<if test="inputprice != null">
+				InputPrice = #{inputprice,jdbcType=DECIMAL},
+			</if>
+			<if test="retailprice != null">
+				RetailPrice = #{retailprice,jdbcType=DECIMAL},
+			</if>
+			<if test="factory != null">
+				FactoryID = #{factory.factoryid,jdbcType=CHAR},
+			</if>
+			<if test="dept != null">
+				DeptID = #{dept.deptid,jdbcType=CHAR},
+			</if>
+	      <if test="outputtype != null" >
+	        	OutputType =  #{outputtype,jdbcType=INTEGER},
+	      </if>	     
+	      <if test="planid != null" >
+	       		PlanID = #{planid,jdbcType=CHAR},
+	      </if>	 			
+		</set>
+		where OutputID = #{outputid,jdbcType=CHAR}
+	</update>
+
+	<select id="findDrugRepoOutput" parameterType="Map" resultMap="BaseResultMap">
+		select * from DrugRepoOutput
+		<where>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID = #{deptid}
+			</if>
+			<if test="destdept !=null and destdept !=''">
+				and DestDeptID = #{destdept}
+			</if>
+			<if test="billcode !=null and billcode !=''">
+				and BillCode = #{billcode}
+			</if>
+			<if test="outputstate !=null ">
+				and OutputState = ${outputstate}
+			</if>
+			<if test="executeempid !=null and executeempid !=''">
+				and ExecuteEmpID = #{executeempid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by OutputID offset ${start} rows fetch next ${size}
+			rows only
+		</if>
+	</select>
+
+	<select id="getTotalDrugRepoOutput" parameterType="Map"
+		resultType="Long">
+		select count(*) from DrugRepoOutput
+		<where>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID = #{deptid}
+			</if>
+			<if test="destdept !=null and destdept !=''">
+				and DestDeptID = #{destdept}
+			</if>
+			<if test="billcode !=null and billcode !=''">
+				and BillCode = #{billcode}
+			</if>
+			<if test="outputstate !=null ">
+				and OutputState = ${outputstate}
+			</if>
+			<if test="executeempid !=null and executeempid !=''">
+				and ExecuteEmpID = #{executeempid}
+			</if>
+		</where>
+	</select>
+
+	<select id="getMaxID" parameterType="Map" resultType="String">
+		select MAX(OutputID) from DrugRepoOutput
+		<where>
+			<if test="prefix !=null and prefix !=''">
+				and OutputID like #{prefix}
+			</if>
+		</where>
+	</select>
+
+	<select id="getBillCode" parameterType="Map" resultType="String">
+		select MAX(BillCode) from DrugRepoOutput
+		<where>
+			<if test="prefix !=null and prefix !=''">
+				and BillCode like #{prefix}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getOutputStateByBillCode" parameterType="java.lang.String" resultType="Integer">
+		select top 1 OutputState from DrugRepoOutput where BillCode = #{billcode,jdbcType=CHAR}
+	</select>
+	
+	<select id="getCntByPlanID" parameterType="java.lang.String" resultType="Integer">
+		select count(*) from DrugRepoOutput where OutputType = 0 and PlanID = #{planid,jdbcType=CHAR}
+	</select>
+</mapper>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.baseinfo.DeptOverdraftAmountDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.baseinfo.DeptOverdraftAmount">
+		<id column="ID" property="id" jdbcType="INTEGER" />
+		<result column="IsAllowed" property="isallowed" jdbcType="BIT" />
+		<result column="OverdraftAmount" property="overdraftamount"
+			jdbcType="DECIMAL" />
+		<result column="GroubalMax" property="groubalmax" jdbcType="DECIMAL" />
+
+		<association property="department" column="DeptID"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey"></association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID, IsAllowed, DeptID, OverdraftAmount, GroubalMax
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from DeptOverdraftAmount
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from DeptOverdraftAmount
+		<where>
+			<if test="id !=null and id !=''">
+				and ID=#{id}
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID=#{deptid}
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		DeptOverdraftAmount
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<delete id="deleteByMap" parameterType="Map">
+		delete from DeptOverdraftAmount
+		<where>
+			<if test="id !=null and id !=''">
+				and ID=#{id}
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID=#{deptid}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.baseinfo.DeptOverdraftAmount">
+		insert into DeptOverdraftAmount
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="isallowed != null">
+				IsAllowed,
+			</if>
+			<if test="department != null">
+				DeptID,
+			</if>
+			<if test="overdraftamount != null">
+				OverdraftAmount,
+			</if>
+			<if test="groubalmax != null">
+				GroubalMax,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="isallowed != null">
+				#{isallowed,jdbcType=BIT},
+			</if>
+			<if test="department != null">
+				#{department.deptid,jdbcType=CHAR},
+			</if>
+			<if test="overdraftamount != null">
+				#{overdraftamount,jdbcType=DECIMAL},
+			</if>
+			<if test="groubalmax != null">
+				#{groubalmax,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.DeptOverdraftAmount">
+		update DeptOverdraftAmount
+		<set>
+			<if test="isallowed != null">
+				IsAllowed = #{isallowed,jdbcType=BIT},
+			</if>
+			<if test="department != null">
+				DeptID = #{department.deptid,jdbcType=CHAR},
+			</if>
+			<if test="overdraftamount != null">
+				OverdraftAmount = #{overdraftamount,jdbcType=DECIMAL},
+			</if>
+			<if test="groubalmax != null">
+				GroubalMax = #{groubalmax,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="findDeptOverdraftAmount" parameterType="Map"
+		resultMap="BaseResultMap">
+		select * from DeptOverdraftAmount
+		<where>
+			<if test="id !=null and id !=''">
+				and ID=#{id}
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID=#{deptid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by DeptID DESC offset ${start} rows fetch next
+			${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalDeptOverdraftAmount" parameterType="Map"
+		resultType="Long">
+		select count(*) from DeptOverdraftAmount
+		<where>
+			<if test="id !=null and id !=''">
+				and ID=#{id}
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID=#{deptid}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getMaxID" resultType="Integer">
+		select MAX(ID) from DeptOverdraftAmount
+	</select>
+</mapper>

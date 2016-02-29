@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.outdoctor.PDiagInfoDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.outdoctor.PDiagInfo">
+		<id column="ID" property="id" jdbcType="CHAR" />
+		<result column="ICCardID" property="iccardid" jdbcType="VARCHAR" />
+		<result column="PatientID" property="patientid" jdbcType="CHAR" />
+		<result column="SickDate" property="sickdate" jdbcType="DATE" />
+		<result column="DiagMode" property="diagmode" jdbcType="BIT" />
+		<result column="DiagDate" property="diagdate" jdbcType="TIMESTAMP" />
+
+		<association column="MarkID" property="mark"
+			select="com.his.dao.outpatientmark.BOutpatientMarkDao.selectByPrimaryKey" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID, MarkID, ICCardID, PatientID, SickDate, DiagMode,
+		DiagDate
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from PDiagInfo
+		where ID = #{id,jdbcType=CHAR}
+	</select>
+
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from PDiagInfo
+		<where>
+			<if test="id !=null and id !=''">
+				and ID=#{id}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID=#{iccardid}
+			</if>
+			<if test="patientid !=null and patientid !=''">
+				and PatientID=#{patientid}
+			</if>
+			<if test="markid !=null and markid !=''">
+				and MarkID=#{markid}
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		PDiagInfo
+		where ID = #{id,jdbcType=CHAR}
+	</delete>
+
+	<delete id="deleteByMap" parameterType="Map">
+		delete from PDiagInfo
+		<where>
+			<if test="id !=null and id !=''">
+				and ID=#{id}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID=#{iccardid}
+			</if>
+			<if test="patientid !=null and patientid !=''">
+				and PatientID=#{patientid}
+			</if>
+			<if test="markid !=null and markid !=''">
+				and MarkID=#{markid}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.outdoctor.PDiagInfo">
+		insert into PDiagInfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="mark != null">
+				MarkID,
+			</if>
+			<if test="iccardid != null">
+				ICCardID,
+			</if>
+			<if test="patientid != null">
+				PatientID,
+			</if>
+			<if test="sickdate != null">
+				SickDate,
+			</if>
+			<if test="diagmode != null">
+				DiagMode,
+			</if>
+			<if test="diagdate != null">
+				DiagDate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=CHAR},
+			</if>
+			<if test="mark != null">
+				#{mark.markid,jdbcType=CHAR},
+			</if>
+			<if test="iccardid != null">
+				#{iccardid,jdbcType=VARCHAR},
+			</if>
+			<if test="patientid != null">
+				#{patientid,jdbcType=CHAR},
+			</if>
+			<if test="sickdate != null">
+				#{sickdate,jdbcType=DATE},
+			</if>
+			<if test="diagmode != null">
+				#{diagmode,jdbcType=BIT},
+			</if>
+			<if test="diagdate != null">
+				#{diagdate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.outdoctor.PDiagInfo">
+		update PDiagInfo
+		<set>
+			<if test="mark != null">
+				MarkID = #{mark.markid,jdbcType=CHAR},
+			</if>
+			<if test="iccardid != null">
+				ICCardID = #{iccardid,jdbcType=VARCHAR},
+			</if>
+			<if test="patientid != null">
+				PatientID = #{patientid,jdbcType=CHAR},
+			</if>
+			<if test="sickdate != null">
+				SickDate = #{sickdate,jdbcType=DATE},
+			</if>
+			<if test="diagmode != null">
+				DiagMode = #{diagmode,jdbcType=BIT},
+			</if>
+			<if test="diagdate != null">
+				DiagDate = #{diagdate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=CHAR}
+	</update>
+
+	<select id="findPDiagInfo" parameterType="Map" resultMap="BaseResultMap">
+		select * from PDiagInfo
+		<where>
+			<if test="id !=null and id !=''">
+				and ID=#{id}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID=#{iccardid}
+			</if>
+			<if test="patientid !=null and patientid !=''">
+				and PatientID=#{patientid}
+			</if>
+			<if test="markid !=null and markid !=''">
+				and MarkID=#{markid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by InputID DESC offset ${start} rows fetch next
+			${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalPDiagInfo" parameterType="Map" resultType="Long">
+		select count(*) from PDiagInfo
+		<where>
+			<if test="id !=null and id !=''">
+				and ID=#{id}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID=#{iccardid}
+			</if>
+			<if test="patientid !=null and patientid !=''">
+				and PatientID=#{patientid}
+			</if>
+			<if test="markid !=null and markid !=''">
+				and MarkID=#{markid}
+			</if>
+		</where>
+	</select>
+</mapper>

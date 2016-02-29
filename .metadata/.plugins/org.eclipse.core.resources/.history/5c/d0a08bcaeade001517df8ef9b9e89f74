@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.baseinfo.ExecuteMethodDao">
+  <resultMap id="BaseResultMap" type="com.his.entity.baseinfo.ExecuteMethod" >
+    <id column="MethodID" property="methodid" jdbcType="CHAR" />
+    <result column="MethodName" property="methodname" jdbcType="NVARCHAR" />
+    <result column="IsNeedExecute" property="isneedexecute" jdbcType="BIT" />
+    
+		<association property="serviceitem" column="ServiceItemID"
+			select="com.his.dao.baseinfo.ServiceItemDao.selectByPrimaryKey"></association>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    MethodID, MethodName, IsNeedExecute, ServiceItemID
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ExecuteMethod
+    where MethodID = #{methodid,jdbcType=CHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ExecuteMethod
+    where MethodID = #{methodid,jdbcType=CHAR}
+  </delete>
+
+
+  <insert id="insertSelective" parameterType="com.his.entity.baseinfo.ExecuteMethod" >
+    insert into ExecuteMethod
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="methodid != null" >
+        MethodID,
+      </if>
+      <if test="methodname != null" >
+        MethodName,
+      </if>
+      <if test="isneedexecute != null" >
+        IsNeedExecute,
+      </if>
+      <if test="serviceitem != null" >
+        ServiceItemID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="methodid != null" >
+        #{methodid,jdbcType=CHAR},
+      </if>
+      <if test="methodname != null" >
+        #{methodname,jdbcType=NVARCHAR},
+      </if>
+      <if test="isneedexecute != null" >
+        #{isneedexecute,jdbcType=BIT},
+      </if>
+      <if test="serviceitem != null" >
+        #{serviceitem.serviceitemid,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.ExecuteMethod" >
+    update ExecuteMethod
+    <set >
+      <if test="methodname != null" >
+        MethodName = #{methodname,jdbcType=NVARCHAR},
+      </if>
+      <if test="isneedexecute != null" >
+        IsNeedExecute = #{isneedexecute,jdbcType=BIT},
+      </if>
+      <if test="serviceitem != null" >
+        ServiceItemID = #{serviceitem.serviceitemid,jdbcType=CHAR},
+      </if>
+    </set>
+    where MethodID = #{methodid,jdbcType=CHAR}
+  </update>
+
+	<select id="findExecuteMethod" parameterType="Map" resultMap="BaseResultMap">
+		select * from ExecuteMethod
+		<where>
+			<if test="methodid !=null and methodid !=''">
+				and MethodID = #{methodid}
+			</if>
+			<if test="formid !=null and formid !=''">
+				and MethodID not in (
+					select MethodID from ExecuteMethodDosFormMap where FormID = #{formid}
+				)
+			</if>			
+		</where>
+		<if test="start!=null and size!=null">
+			order by MethodID offset ${start} rows fetch next ${size}
+			rows only
+		</if>
+	</select>
+	
+	<select id="getTotalExecuteMethod" parameterType="Map" resultType="Long">
+		select count(*) from ExecuteMethod
+		<where>
+			<if test="methodid !=null and methodid !=''">
+				and MethodID = #{methodid}
+			</if>
+			<if test="formid !=null and formid !=''">
+				and MethodID not in (
+					select MethodID from ExecuteMethodDosFormMap where FormID = #{formid}
+				)
+			</if>			
+		</where>
+	</select>	
+	
+  <select id="getMaxID" resultType="String" >
+    select MAX(MethodID) from ExecuteMethod
+  </select>	
+</mapper>

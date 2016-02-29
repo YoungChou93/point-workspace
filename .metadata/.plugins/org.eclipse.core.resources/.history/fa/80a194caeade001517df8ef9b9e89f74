@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.baseinfo.ServiceItemDepartmentMapDao">
+	<resultMap id="BaseResultMap"
+		type="com.his.entity.baseinfo.ServiceItemDepartmentMap">
+		<id column="ID" property="id" jdbcType="INTEGER" />
+		<association property="serviceitem" column="ServiceItemID"
+			select="com.his.dao.baseinfo.ServiceItemDao.selectByPrimaryKey"></association>
+		<association property="department" column="DeptID"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey"></association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID, ServiceItemID, DeptID
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from ServiceItemDepartmentMap
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from ServiceItemDepartmentMap
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<delete id="deleteByServiceItemIDAndDeptID" parameterType="Map">
+		delete from ServiceItemDepartmentMap
+		where (ServiceItemID = #{serviceitemid,jdbcType=CHAR}) and (DeptID = #{deptid,jdbcType=CHAR})
+	</delete>
+
+	<delete id="deleteByServiceItemID" parameterType="java.lang.String">
+		delete from ServiceItemDepartmentMap
+		where ServiceItemID = #{serviceitemid,jdbcType=CHAR}
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.baseinfo.ServiceItemDepartmentMap">
+		insert into ServiceItemDepartmentMap
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="serviceitem != null">
+				ServiceItemID,
+			</if>
+			<if test="department != null">
+				DeptID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="serviceitem != null">
+				#{serviceitem.serviceitemid,jdbcType=CHAR},
+			</if>
+			<if test="department != null">
+				#{department.deptid,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="findServiceItemDepartmentMap" parameterType="Map"
+		resultMap="BaseResultMap">
+		select * from ServiceItemDepartmentMap
+		<where>
+			<if test="serviceitemid!=null and serviceitemid!=''">
+				and ServiceItemID=#{serviceitemid}
+			</if>
+			<if test="deptid!=null and deptid!=''">
+				and DeptID=#{deptid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by ID offset ${start} rows fetch next ${size} rows
+			only
+		</if>
+	</select>
+	
+	<select id="getTotalServiceItemDepartmentMap" parameterType="Map" resultType="Long">
+		select count(*) from ServiceItemDepartmentMap
+		<where>
+			<if test="serviceitemid!=null and serviceitemid!=''">
+				and ServiceItemID=#{serviceitemid}
+			</if>
+			<if test="deptid!=null and deptid!=''">
+				and DeptID=#{deptid}
+			</if>
+		</where>
+	</select>
+	
+	<select id="loadDeptID" parameterType="java.lang.String" resultType="String">
+		select DeptID from ServiceItemDepartmentMap
+		where ServiceItemID = #{serviceitemid,jdbcType=CHAR}
+	</select>
+</mapper>

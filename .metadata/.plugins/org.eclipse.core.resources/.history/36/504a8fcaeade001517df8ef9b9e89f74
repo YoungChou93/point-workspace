@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.baseinfo.MedTypeDao" >
+  <resultMap id="BaseResultMap" type="com.his.entity.baseinfo.MedType" >
+    <id column="TypeID" property="typeid" jdbcType="VARCHAR" />
+    <result column="ParentTypeID" property="parenttypeid" jdbcType="VARCHAR" />
+    <result column="TypeName" property="typename" jdbcType="NVARCHAR" />
+    <result column="PyCode" property="pycode" jdbcType="VARCHAR" />
+    <result column="WbCode" property="wbcode" jdbcType="VARCHAR" />
+    <result column="SelfDefCode" property="selfdefcode" jdbcType="VARCHAR" />
+    <result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+    <result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    TypeID, ParentTypeID, TypeName, PyCode, WbCode, SelfDefCode, UnUsed1, UnUsed2
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from MedType
+    where TypeID = #{typeid,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from MedType
+    where TypeID = #{typeid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.his.entity.baseinfo.MedType" >
+    insert into MedType (TypeID, ParentTypeID, TypeName, PyCode, WbCode, SelfDefCode, UnUsed1, UnUsed2)
+    values (#{typeid,jdbcType=VARCHAR}, #{parenttypeid,jdbcType=VARCHAR}, #{typename,jdbcType=NVARCHAR}, #{pycode,jdbcType=VARCHAR}, 
+       #{wbcode,jdbcType=VARCHAR}, #{selfdefcode,jdbcType=VARCHAR}, #{unused1,jdbcType=NVARCHAR},#{unused2,jdbcType=NVARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.his.entity.baseinfo.MedType" >
+    insert into MedType
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="typeid != null" >
+        TypeID,
+      </if>
+      <if test="parenttypeid != null" >
+        ParentTypeID,
+      </if>
+      <if test="typename != null" >
+        TypeName,
+      </if>
+      <if test="pycode != null" >
+        PyCode,
+      </if>
+      <if test="wbcode != null" >
+        WbCode,
+      </if>
+      <if test="selfdefcode != null" >
+        SelfDefCode,
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1,
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="typeid != null" >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="parenttypeid != null" >
+        #{parenttypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="typename != null" >
+        #{typename,jdbcType=NVARCHAR},
+      </if>
+      <if test="pycode != null" >
+        #{pycode,jdbcType=VARCHAR},
+      </if>
+      <if test="wbcode != null" >
+        #{wbcode,jdbcType=VARCHAR},
+      </if>
+      <if test="selfdefcode != null" >
+        #{selfdefcode,jdbcType=VARCHAR},
+      </if>
+      <if test="unused1 != null" >
+        #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        #{unused2,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.MedType" >
+    update MedType
+    <set >
+      <if test="parenttypeid != null" >
+        ParentTypeID = #{parenttypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="typename != null" >
+        TypeName = #{typename,jdbcType=NVARCHAR},
+      </if>
+      <if test="pycode != null" >
+        PyCode = #{pycode,jdbcType=VARCHAR},
+      </if>
+      <if test="wbcode != null" >
+        WbCode = #{wbcode,jdbcType=VARCHAR},
+      </if>
+      <if test="selfdefcode != null" >
+        SelfDefCode = #{selfdefcode,jdbcType=VARCHAR},
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where TypeID = #{typeid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.his.entity.baseinfo.MedType" >
+    update MedType
+    set ParentTypeID = #{parenttypeid,jdbcType=VARCHAR},
+      	TypeName = #{typename,jdbcType=NVARCHAR},
+      	PyCode = #{pycode,jdbcType=VARCHAR},
+      	WbCode = #{wbcode,jdbcType=VARCHAR},
+      	SelfDefCode = #{selfdefcode,jdbcType=VARCHAR},
+      UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      UnUsed2 = #{unused2,jdbcType=NVARCHAR}
+    where TypeID = #{typeid,jdbcType=VARCHAR}
+  </update>
+  
+	  <select id="findMedType" parameterType="Map" resultMap="BaseResultMap">
+		select * from MedType
+		<where>
+			<!-- 按ID查询 -->
+			<if test="typeid!=null and typeid!=''">
+				and TypeID like #{typeid}
+			</if>
+			<if test="name!=null and name!='' ">
+				and TypeName like #{name}
+			</if>
+			<if test="pid!=null and pid!='' ">
+				and ParentTypeID like #{pid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by TypeID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+	
+	<select id="getTotalMedType" parameterType="Map" resultType="Long">
+		select count(*) from MedType
+		<where>
+			<!-- 按ID查询 -->
+			<if test="typeid!=null and typeid!=''">
+				and TypeID like #{typeid}
+			</if>
+			<if test="name!=null and name!='' ">
+				and TypeName like #{name}
+			</if>
+			<if test="pid!=null and pid!='' ">
+				and ParentTypeID like #{pid}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getUnused1Existing" parameterType="Map" resultType="Long">
+		select count(*) from MedType
+		<where>
+			<if test="pid!=null and pid!=''">
+				and ParentTypeID = #{pid}
+			</if>
+			<if test="unused1!=null and unused1!='' ">
+				and UnUsed1 = #{unused1}
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="getMaxMedTypeID" parameterType="Map"
+		resultType="String">
+		select MAX(TypeID) from MedType
+			<where>
+			<!-- 依照前缀搜索 -->
+			<if test="pid!=null and pid!=''">
+				and TypeID like #{pid}
+			</if>
+		</where>
+	</select>
+</mapper>

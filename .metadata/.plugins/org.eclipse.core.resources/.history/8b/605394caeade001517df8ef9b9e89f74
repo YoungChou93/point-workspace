@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.baseinfo.ServiceItemCostDao" >
+  <resultMap id="BaseResultMap" type="com.his.entity.baseinfo.ServiceItemCost" >
+    <id column="CostID" property="costid" jdbcType="CHAR" />
+    <result column="CostName" property="costname" jdbcType="NVARCHAR" />
+    <result column="BeState" property="bestate" jdbcType="INTEGER" />
+    <result column="OutpatientPrice" property="outpatientprice" jdbcType="DECIMAL" />
+    <result column="OutpatientGroupPrice" property="outpatientgroupprice" jdbcType="DECIMAL" />
+    <result column="InhospitalPrice" property="inhospitalprice" jdbcType="DECIMAL" />
+    <result column="InhospitalGroupPrice" property="inhospitalgroupprice" jdbcType="DECIMAL" />
+    <result column="IsLockPrice" property="islockprice" jdbcType="BIT" />
+    <result column="IsActiveOutpatient" property="isactiveoutpatient" jdbcType="BIT" />
+    <result column="IsActiveInhospital" property="isactiveinhospital" jdbcType="BIT" />
+    <result column="IsEqual" property="isequal" jdbcType="BIT" />
+    <result column="Descripting" property="descripting" jdbcType="NVARCHAR" />
+    <result column="PyCode" property="pycode" jdbcType="NVARCHAR" />
+    <result column="WbCode" property="wbcode" jdbcType="NVARCHAR" />
+    <result column="SelfDefCode" property="selfdefcode" jdbcType="NVARCHAR" />
+    <result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+    <result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+    <result column="UnUsed3" property="unused3" jdbcType="NVARCHAR" />
+    
+    <association column="AccountID" property="accountclass"  select="com.his.dao.baseinfo.AccountClassDao.selectByPrimaryKey"></association>
+    <association column="CheckID" property="checkclass"  select="com.his.dao.baseinfo.CheckClassDao.selectByPrimaryKey"></association>
+    <association column="MedicalID" property="medicalclass"  select="com.his.dao.baseinfo.MedicalClassDao.selectByPrimaryKey"></association>
+    <association column="OutpatientID" property="outpatientinvoice"  select="com.his.dao.baseinfo.OutpatientInvoiceDao.selectByPrimaryKey"></association>
+    <association column="HospitalizationID" property="hospitalizationinvoice"  select="com.his.dao.baseinfo.HospitalizationInvoiceDao.selectByPrimaryKey"></association>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    CostID, CostName, BeState, AccountID, CheckID, MedicalID, OutpatientID, HospitalizationID,
+    OutpatientPrice,OutpatientGroupPrice, InhospitalPrice, InhospitalGroupPrice, IsLockPrice, 
+    IsActiveOutpatient, IsActiveInhospital, IsEqual, Descripting, PyCode, WbCode, SelfDefCode, 
+    UnUsed1, UnUsed2, UnUsed3
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ServiceItemCost
+    where CostID = #{costid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ServiceItemCost
+    where CostID = #{costid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.his.entity.baseinfo.ServiceItemCost" >
+    insert into ServiceItemCost (CostID, CostName,
+      BeState, AccountID, CheckID, MedicalID, OutpatientID, HospitalizationID,
+      OutpatientPrice, OutpatientGroupPrice, InhospitalPrice, InhospitalGroupPrice, 
+      IsLockPrice, IsActiveOutpatient, IsActiveInhospital, 
+      IsEqual, Descripting, PyCode, 
+      WbCode, SelfDefCode, UnUsed1, 
+      UnUsed2, UnUsed3)
+    values (#{costid,jdbcType=CHAR}, #{costname,jdbcType=NVARCHAR},
+      #{bestate,jdbcType=INTEGER}, #{accountclass.accountid,jdbcType=VARCHAR}, #{checkclass.checkid,jdbcType=VARCHAR}, #{medicalclass.medicalid,jdbcType=VARCHAR}, 
+      #{outpatientinvoice.outpatientid,jdbcType=VARCHAR}, #{hospitalizationinvoice.hospitalizationid,jdbcType=VARCHAR},
+      #{outpatientprice,jdbcType=DECIMAL}, #{outpatientgroupprice,jdbcType=DECIMAL}, #{inhospitalprice,jdbcType=DECIMAL},#{inhospitalgroupprice,jdbcType=DECIMAL}, 
+      #{islockprice,jdbcType=BIT}, #{isactiveoutpatient,jdbcType=BIT}, #{isactiveinhospital,jdbcType=BIT}, 
+      #{isequal,jdbcType=BIT}, #{descripting,jdbcType=NVARCHAR}, #{pycode,jdbcType=NVARCHAR}, 
+      #{wbcode,jdbcType=NVARCHAR}, #{selfdefcode,jdbcType=NVARCHAR}, #{unused1,jdbcType=NVARCHAR}, 
+      #{unused2,jdbcType=NVARCHAR}, #{unused3,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.his.entity.baseinfo.ServiceItemCost" >
+    insert into ServiceItemCost
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="costid != null" >
+        CostID,
+      </if>
+      <if test="costname != null" >
+        CostName,
+      </if>
+      <if test="bestate != null" >
+        BeState,
+      </if>
+      <if test="accountclass != null" >
+        AccountID,
+      </if>
+      <if test="checkclass != null" >
+        CheckID,
+      </if>
+      <if test="medicalclass != null" >
+        MedicalID,
+      </if>
+      <if test="outpatientinvoice != null" >
+        OutpatientID,
+      </if>
+      <if test="hospitalizationinvoice != null" >
+        HospitalizationID,
+      </if>
+      <if test="outpatientprice != null" >
+        OutpatientPrice,
+      </if>
+      <if test="outpatientgroupprice != null" >
+        OutpatientGroupPrice,
+      </if>
+      <if test="inhospitalprice != null" >
+        InhospitalPrice,
+      </if>
+      <if test="inhospitalgroupprice != null" >
+        InhospitalGroupPrice,
+      </if>
+      <if test="islockprice != null" >
+        IsLockPrice,
+      </if>
+      <if test="isactiveoutpatient != null" >
+        IsActiveOutpatient,
+      </if>
+      <if test="isactiveinhospital != null" >
+        IsActiveInhospital,
+      </if>
+      <if test="isequal != null" >
+        IsEqual,
+      </if>
+      <if test="descripting != null" >
+        Descripting,
+      </if>
+      <if test="pycode != null" >
+        PyCode,
+      </if>
+      <if test="wbcode != null" >
+        WbCode,
+      </if>
+      <if test="selfdefcode != null" >
+        SelfDefCode,
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1,
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2,
+      </if>
+      <if test="unused3 != null" >
+        UnUsed3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="costid != null" >
+        #{costid,jdbcType=CHAR},
+      </if>
+      <if test="costname != null" >
+        #{costname,jdbcType=NVARCHAR},
+      </if>
+      <if test="bestate != null" >
+        #{bestate,jdbcType=INTEGER},
+      </if>
+      <if test="accountclass != null" >
+        #{accountclass.accountid,jdbcType=VARCHAR},
+      </if>
+      <if test="checkclass != null" >
+        #{checkclass.checkid,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalclass != null" >
+        #{medicalclass.medicalid,jdbcType=VARCHAR},
+      </if>
+      <if test="outpatientinvoice != null" >
+        #{outpatientinvoice.outpatientid,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalizationinvoice != null" >
+        #{hospitalizationinvoice.hospitalizationid,jdbcType=VARCHAR},
+      </if>
+      <if test="outpatientprice != null" >
+        #{outpatientprice,jdbcType=DECIMAL},
+      </if>
+      <if test="outpatientgroupprice != null" >
+        #{outpatientgroupprice,jdbcType=DECIMAL},
+      </if>
+      <if test="inhospitalprice != null" >
+        #{inhospitalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="inhospitalgroupprice != null" >
+        #{inhospitalgroupprice,jdbcType=DECIMAL},
+      </if>
+      <if test="islockprice != null" >
+        #{islockprice,jdbcType=BIT},
+      </if>
+      <if test="isactiveoutpatient != null" >
+        #{isactiveoutpatient,jdbcType=BIT},
+      </if>
+      <if test="isactiveinhospital != null" >
+        #{isactiveinhospital,jdbcType=BIT},
+      </if>
+      <if test="isequal != null" >
+        #{isequal,jdbcType=BIT},
+      </if>
+      <if test="descripting != null" >
+        #{descripting,jdbcType=NVARCHAR},
+      </if>
+      <if test="pycode != null" >
+        #{pycode,jdbcType=NVARCHAR},
+      </if>
+      <if test="wbcode != null" >
+        #{wbcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="selfdefcode != null" >
+        #{selfdefcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused1 != null" >
+        #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        #{unused2,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused3 != null" >
+        #{unused3,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.ServiceItemCost" >
+    update ServiceItemCost
+    <set >
+      <if test="costname != null" >
+        CostName = #{costname,jdbcType=NVARCHAR},
+      </if>
+      <if test="bestate != null" >
+        BeState = #{bestate,jdbcType=INTEGER},
+      </if>
+      <if test="checkclass != null" >
+        CheckID = #{checkclass.checkid,jdbcType=VARCHAR},
+      </if>
+      <if test="medicalclass != null" >
+        MedicalID = #{medicalclass.medicalid,jdbcType=VARCHAR},
+      </if>
+      <if test="outpatientinvoice != null" >
+        OutpatientID = #{outpatientinvoice.outpatientid,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalizationinvoice != null" >
+        HospitalizationID = #{hospitalizationinvoice.hospitalizationid,jdbcType=VARCHAR},
+      </if>
+      <if test="outpatientprice != null" >
+        OutpatientPrice = #{outpatientprice,jdbcType=DECIMAL},
+      </if>
+      <if test="outpatientgroupprice != null" >
+        OutpatientGroupPrice = #{outpatientgroupprice,jdbcType=DECIMAL},
+      </if>
+      <if test="inhospitalprice != null" >
+        InhospitalPrice = #{inhospitalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="inhospitalgroupprice != null" >
+        InhospitalGroupPrice = #{inhospitalgroupprice,jdbcType=DECIMAL},
+      </if>
+      <if test="islockprice != null" >
+        IsLockPrice = #{islockprice,jdbcType=BIT},
+      </if>
+      <if test="isactiveoutpatient != null" >
+        IsActiveOutpatient = #{isactiveoutpatient,jdbcType=BIT},
+      </if>
+      <if test="isactiveinhospital != null" >
+        IsActiveInhospital = #{isactiveinhospital,jdbcType=BIT},
+      </if>
+      <if test="isequal != null" >
+        IsEqual = #{isequal,jdbcType=BIT},
+      </if>
+      <if test="descripting != null" >
+        Descripting = #{descripting,jdbcType=NVARCHAR},
+      </if>
+      <if test="pycode != null" >
+        PyCode = #{pycode,jdbcType=NVARCHAR},
+      </if>
+      <if test="wbcode != null" >
+        WbCode = #{wbcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="selfdefcode != null" >
+        SelfDefCode = #{selfdefcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused3 != null" >
+        UnUsed3 = #{unused3,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where CostID = #{costid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.his.entity.baseinfo.ServiceItemCost" >
+    update ServiceItemCost
+    set CostName = #{costname,jdbcType=NVARCHAR},
+      BeState = #{bestate,jdbcType=INTEGER},
+      AccountID = #{accountclass.accountid,jdbcType=VARCHAR},
+      CheckID = #{checkclass.checkid,jdbcType=VARCHAR},
+      MedicalID = #{medicalclass.medicalid,jdbcType=VARCHAR},
+      OutpatientID = #{outpatientinvoice.outpatientid,jdbcType=VARCHAR},
+      HospitalizationID = #{hospitalizationinvoice.hospitalizationid,jdbcType=VARCHAR},
+      OutpatientPrice = #{outpatientprice,jdbcType=DECIMAL},
+      OutpatientGroupPrice = #{outpatientgroupprice,jdbcType=DECIMAL},
+      InhospitalPrice = #{inhospitalprice,jdbcType=DECIMAL},
+      InhospitalGroupPrice = #{inhospitalgroupprice,jdbcType=DECIMAL},
+      IsLockPrice = #{islockprice,jdbcType=BIT},
+      IsActiveOutpatient = #{isactiveoutpatient,jdbcType=BIT},
+      IsActiveInhospital = #{isactiveinhospital,jdbcType=BIT},
+      IsEqual = #{isequal,jdbcType=BIT},
+      Descripting = #{descripting,jdbcType=NVARCHAR},
+      PyCode = #{pycode,jdbcType=NVARCHAR},
+      WbCode = #{wbcode,jdbcType=NVARCHAR},
+      SelfDefCode = #{selfdefcode,jdbcType=NVARCHAR},
+      UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+      UnUsed3 = #{unused3,jdbcType=NVARCHAR}
+    where CostID = #{costid,jdbcType=CHAR}
+  </update>
+  
+  <select id="findServiceItemCost" parameterType="Map" resultMap="BaseResultMap">
+		select * from ServiceItemCost
+		<where>
+			<if test="costname!=null and costname!='' ">
+				and CostName like #{costname}
+			</if>
+			<if test="serviceitemid !=null and serviceitemid !='' ">
+				and CostID in (
+					select CostID from ServiceItemCostMap where ServiceItemID = #{serviceitemid}
+				)
+			</if>			
+		</where>
+		<if test="start!=null and size!=null">
+			order by CostID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+  
+  	<select id="getTotalServiceItemCost" parameterType="Map" resultType="Long">
+		select count(*) from ServiceItemCost
+		<where>
+			<if test="costname!=null and costname!='' ">
+				and CostName like #{costname}
+			</if>
+			<if test="serviceitemid !=null and serviceitemid !='' ">
+				and CostID in (
+					select CostID from ServiceItemCostMap where ServiceItemID = #{serviceitemid}
+				)
+			</if>	
+		</where>
+	</select>
+ 
+  <select id="getMaxServiceItemCostID" parameterType="Map"
+		resultType="String">
+		select MAX(CostID) from ServiceItemCost
+			<where>
+			<!-- 依照前缀搜索 -->
+			<if test="prefix!=null and prefix!=''">
+				and CostID like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.downpublic.TestResultDao" >
+  <resultMap id="BaseResultMap" type="com.his.entity.downpublic.TestResult" >
+    <id column="ResultID" property="resultid" jdbcType="CHAR" />
+    <result column="ResultDescripting" property="resultdescripting" jdbcType="NVARCHAR" />
+    <result column="NormalDescripting" property="normaldescripting" jdbcType="NVARCHAR" />
+    <result column="ResultValue" property="resultvalue" jdbcType="NVARCHAR" />
+    
+    <association column="ApplyID" property="testapply"
+			select="com.his.dao.downpublic.TestApplyDao.selectByPrimaryKey" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ResultID, ResultDescripting, NormalDescripting, ResultValue, ApplyID
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TestResult
+    where ResultID = #{resultid,jdbcType=CHAR}
+  </select>
+  
+  <select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from TestResult
+		<where>
+			<if test="resultid !=null and resultid !=''">
+				and ResultID = #{resultid}
+			</if>
+		</where>
+	</select>
+	
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TestResult
+    where ResultID = #{resultid,jdbcType=CHAR}
+  </delete>
+  
+  <delete id="deleteByMap" parameterType="Map">
+		delete from TestResult
+		<where>
+		    <if test="resultid !=null and resultid !=''">
+				and ResultID = #{resultid}
+			</if>
+			<if test="applyid !=null and applyid !=''">
+				and ApplyID = #{applyid}
+			</if>
+		</where>
+	</delete>
+	
+  <insert id="insertSelective" parameterType="com.his.entity.downpublic.TestResult" >
+    insert into TestResult
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resultid != null" >
+        ResultID,
+      </if>
+      <if test="resultdescripting != null" >
+        ResultDescripting,
+      </if>
+      <if test="normaldescripting != null" >
+        NormalDescripting,
+      </if>
+      <if test="resultvalue != null" >
+        ResultValue,
+      </if>
+      <if test="testapply != null" >
+        ApplyID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resultid != null" >
+        #{resultid,jdbcType=CHAR},
+      </if>
+      <if test="resultdescripting != null" >
+        #{resultdescripting,jdbcType=NVARCHAR},
+      </if>
+      <if test="normaldescripting != null" >
+        #{normaldescripting,jdbcType=NVARCHAR},
+      </if>
+      <if test="resultvalue != null" >
+        #{resultvalue,jdbcType=NVARCHAR},
+      </if>
+      <if test="testapply != null" >
+        #{testapply.applyid,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.downpublic.TestResult" >
+    update TestResult
+    <set >
+      <if test="resultdescripting != null" >
+        ResultDescripting = #{resultdescripting,jdbcType=NVARCHAR},
+      </if>
+      <if test="normaldescripting != null" >
+        NormalDescripting = #{normaldescripting,jdbcType=NVARCHAR},
+      </if>
+      <if test="resultvalue != null" >
+        ResultValue = #{resultvalue,jdbcType=NVARCHAR},
+      </if>
+      <if test="testapply != null" >
+        ApplyID = #{testapply.applyid,jdbcType=CHAR},
+      </if>
+    </set>
+    where ResultID = #{resultid,jdbcType=CHAR}
+  </update>
+  
+  <select id="findTestResult" parameterType="Map" resultMap="BaseResultMap">
+		select * from TestResult
+		<where>
+			<if test="resultid !=null and resultid !=''">
+				and ResultID = #{resultid}
+			</if>
+			<if test="applyid !=null and applyid !=''">
+				and ApplyID = #{applyid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by ResultID offset ${start} rows fetch next
+			${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalTestResult" parameterType="Map"
+		resultType="Long">
+		select count(*) from TestResult
+		<where>
+			<if test="resultid !=null and resultid !=''">
+				and ResultID = #{resultid}
+			</if>
+			<if test="applyid !=null and applyid !=''">
+				and ApplyID = #{applyid}
+			</if>
+		</where>
+	</select>
+
+	<select id="getMaxID" parameterType="Map" resultType="String">
+		select MAX(ResultID) from TestResult
+		<where>
+			<!-- ApplyID -->
+			<if test="prefix!=null and prefix!='' ">
+				and ResultID like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

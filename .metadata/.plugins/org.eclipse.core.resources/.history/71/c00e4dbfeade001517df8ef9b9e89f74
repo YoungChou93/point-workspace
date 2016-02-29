@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.outpatientmark.BOutpatientMarkDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.outpatientmark.BOutpatientMark">
+		<id column="MarkID" property="markid" jdbcType="CHAR" />
+		<result column="Serial1" property="serial1" jdbcType="CHAR" />
+		<result column="Serial2" property="serial2" jdbcType="CHAR" />
+		<result column="MarkDate" property="markdate" jdbcType="TIMESTAMP" />
+		<result column="MarkType" property="marktype" jdbcType="INTEGER" />
+		<result column="MarkMode" property="markmode" jdbcType="INTEGER" />
+		<result column="MarkMethod" property="markmethod" jdbcType="INTEGER" />
+		<result column="MarkState" property="markstate" jdbcType="INTEGER" />
+		<result column="BalanceBillNo" property="balancebillno"
+			jdbcType="VARCHAR" />
+		<result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+		<result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+		<result column="UnUsed3" property="unused3" jdbcType="NVARCHAR" />
+
+		<association column="PatientID" property="patientinfo"
+			select="com.his.dao.iccard.APatientInfoDao.selectByPrimaryKey"></association>
+		<association column="ICCardID" property="iccard"
+			select="com.his.dao.iccard.AICCardDao.selectByPrimaryKey"></association>
+		<association column="PayTypeID" property="paytype"
+			select="com.his.dao.baseinfo.SystemTypeDao.selectPartByPrimaryKey"></association>
+		<association column="ExecuteDeptID" property="executedept"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey"></association>
+		<association column="ExecuteEmpID" property="executeemployee"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey"></association>
+		<association column="MarkEmpID" property="markemployee"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey"></association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		MarkID, PatientID, ICCardID,  PayTypeID, Serial1, Serial2, ExecuteDeptID,
+		ExecuteEmpID,
+		MarkEmpID, MarkDate, MarkType, MarkMode, MarkMethod, MarkState, BalanceBillNo,
+		UnUsed1,
+		UnUsed2, UnUsed3
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from BOutpatientMark
+		where MarkID = #{markid,jdbcType=CHAR}
+	</select>
+	
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from BOutpatientMark
+		<where>
+			<if test="markid !=null and markid !=''">
+				and MarkID like #{markid}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID = #{iccardid}
+			</if>
+			<if test="markstate !=null ">
+				and MarkState = ${markstate}
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from BOutpatientMark
+		where MarkID = #{markid,jdbcType=CHAR}
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.outpatientmark.BOutpatientMark">
+		insert into BOutpatientMark
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="markid != null">
+				MarkID,
+			</if>
+			<if test="patientinfo != null">
+				PatientID,
+			</if>
+			<if test="iccard != null">
+				ICCardID,
+			</if>
+			<if test="paytype != null">
+				PayTypeID,
+			</if>
+			<if test="serial1 != null">
+				Serial1,
+			</if>
+			<if test="serial2 != null">
+				Serial2,
+			</if>
+			<if test="executedept != null">
+				ExecuteDeptID,
+			</if>
+			<if test="executeemployee != null">
+				ExecuteEmpID,
+			</if>
+			<if test="markemployee != null">
+				MarkEmpID,
+			</if>
+			<if test="markdate != null">
+				MarkDate,
+			</if>
+			<if test="marktype != null">
+				MarkType,
+			</if>
+			<if test="markmode != null">
+				MarkMode,
+			</if>
+			<if test="markmethod != null">
+				MarkMethod,
+			</if>
+			<if test="markstate != null">
+				MarkState,
+			</if>
+			<if test="balancebillno != null">
+				BalanceBillNo,
+			</if>
+			<if test="unused1 != null">
+				UnUsed1,
+			</if>
+			<if test="unused2 != null">
+				UnUsed2,
+			</if>
+			<if test="unused3 != null">
+				UnUsed3,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="markid != null">
+				#{markid,jdbcType=CHAR},
+			</if>
+			<if test="patientinfo != null">
+				#{patientinfo.patientid,jdbcType=CHAR},
+			</if>
+			<if test="iccard != null">
+				#{iccard.iccardid,jdbcType=VARCHAR},
+			</if>
+			<if test="paytype != null">
+				#{paytype.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="serial1 != null">
+				#{serial1,jdbcType=CHAR},
+			</if>
+			<if test="serial2 != null">
+				#{serial2,jdbcType=CHAR},
+			</if>
+			<if test="executedept != null">
+				#{executedept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="executeemployee != null">
+				#{executeemployee.empid,jdbcType=CHAR},
+			</if>
+			<if test="markemployee != null">
+				#{markemployee.empid,jdbcType=CHAR},
+			</if>
+			<if test="markdate != null">
+				#{markdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="marktype != null">
+				#{marktype,jdbcType=INTEGER},
+			</if>
+			<if test="markmode != null">
+				#{markmode,jdbcType=INTEGER},
+			</if>
+			<if test="markmethod != null">
+				#{markmethod,jdbcType=INTEGER},
+			</if>
+			<if test="markstate != null">
+				#{markstate,jdbcType=INTEGER},
+			</if>
+			<if test="balancebillno != null">
+				#{balancebillno,jdbcType=VARCHAR},
+			</if>
+			<if test="unused1 != null">
+				#{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				#{unused2,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused3 != null">
+				#{unused3,jdbcType=NVARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.outpatientmark.BOutpatientMark">
+		update BOutpatientMark
+		<set>
+			<if test="patientinfo != null">
+				PatientID = #{patientinfo.patientid,jdbcType=CHAR},
+			</if>
+			<if test="iccard != null">
+				ICCardID = #{iccard.iccardid,jdbcType=VARCHAR},
+			</if>
+			<if test="paytype != null">
+				PayTypeID = #{paytype.typeid,jdbcType=VARCHAR},
+			</if>
+			<if test="serial1 != null">
+				Serial1 = #{serial1,jdbcType=CHAR},
+			</if>
+			<if test="serial2 != null">
+				Serial2 = #{serial2,jdbcType=CHAR},
+			</if>
+			<if test="executedept != null">
+				ExecuteDeptID = #{executedept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="executeemployee != null">
+				ExecuteEmpID = #{executeemployee.empid,jdbcType=CHAR},
+			</if>
+			<if test="markemployee != null">
+				MarkEmpID = #{markemployee.empid,jdbcType=CHAR},
+			</if>
+			<if test="markdate != null">
+				MarkDate = #{markdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="marktype != null">
+				MarkType = #{marktype,jdbcType=INTEGER},
+			</if>
+			<if test="markmode != null">
+				MarkMode = #{markmode,jdbcType=INTEGER},
+			</if>
+			<if test="markmethod != null">
+				MarkMethod = #{markmethod,jdbcType=INTEGER},
+			</if>
+			<if test="markstate != null">
+				MarkState = #{markstate,jdbcType=INTEGER},
+			</if>
+			<if test="balancebillno != null">
+				BalanceBillNo = #{balancebillno,jdbcType=VARCHAR},
+			</if>
+			<if test="unused1 != null">
+				UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused3 != null">
+				UnUsed3 = #{unused3,jdbcType=NVARCHAR},
+			</if>
+		</set>
+		where MarkID = #{markid,jdbcType=CHAR}
+	</update>
+
+	<select id="findBOutpatientMark" parameterType="Map" resultMap="BaseResultMap">
+		select * from BOutpatientMark
+		<where>
+			<if test="markdate !=null and markdate !=''">
+				and MarkID like #{markdate}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID = #{iccardid}
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and ExecuteDeptID = #{deptid}
+			</if>
+			<if test="markstate !=null">
+				and MarkState = ${markstate}
+			</if>
+			<if test="executedeptid !=null and executedeptid !=''">
+				and ExecuteDeptID = #{executedeptid}
+			</if>
+			<if test="markday !=null and markday !=''">
+				and MarkID like #{markday}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by MarkID DESC offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalBOutpatientMark" parameterType="Map"
+		resultType="Long">
+		select count(*) from BOutpatientMark
+		<where>
+			<if test="markdate !=null and markdate !=''">
+				and MarkID like #{markdate}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID = #{iccardid}
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and ExecuteDeptID = #{deptid}
+			</if>
+			<if test="markstate !=null">
+				and MarkState = ${markstate}
+			</if>
+			<if test="executedeptid !=null and executedeptid !=''">
+				and ExecuteDeptID = #{executedeptid}
+			</if>
+			<if test="markday !=null and markday !=''">
+				and MarkID like #{markday}
+			</if>
+		</where>
+	</select>
+	
+	<delete id="deleteByMap" parameterType="Map" >
+		delete  from BOutpatientMark
+		<where>
+			<if test="markid !=null and markid !=''">
+				and MarkID=#{markid}
+			</if>
+		</where>
+	</delete>
+	
+	<select id="getMaxMarkID" parameterType="java.lang.String" resultType="java.lang.String">
+		select MAX(MarkID) from BOutpatientMark where MarkID like #{prefix}
+	</select>
+</mapper>

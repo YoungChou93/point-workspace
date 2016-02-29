@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.downpublic.CheckResultDao" >
+  <resultMap id="BaseResultMap" type="com.his.entity.downpublic.CheckResult" >
+    <id column="ResultID" property="resultid" jdbcType="CHAR" />
+    <result column="ResultDescripting" property="resultdescripting" jdbcType="NVARCHAR" />
+    
+    <association column="ApplyID" property="checkapply"
+			select="com.his.dao.downpublic.CheckApplyDao.selectByPrimaryKey" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ResultID, ResultDescripting, ApplyID
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from CheckResult
+    where ResultID = #{resultid,jdbcType=CHAR}
+  </select>
+  
+  <select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from CheckResult
+		<where>
+			<if test="resultid !=null and resultid !=''">
+				and ResultID = #{resultid}
+			</if>
+		</where>
+	</select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from CheckResult
+    where ResultID = #{resultid,jdbcType=CHAR}
+  </delete>
+  
+  <delete id="deleteByMap" parameterType="Map">
+		delete from CheckResult
+		<where>
+		    <if test="resultid !=null and resultid !=''">
+				and ResultID = #{resultid}
+			</if>
+			<if test="applyid !=null and applyid !=''">
+				and ApplyID = #{applyid}
+			</if>
+		</where>
+	</delete>
+	
+  <insert id="insertSelective" parameterType="com.his.entity.downpublic.CheckResult" >
+    insert into CheckResult
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resultid != null" >
+        ResultID,
+      </if>
+      <if test="resultdescripting != null" >
+        ResultDescripting,
+      </if>
+      <if test="checkapply != null" >
+        ApplyID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resultid != null" >
+        #{resultid,jdbcType=CHAR},
+      </if>
+      <if test="resultdescripting != null" >
+        #{resultdescripting,jdbcType=NVARCHAR},
+      </if>
+      <if test="checkapply != null" >
+        #{checkapply.applyid,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.downpublic.CheckResult" >
+    update CheckResult
+    <set >
+      <if test="resultdescripting != null" >
+        ResultDescripting = #{resultdescripting,jdbcType=NVARCHAR},
+      </if>
+      <if test="checkapply != null" >
+        ApplyID = #{checkapply.applyid,jdbcType=CHAR},
+      </if>
+    </set>
+    where ResultID = #{resultid,jdbcType=CHAR}
+  </update>
+  
+  <select id="findCheckResult" parameterType="Map" resultMap="BaseResultMap">
+		select * from CheckResult
+		<where>
+			<if test="resultid !=null and resultid !=''">
+				and ResultID = #{resultid}
+			</if>
+			<if test="applyid !=null and applyid !=''">
+				and ApplyID = #{applyid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by ResultID offset ${start} rows fetch next
+			${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalCheckResult" parameterType="Map"
+		resultType="Long">
+		select count(*) from CheckResult
+		<where>
+			<if test="resultid !=null and resultid !=''">
+				and ResultID = #{resultid}
+			</if>
+			<if test="applyid !=null and applyid !=''">
+				and ApplyID = #{applyid}
+			</if>
+		</where>
+	</select>
+
+	<select id="getMaxID" parameterType="Map" resultType="String">
+		select MAX(ResultID) from CheckResult
+		<where>
+			<!-- ApplyID -->
+			<if test="prefix!=null and prefix!='' ">
+				and ResultID like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

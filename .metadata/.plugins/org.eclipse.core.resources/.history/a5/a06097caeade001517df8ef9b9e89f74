@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.baseinfo.SkinTestProjectDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.baseinfo.SkinTestProject">
+		<id column="SkinTestID" property="skintestid" jdbcType="VARCHAR" />
+		<result column="SkinTestName" property="skintestname" jdbcType="NVARCHAR" />
+		<result column="PrescribleIfPositive" property="prescribleifpositive"
+			jdbcType="BIT" />
+		<result column="Validity" property="validity" jdbcType="INTEGER" />
+		<result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+		<result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+		<association column="MedicineID" property="medicine"
+			select="com.his.dao.baseinfo.MedicineBaseInfoDao.selectByPrimaryKey"></association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		SkinTestID, SkinTestName, MedicineID, 
+		PrescribleIfPositive,
+		Validity,
+		UnUsed1, UnUsed2
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from SkinTestProject
+		where SkinTestID = #{skintestid,jdbcType=VARCHAR}
+	</select>
+
+	<delete id="delete" parameterType="Map">
+		delete from
+		SkinTestProject
+		<where>
+			<if test="skintestid!=null and skintestid!=''">
+				and SkinTestID = #{skintestid,jdbcType=VARCHAR}
+			</if>
+			<if test="medicineid!=null and medicineid!=''">
+				and MedicineID = #{medicineid,jdbcType=CHAR}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insert" parameterType="com.his.entity.baseinfo.SkinTestProject">
+		insert into SkinTestProject
+		(SkinTestID, SkinTestName, MedicineID,
+		PrescribleIfPositive, Validity,
+		UnUsed1, UnUsed2)
+		values
+		(#{skintestid,jdbcType=VARCHAR}, #{skintestname,jdbcType=NVARCHAR},
+		#{medicine.medicineid,jdbcType=CHAR},
+		#{prescribleifpositive,jdbcType=BIT}, #{validity,jdbcType=INTEGER},
+		#{unused1,jdbcType=NVARCHAR}, #{unused2,jdbcType=NVARCHAR})
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.his.entity.baseinfo.SkinTestProject">
+		insert into SkinTestProject
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="skintestid != null">
+				SkinTestID,
+			</if>
+			<if test="skintestname != null">
+				SkinTestName,
+			</if>
+			<if test="medicine != null">
+				MedicineID,
+			</if>
+			<if test="prescribleifpositive != null">
+				PrescribleIfPositive,
+			</if>
+			<if test="validity != null">
+				Validity,
+			</if>
+			<if test="unused1 != null">
+				UnUsed1,
+			</if>
+			<if test="unused2 != null">
+				UnUsed2,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="skintestid != null">
+				#{skintestid,jdbcType=VARCHAR},
+			</if>
+			<if test="skintestname != null">
+				#{skintestname,jdbcType=NVARCHAR},
+			</if>
+			<if test="medicine != null">
+				#{medicine.medicineid,jdbcType=CHAR},
+			</if>
+			<if test="prescribleifpositive != null">
+				#{prescribleifpositive,jdbcType=BIT},
+			</if>
+			<if test="validity != null">
+				#{validity,jdbcType=INTEGER},
+			</if>
+			<if test="unused1 != null">
+				#{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				#{unused2,jdbcType=NVARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.SkinTestProject">
+		update SkinTestProject
+		<set>
+			<if test="skintestname != null">
+				SkinTestName = #{skintestname,jdbcType=NVARCHAR},
+			</if>
+			<if test="medicine != null">
+				MedicineID = #{medicine.medicineid,jdbcType=CHAR},
+			</if>
+			<if test="prescribleifpositive != null">
+				PrescribleIfPositive =
+				#{prescribleifpositive,jdbcType=BIT},
+			</if>
+			<if test="validity != null">
+				Validity = #{validity,jdbcType=INTEGER},
+			</if>
+			<if test="unused1 != null">
+				UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+			</if>
+		</set>
+		where SkinTestID = #{skintestid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.his.entity.baseinfo.SkinTestProject">
+		update
+		SkinTestProject
+		set SkinTestName = #{skintestname,jdbcType=NVARCHAR},
+		MedicineID = #{medicine.medicineid,jdbcType=CHAR},
+		PrescribleIfPositive =
+		#{prescribleifpositive,jdbcType=BIT},
+		Validity =
+		#{validity,jdbcType=INTEGER},
+		UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+		UnUsed2 = #{unused2,jdbcType=NVARCHAR}
+		where SkinTestID =
+		#{skintestid,jdbcType=VARCHAR}
+	</update>
+
+	<select id="findSkinTestProject" parameterType="Map" resultMap="BaseResultMap">
+		select * from SkinTestProject
+		<where>
+			<!-- 按ID查询 -->
+			<if test="id!=null and id!=''">
+				and SkinTestID like #{id}
+			</if>
+			<!-- 按名称查询 -->
+			<if test="name!=null and name!=''">
+				and SkinTestName like #{name}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by SkinTestID offset ${start} rows fetch next
+			${size}
+			rows only
+		</if>
+	</select>
+
+	<select id="getTotalSkinTestProject" parameterType="Map"
+		resultType="Long">
+		select count(*) from SkinTestProject
+		<where>
+			<if test="name!=null and name!='' ">
+				and SkinTestName like #{name}
+			</if>
+		</where>
+	</select>
+
+	<select id="generateCode" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select max(SkinTestID) from SkinTestProject
+	</select>
+</mapper>

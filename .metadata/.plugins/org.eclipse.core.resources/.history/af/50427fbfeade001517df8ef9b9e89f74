@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.outdoctor.PrescriptionDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.outdoctor.Prescription">
+		<id column="PrescriptionID" property="prescriptionid" jdbcType="CHAR" />
+		<result column="ICCardID" property="iccardid" jdbcType="VARCHAR" />
+		<result column="PatientID" property="patientid" jdbcType="CHAR" />
+		<result column="PrescriptionType" property="prescriptiontype" jdbcType="INTEGER" />
+		<result column="PrescriptionDate" property="prescriptiondate" jdbcType="TIMESTAMP" />
+		<result column="IsFinish" property="isfinish" jdbcType="BIT" />
+		<result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+		<result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+		<result column="UnUsed3" property="unused3" jdbcType="NVARCHAR" />
+
+		<association column="MarkID" property="outpatientmark"
+			select="com.his.dao.outpatientmark.BOutpatientMarkDao.selectByPrimaryKey" />
+		<association column="EmpID" property="employee"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+		<association column="DeptID" property="department"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		PrescriptionID, MarkID, ICCardID,PatientID,PrescriptionType, EmpID, DeptID,
+		PrescriptionDate, IsFinish, UnUsed1, UnUsed2, UnUsed3
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from Prescription
+		where PrescriptionID = #{prescriptionid,jdbcType=CHAR}
+	</select>
+
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from Prescription
+		<where>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID = #{deptid}
+			</if>
+			<if test="empid !=null and empid !=''">
+				and EmpID = #{empid}
+			</if>
+			<if test="markid !=null and markid !=''">
+				and MarkID = #{markid}
+			</if>
+			<if test="isfinish !=null ">
+				and IsFinish = #{isfinish}
+			</if>			
+			<if test="prescriptiontype !=null ">
+				and PrescriptionType = ${prescriptiontype}
+			</if>		
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from Prescription
+		where PrescriptionID = #{prescriptionid,jdbcType=CHAR}
+	</delete>
+
+	<delete id="deleteByMap" parameterType="Map">
+		delete from Prescription
+		<where>
+			<if test="prescriptionid !=null and prescriptionid !=''">
+				and PrescriptionID = #{prescriptionid}
+			</if>
+			<if test="markid !=null and markid !=''">
+				and MarkID = #{markid}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID = #{iccardid}
+			</if>
+			<if test="patientid !=null and patientid !=''">
+				and PatientID = #{patientid}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.outdoctor.Prescription">
+		insert into Prescription
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="prescriptionid != null">
+				PrescriptionID,
+			</if>
+			<if test="outpatientmark != null">
+				MarkID,
+			</if>
+			<if test="iccardid != null">
+				ICCardID,
+			</if>
+			<if test="patientid != null">
+				PatientID,
+			</if>
+			<if test="prescriptiontype != null">
+				PrescriptionType,
+			</if>
+			<if test="employee != null">
+				EmpID,
+			</if>
+			<if test="department != null">
+				DeptID,
+			</if>
+			<if test="prescriptiondate != null">
+				PrescriptionDate,
+			</if>
+			<if test="isfinish != null">
+				IsFinish,
+			</if>
+			<if test="unused1 != null">
+				UnUsed1,
+			</if>
+			<if test="unused2 != null">
+				UnUsed2,
+			</if>
+			<if test="unused3 != null">
+				UnUsed3,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="prescriptionid != null">
+				#{prescriptionid,jdbcType=CHAR},
+			</if>
+			<if test="outpatientmark != null">
+				#{outpatientmark.markid,jdbcType=CHAR},
+			</if>
+			<if test="iccardid != null">
+				#{iccardid,jdbcType=VARCHAR},
+			</if>
+			<if test="patientid != null">
+				#{patientid,jdbcType=CHAR},
+			</if>
+			<if test="prescriptiontype != null">
+				#{prescriptiontype,jdbcType=INTEGER},
+			</if>
+			<if test="employee != null">
+				#{employee.empid,jdbcType=CHAR},
+			</if>
+			<if test="department!= null">
+				#{department.deptid,jdbcType=CHAR},
+			</if>
+			<if test="prescriptiondate != null">
+				#{prescriptiondate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isfinish != null">
+				#{isfinish,jdbcType=BIT},
+			</if>
+			<if test="unused1 != null">
+				#{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				#{unused2,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused3 != null">
+				#{unused3,jdbcType=NVARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.outdoctor.Prescription">
+		update Prescription
+		<set>
+			<if test="outpatientmark != null">
+				MarkID = #{outpatientmark.markid,jdbcType=CHAR},
+			</if>
+			<if test="iccardid != null">
+				ICCardID = #{iccardid,jdbcType=VARCHAR},
+			</if>
+			<if test="patientid != null">
+				PatientID = #{patientid,jdbcType=CHAR},
+			</if>
+			<if test="prescriptiontype != null">
+				PrescriptionType = #{prescriptiontype,jdbcType=INTEGER},
+			</if>
+			<if test="employee != null">
+				EmpID = #{employee.empid,jdbcType=CHAR},
+			</if>
+			<if test="department != null">
+				DeptID = #{department.deptid,jdbcType=CHAR},
+			</if>
+			<if test="prescriptiondate != null">
+				PrescriptionDate = #{prescriptiondate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isfinish != null">
+				IsFinish = #{isfinish,jdbcType=BIT},
+			</if>
+			<if test="unused1 != null">
+				UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused3 != null">
+				UnUsed3 = #{unused3,jdbcType=NVARCHAR},
+			</if>
+		</set>
+		where PrescriptionID = #{prescriptionid,jdbcType=CHAR}
+	</update>
+
+	<select id="findPrescription" parameterType="Map" resultMap="BaseResultMap">
+		select * from Prescription
+		<where>
+			<if test="prescriptionid !=null and prescriptionid !=''">
+				and PrescriptionID = #{prescriptionid}
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID = #{deptid}
+			</if>
+			<if test="empid !=null and empid !=''">
+				and EmpID = #{empid}
+			</if>
+			<if test="markid !=null and markid !=''">
+				and MarkID = #{markid}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID = #{iccardid}
+			</if>
+			<if test="patientid !=null and patientid !=''">
+				and PatientID = #{patientid}
+			</if>
+			<if test="isfinish !=null ">
+				and IsFinish = #{isfinish}
+			</if>			
+			<if test="prescriptiontype !=null ">
+				and PrescriptionType = ${prescriptiontype}
+			</if>		
+		</where>
+		<if test="start!=null and size!=null">
+			order by PrescriptionID offset ${start} rows fetch next
+			${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalPrescription" parameterType="Map"
+		resultType="Long">
+		select count(*) from Prescription
+		<where>
+			<if test="prescriptionid !=null and prescriptionid !=''">
+				and PrescriptionID = #{prescriptionid}
+			</if>
+			<if test="deptid !=null and deptid !=''">
+				and DeptID = #{deptid}
+			</if>
+			<if test="empid !=null and empid !=''">
+				and EmpID = #{empid}
+			</if>
+			<if test="markid !=null and markid !=''">
+				and MarkID = #{markid}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID = #{iccardid}
+			</if>
+			<if test="patientid !=null and patientid !=''">
+				and PatientID = #{patientid}
+			</if>
+			<if test="isfinish !=null ">
+				and IsFinish = #{isfinish}
+			</if>		
+			<if test="prescriptiontype !=null ">
+				and PrescriptionType = ${prescriptiontype}
+			</if>
+		</where>
+	</select>
+
+	<select id="getMaxID" parameterType="Map" resultType="String">
+		select MAX(PrescriptionID) from Prescription
+		<where>
+			<!-- 处方类型+日期 10位 -->
+			<if test="prefix!=null and prefix!='' ">
+				and PrescriptionID like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

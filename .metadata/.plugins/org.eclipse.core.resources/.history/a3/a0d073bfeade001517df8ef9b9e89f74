@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.hospital.HosSkinTestRecordDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.hospital.HosSkinTestRecord">
+		<id column="SerialID" property="serialid" jdbcType="CHAR" />
+		<result column="PatientID" property="patientid" jdbcType="CHAR" />
+		<result column="AdviceID" property="adviceid" jdbcType="CHAR" />
+		<result column="AdviceSerialID" property="adviceserialid"
+			jdbcType="CHAR" />
+		<result column="SkintestTime" property="skintesttime" jdbcType="TIMESTAMP" />
+		<result column="SkintestResult" property="skintestresult"
+			jdbcType="INTEGER" />
+		<result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+		<result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+
+		<association column="HosCode" property="hosregister"
+			select="com.his.dao.hospital.HosRegisterDao.selectByPrimaryKey" />
+
+		<association column="ServiceItemID" property="serviceitem"
+			select="com.his.dao.baseinfo.ServiceItemDao.selectByPrimaryKey" />
+
+		<association column="SourceEmpID" property="sourceemp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+
+		<association column="SourceDeptID" property="sourcedept"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey" />
+
+		<association column="ExecEmpID" property="execemp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+
+		<association column="ExecuteDeptID" property="execdept"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey" />
+
+
+	</resultMap>
+	<sql id="Base_Column_List">
+		SerialID, HosCode, PatientID, AdviceID, AdviceSerialID, ServiceItemID,
+		SourceEmpID,
+		SourceDeptID, ExecuteDeptID, ExecEmpID, SkintestTime, SkintestResult, UnUsed1,
+		UnUsed2
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from HosSkinTestRecord
+		where SerialID = #{serialid,jdbcType=CHAR}
+	</select>
+
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from HosSkinTestRecord
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from HosSkinTestRecord
+		where SerialID = #{serialid,jdbcType=CHAR}
+	</delete>
+
+	<delete id="deleteByMap" parameterType="Map">
+		delete from HosDeptRegister
+		<where>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.hospital.HosSkinTestRecord">
+		insert into HosSkinTestRecord
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="serialid != null">
+				SerialID,
+			</if>
+			<if test="hosregister != null">
+				HosCode,
+			</if>
+			<if test="patientid != null">
+				PatientID,
+			</if>
+			<if test="adviceid != null">
+				AdviceID,
+			</if>
+			<if test="adviceserialid != null">
+				AdviceSerialID,
+			</if>
+			<if test="serviceitem != null">
+				ServiceItemID,
+			</if>
+			<if test="sourceemp != null">
+				SourceEmpID,
+			</if>
+			<if test="sourcedept != null">
+				SourceDeptID,
+			</if>
+			<if test="execdept != null">
+				ExecuteDeptID,
+			</if>
+			<if test="execemp != null">
+				ExecEmpID,
+			</if>
+			<if test="skintesttime != null">
+				SkintestTime,
+			</if>
+			<if test="skintestresult != null">
+				SkintestResult,
+			</if>
+			<if test="unused1 != null">
+				UnUsed1,
+			</if>
+			<if test="unused2 != null">
+				UnUsed2,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="serialid != null">
+				#{serialid,jdbcType=CHAR},
+			</if>
+			<if test="hosregister != null">
+				#{hosregister.hoscode,jdbcType=CHAR},
+			</if>
+			<if test="patientid != null">
+				#{patientid,jdbcType=CHAR},
+			</if>
+			<if test="adviceid != null">
+				#{adviceid,jdbcType=CHAR},
+			</if>
+			<if test="adviceserialid != null">
+				#{adviceserialid,jdbcType=CHAR},
+			</if>
+			<if test="serviceitem != null">
+				#{serviceitem.serviceitemid,jdbcType=CHAR},
+			</if>
+			<if test="sourceemp != null">
+				#{sourceemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="sourcedept != null">
+				#{sourcedept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="execdept != null">
+				#{execdept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="execemp != null">
+				#{execemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="skintesttime != null">
+				#{skintesttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="skintestresult != null">
+				#{skintestresult,jdbcType=INTEGER},
+			</if>
+			<if test="unused1 != null">
+				#{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				#{unused2,jdbcType=NVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.hospital.HosSkinTestRecord">
+		update HosSkinTestRecord
+		<set>
+			<if test="hosregister != null">
+				HosCode = #{hosregister.hoscode,jdbcType=CHAR},
+			</if>
+			<if test="patientid != null">
+				PatientID = #{patientid,jdbcType=CHAR},
+			</if>
+			<if test="adviceid != null">
+				AdviceID = #{adviceid,jdbcType=CHAR},
+			</if>
+			<if test="adviceserialid != null">
+				AdviceSerialID = #{adviceserialid,jdbcType=CHAR},
+			</if>
+			<if test="serviceitem != null">
+				ServiceItemID = #{serviceitem.serviceitemid,jdbcType=CHAR},
+			</if>
+			<if test="sourceemp != null">
+				SourceEmpID = #{sourceemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="sourcedept != null">
+				SourceDeptID = #{sourcedept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="execdept != null">
+				ExecuteDeptID = #{execdept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="execemp != null">
+				ExecEmpID = #{execemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="skintesttime != null">
+				SkintestTime = #{skintesttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="skintestresult != null">
+				SkintestResult = #{skintestresult,jdbcType=INTEGER},
+			</if>
+			<if test="unused1 != null">
+				UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+			</if>
+		</set>
+		where SerialID = #{serialid,jdbcType=CHAR}
+	</update>
+
+	<select id="findHosSkinTestRecord" parameterType="Map"
+		resultMap="BaseResultMap">
+		select * from HosSkinTestRecord
+		<where>
+			<if test="hoscode !=null and hoscode !=''">
+				and HosCode = #{hoscode}
+			</if>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+			<if test="skintesttime !=null and skintesttime !=''">
+				and SerialID like #{skintesttime}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by SerialID offset ${start} rows fetch next
+			${size}
+			rows only
+		</if>
+	</select>
+
+	<select id="getTotalHosSkinTestRecord" parameterType="Map"
+		resultType="Long">
+		select count(*) from HosSkinTestRecord
+		<where>
+		    <if test="hoscode !=null and hoscode !=''">
+				and HosCode = #{hoscode}
+			</if>
+			<if test="serialid !=null and serialid !=''">
+				and SerialID = #{serialid}
+			</if>
+			<if test="skintesttime !=null and skintesttime !=''">
+				and SerialID like #{skintesttime}
+			</if>
+		</where>
+	</select>
+
+	<select id="getSerialID" parameterType="Map" resultType="String">
+		select MAX(SerialID) from HosSkinTestRecord
+		<where>
+			<if test="prefix!=null and prefix!='' ">
+				and SerialID like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

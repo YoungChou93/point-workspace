@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.his.dao.baseinfo.LoginAccountRoleMapDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.baseinfo.LoginAccountRoleMap">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<association property="loginaccount" column="LoginID"
+			select="com.his.dao.baseinfo.LoginAccountDao.selectByPrimaryKey"></association>
+		<association property="role" column="RoleID"
+			select="com.his.dao.baseinfo.RoleDao.selectByPrimaryKey"></association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ID, LoginID, RoleID
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from LoginAccountRoleMap
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		LoginAccountRoleMap
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<delete id="deleteByLoginIDAndRoleID" parameterType="Map">
+		delete from
+		LoginAccountRoleMap
+		where (LoginID = #{loginid,jdbcType=VARCHAR}) and
+		(RoleID = #{roleid,jdbcType=VARCHAR})
+	</delete>
+
+	<delete id="deleteByLoginID" parameterType="java.lang.String">
+		delete from
+		LoginAccountRoleMap
+		where LoginID = #{loginid,jdbcType=VARCHAR}
+	</delete>
+	
+	<delete id="deleteByMap" parameterType="Map" >
+		delete  from LoginAccountRoleMap
+		<where>
+			<if test="loginid !=null and loginid!=''">
+				and LoginID=#{loginid}
+			</if>
+			<if test="roleid !=null and roleid!=''">
+				and RoleID=#{roleid}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.baseinfo.LoginAccountRoleMap">
+		insert into LoginAccountRoleMap
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="loginaccount != null">
+				LoginID,
+			</if>
+			<if test="role != null">
+				RoleID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="loginaccount != null">
+				#{loginaccount.loginid,jdbcType=VARCHAR},
+			</if>
+			<if test="role != null">
+				#{role.roleid,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+
+	<select id="findLoginAccountRoleMap" parameterType="Map"
+		resultMap="BaseResultMap">
+		select * from LoginAccountRoleMap
+		<where>
+			<if test="loginid!=null and loginid!=''">
+				and LoginID=#{loginid}
+			</if>
+			<if test="roleid!=null and roleid!=''">
+				and RoleID=#{roleid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by ID offset ${start} rows fetch next ${size} rows
+			only
+		</if>
+	</select>
+
+	<select id="getTotalLoginAccountRoleMap" parameterType="Map"
+		resultType="Long">
+		select count(*) from LoginAccountRoleMap
+		<where>
+			<if test="loginid!=null and loginid!=''">
+				and LoginID=#{loginid}
+			</if>
+			<if test="roleid!=null and roleid!=''">
+				and RoleID=#{roleid}
+			</if>
+		</where>
+	</select>
+
+</mapper>

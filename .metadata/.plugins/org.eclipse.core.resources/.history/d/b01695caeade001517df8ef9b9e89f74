@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.baseinfo.ServiceItemDao" >
+  <resultMap id="BaseResultMap" type="com.his.entity.baseinfo.ServiceItem" >
+    <id column="ServiceItemID" property="serviceitemid" jdbcType="CHAR" />
+    <result column="ServiceItemName" property="serviceitemname" jdbcType="NVARCHAR" />
+    <result column="ServiceItemGeneralName" property="serviceitemgeneralname" jdbcType="NVARCHAR" />
+    <result column="ServiceItemUnitPrice" property="serviceitemunitprice" jdbcType="DECIMAL" />
+    
+    <result column="MedInsuranceNo" property="medinsuranceno" jdbcType="NVARCHAR" />
+    
+    <result column="InsuranceType1" property="insurancetype1" jdbcType="INTEGER" />
+	<result column="InsuranceType2" property="insurancetype2" jdbcType="INTEGER" />
+	<result column="InsuranceType3" property="insurancetype3" jdbcType="INTEGER" />
+	<result column="RuralCoopType" property="ruralcooptype" jdbcType="INTEGER" />
+    
+    <result column="RuralCoopNo" property="ruralcoopno" jdbcType="NVARCHAR" />
+    <result column="ServiceState" property="servicestate" jdbcType="INTEGER" />
+    <result column="UseScope" property="usescope" jdbcType="NVARCHAR" />
+
+    <result column="PyCode" property="pycode" jdbcType="NVARCHAR" />
+    <result column="WbCode" property="wbcode" jdbcType="NVARCHAR" />
+    <result column="SelfDefCode" property="selfdefcode" jdbcType="NVARCHAR" />
+    <result column="StandardCode" property="standardcode" jdbcType="NVARCHAR" />
+    
+    <result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+    <result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+    <result column="UnUsed3" property="unused3" jdbcType="NVARCHAR" />
+    <result column="UnUsed4" property="unused4" jdbcType="NVARCHAR" />
+    <result column="UnUsed5" property="unused5" jdbcType="NVARCHAR" />
+    
+    <association column="ServiceItemTypeID" property="serviceitemtype"  select="com.his.dao.baseinfo.MedTypeDao.selectByPrimaryKey"></association>
+    <association column="ServiceItemUnit" property="serviceitemunit"  select="com.his.dao.baseinfo.SystemTypeDao.selectPartByPrimaryKey"></association>
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    ServiceItemID, ServiceItemName, ServiceItemGeneralName, ServiceItemUnit, ServiceItemUnitPrice, 
+    ServiceItemTypeID, 
+    MedInsuranceNo, InsuranceType1, InsuranceType2, InsuranceType3, RuralCoopNo, RuralCoopType, ServiceState, UseScope, 
+    PyCode, WbCode, SelfDefCode, StandardCode, UnUsed1, UnUsed2, UnUsed3, 
+    UnUsed4, UnUsed5
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ServiceItem
+    where ServiceItemID = #{serviceitemid,jdbcType=CHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ServiceItem
+    where ServiceItemID = #{serviceitemid,jdbcType=CHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.his.entity.baseinfo.ServiceItem" >
+    insert into ServiceItem (ServiceItemID, ServiceItemName, 
+      ServiceItemGeneralName, ServiceItemUnit, 
+      ServiceItemUnitPrice, ServiceItemTypeID, 
+      MedInsuranceNo, 
+      InsuranceType1, InsuranceType2, InsuranceType3, RuralCoopNo, RuralCoopType, 
+      ServiceState, UseScope, 
+      PyCode, WbCode, SelfDefCode, 
+      StandardCode, UnUsed1, UnUsed2, 
+      UnUsed3, UnUsed4, UnUsed5
+      )
+    values (#{serviceitemid,jdbcType=CHAR}, #{serviceitemname,jdbcType=NVARCHAR}, 
+      #{serviceitemgeneralname,jdbcType=NVARCHAR}, #{serviceitemunit.typeid,jdbcType=NVARCHAR}, 
+      #{serviceitemunitprice,jdbcType=DECIMAL}, #{serviceitemtype.typeid,jdbcType=VARCHAR}, 
+      #{medinsuranceno,jdbcType=NVARCHAR}, 
+      #{insurancetype1,jdbcType=INTEGER},#{insurancetype2,jdbcType=INTEGER},#{insurancetype3,jdbcType=INTEGER},
+      #{ruralcoopno,jdbcType=NVARCHAR}, #{ruralcooptype,jdbcType=INTEGER}, 
+      #{servicestate,jdbcType=INTEGER}, #{usescope,jdbcType=NVARCHAR},  
+      #{pycode,jdbcType=NVARCHAR}, #{wbcode,jdbcType=NVARCHAR}, #{selfdefcode,jdbcType=NVARCHAR}, 
+      #{standardcode,jdbcType=NVARCHAR}, #{unused1,jdbcType=NVARCHAR}, #{unused2,jdbcType=NVARCHAR}, 
+      #{unused3,jdbcType=NVARCHAR}, #{unused4,jdbcType=NVARCHAR}, #{unused5,jdbcType=NVARCHAR}
+      )
+  </insert>
+  
+ <insert id="insertSelective" parameterType="com.his.entity.baseinfo.ServiceItem" >
+    insert into ServiceItem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serviceitemid != null" >
+        ServiceItemID,
+      </if>
+      <if test="serviceitemname != null" >
+        ServiceItemName,
+      </if>
+      <if test="serviceitemgeneralname != null" >
+        ServiceItemGeneralName,
+      </if>
+      <if test="serviceitemunit != null" >
+        ServiceItemUnit,
+      </if>
+      <if test="serviceitemunitprice != null" >
+        ServiceItemUnitPrice,
+      </if>
+      <if test="serviceitemtype != null" >
+        ServiceItemTypeID,
+      </if>
+      <if test="medinsuranceno != null" >
+        MedInsuranceNo,
+      </if>
+      <if test="insurancetype1 != null">
+		InsuranceType1,
+	  </if>
+	  <if test="insurancetype2 != null">
+	    InsuranceType2,
+	  </if>
+	  <if test="insurancetype3 != null">
+	    InsuranceType3,
+	  </if>
+	  <if test="ruralcoopno != null">
+		RuralCoopNo,
+	  </if>
+	  <if test="ruralcooptype != null">
+		RuralCoopType,
+	  </if>
+      <if test="servicestate != null" >
+        ServiceState,
+      </if>
+      <if test="usescope != null" >
+        UseScope,
+      </if>
+      <if test="pycode != null" >
+        PyCode,
+      </if>
+      <if test="wbcode != null" >
+        WbCode,
+      </if>
+      <if test="selfdefcode != null" >
+        SelfDefCode,
+      </if>
+      <if test="standardcode != null" >
+        StandardCode,
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1,
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2,
+      </if>
+      <if test="unused3 != null" >
+        UnUsed3,
+      </if>
+      <if test="unused4 != null" >
+        UnUsed4,
+      </if>
+      <if test="unused5 != null" >
+        UnUsed5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serviceitemid != null" >
+        #{serviceitemid,jdbcType=CHAR},
+      </if>
+      <if test="serviceitemname != null" >
+        #{serviceitemname,jdbcType=NVARCHAR},
+      </if>
+      <if test="serviceitemgeneralname != null" >
+        #{serviceitemgeneralname,jdbcType=NVARCHAR},
+      </if>
+      <if test="serviceitemunit != null" >
+        #{serviceitemunit.typeid,jdbcType=NVARCHAR},
+      </if>
+      <if test="serviceitemunitprice != null" >
+        #{serviceitemunitprice,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceitemtype != null" >
+        #{serviceitemtype.typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="medinsuranceno != null" >
+        #{medinsuranceno,jdbcType=NVARCHAR},
+      </if>
+      <if test="insurancetype1 != null">
+		#{insurancetype1,jdbcType=INTEGER},
+	  </if>
+	  <if test="insurancetype2 != null">
+		#{insurancetype2,jdbcType=INTEGER},
+	  </if>
+	  <if test="insurancetype3 != null">
+		#{insurancetype3,jdbcType=INTEGER},
+	  </if>
+	  <if test="ruralcoopno != null">
+		#{ruralcoopno,jdbcType=NVARCHAR},
+	  </if>
+	  <if test="ruralcooptype != null">
+		#{ruralcooptype,jdbcType=INTEGER},
+	  </if>
+      <if test="servicestate != null" >
+        #{servicestate,jdbcType=INTEGER},
+      </if>
+      <if test="usescope != null" >
+        #{usescope,jdbcType=NVARCHAR},
+      </if>
+      <if test="pycode != null" >
+        #{pycode,jdbcType=NVARCHAR},
+      </if>
+      <if test="wbcode != null" >
+        #{wbcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="selfdefcode != null" >
+        #{selfdefcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="standardcode != null" >
+        #{standardcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused1 != null" >
+        #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        #{unused2,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused3 != null" >
+        #{unused3,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused4 != null" >
+        #{unused4,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused5 != null" >
+        #{unused5,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.ServiceItem" >
+    update ServiceItem
+    <set >
+      <if test="serviceitemname != null" >
+        ServiceItemName = #{serviceitemname,jdbcType=NVARCHAR},
+      </if>
+      <if test="serviceitemgeneralname != null" >
+        ServiceItemGeneralName = #{serviceitemgeneralname,jdbcType=NVARCHAR},
+      </if>
+      <if test="serviceitemunit != null" >
+        ServiceItemUnit = #{serviceitemunit.typeid,jdbcType=NVARCHAR},
+      </if>
+      <if test="serviceitemunitprice != null" >
+        ServiceItemUnitPrice = #{serviceitemunitprice,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceitemtype != null" >
+        ServiceItemTypeID = #{serviceitemtype.typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="accountclass != null" >
+        AccountID = #{accountclass.accountid,jdbcType=VARCHAR},
+      </if>
+      <if test="medinsuranceno != null" >
+        MedInsuranceNo = #{medinsuranceno,jdbcType=NVARCHAR},
+      </if>
+      <if test="insurancetype1 != null">
+	    InsuranceType1 =
+		#{insurancetype1,jdbcType=INTEGER},
+	  </if>
+	  <if test="insurancetype2 != null">
+	    InsuranceType2 =
+		#{insurancetype2,jdbcType=INTEGER},
+	  </if>
+	  <if test="insurancetype3 != null">
+	    InsuranceType3 =
+		#{insurancetype3,jdbcType=INTEGER},
+	  </if>
+	  <if test="ruralcoopno != null">
+		RuralCoopNo = #{ruralcoopno,jdbcType=NVARCHAR},
+	  </if>
+	  <if test="ruralcooptype != null">
+		RuralCoopType = #{ruralcooptype,jdbcType=INTEGER},
+	  </if>
+      <if test="servicestate != null" >
+        ServiceState = #{servicestate,jdbcType=INTEGER},
+      </if>
+      <if test="usescope != null" >
+        UseScope = #{usescope,jdbcType=NVARCHAR},
+      </if>
+      <if test="pycode != null" >
+        PyCode = #{pycode,jdbcType=NVARCHAR},
+      </if>
+      <if test="wbcode != null" >
+        WbCode = #{wbcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="selfdefcode != null" >
+        SelfDefCode = #{selfdefcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="standardcode != null" >
+        StandardCode = #{standardcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused3 != null" >
+        UnUsed3 = #{unused3,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused4 != null" >
+        UnUsed4 = #{unused4,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused5 != null" >
+        UnUsed5 = #{unused5,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ServiceItemID = #{serviceitemid,jdbcType=CHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.his.entity.baseinfo.ServiceItem" >
+    update ServiceItem
+    set ServiceItemName = #{serviceitemname,jdbcType=NVARCHAR},
+      ServiceItemGeneralName = #{serviceitemgeneralname,jdbcType=NVARCHAR},
+      ServiceItemUnit = #{serviceitemunit.typeid,jdbcType=NVARCHAR},
+      ServiceItemUnitPrice = #{serviceitemunitprice,jdbcType=DECIMAL},
+      ServiceItemTypeID = #{serviceitemtype.typeid,jdbcType=VARCHAR},
+      MedInsuranceNo = #{medinsuranceno,jdbcType=NVARCHAR},
+      InsuranceType1 = #{insurancetype1,jdbcType=INTEGER},
+	  InsuranceType2 = #{insurancetype2,jdbcType=INTEGER},
+	  InsuranceType3 = #{insurancetype3,jdbcType=INTEGER},
+	  RuralCoopNo = #{ruralcoopno,jdbcType=NVARCHAR},
+	  RuralCoopType = #{ruralcooptype,jdbcType=INTEGER},
+      ServiceState = #{servicestate,jdbcType=INTEGER},
+      UseScope = #{usescope,jdbcType=NVARCHAR},
+      PyCode = #{pycode,jdbcType=NVARCHAR},
+      WbCode = #{wbcode,jdbcType=NVARCHAR},
+      SelfDefCode = #{selfdefcode,jdbcType=NVARCHAR},
+      StandardCode = #{standardcode,jdbcType=NVARCHAR},
+      UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+      UnUsed3 = #{unused3,jdbcType=NVARCHAR},
+      UnUsed4 = #{unused4,jdbcType=NVARCHAR},
+      UnUsed5 = #{unused5,jdbcType=NVARCHAR}
+    where ServiceItemID = #{serviceitemid,jdbcType=CHAR}
+  </update>
+  
+	<select id="findServiceItem" parameterType="Map" resultMap="BaseResultMap">
+		select * from ServiceItem
+		<where>
+			<if test="serviceitemname !=null and serviceitemname !='' ">
+				and ServiceItemName like #{serviceitemname}
+			</if>
+			<if test="filter !=null and filter !='' ">
+				and ( ServiceItemName like #{filter} or PyCode like #{filter} or
+						WbCode like #{filter} or SelfDefCode like #{filter})
+			</if>
+			<if test="checktype !=null and checktype !='' ">
+				and ServiceItemID in ( 
+					select ServiceItemID from CheckInformationServiceMap where CheckInfID = #{checktype}
+				)
+			</if>
+			<if test="testtype !=null and testtype !='' ">
+				and ServiceItemID in ( 
+					select ServiceItemID from TestInformationServiceMap where TestInfID = #{testtype}
+				)
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by ServiceItemID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+	
+	<select id="getTotalServiceItem" parameterType="Map" resultType="Long">
+		select count(*) from ServiceItem
+		<where>
+			<if test="serviceitemname!=null and serviceitemname!='' ">
+				and ServiceItemName like #{serviceitemname}
+			</if>
+			<if test="filter !=null and filter !='' ">
+				and ( ServiceItemName like #{filter} or PyCode like #{filter} or
+						WbCode like #{filter} or SelfDefCode like #{filter})
+			</if>
+			<if test="checktype !=null and checktype !='' ">
+				and ServiceItemID in ( 
+					select ServiceItemID from CheckInformationServiceMap where CheckInfID = #{checktype}
+				)
+			</if>
+			<if test="testtype !=null and testtype !='' ">
+				and ServiceItemID in ( 
+					select ServiceItemID from TestInformationServiceMap where TestInfID = #{testtype}
+				)
+			</if>
+		</where>
+	</select>
+	
+	<select id="getMaxServiceItemID" parameterType="Map"
+		resultType="String">
+		select MAX(ServiceItemID) from ServiceItem
+			<where>
+			<!-- 依照前缀搜索 -->
+			<if test="prefix!=null and prefix!=''">
+				and ServiceItemID like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

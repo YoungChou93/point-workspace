@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.his.dao.outdoctor.PatientTreatmentDao">
+  <resultMap id="BaseResultMap" type="com.his.entity.outdoctor.PatientTreatment">
+    <id column="PatientTreatmentID" jdbcType="CHAR" property="patienttreatmentid" />
+    <result column="UnUsed1" jdbcType="NVARCHAR" property="unused1" />
+    <result column="UnUsed2" jdbcType="NVARCHAR" property="unused2" />
+    
+    <association column="TreatmentID" property="treatment"
+			select="com.his.dao.baseinfo.TreatmentDao.selectByPrimaryKey" />
+	<association column="MarkID" property="boutpatientmark"
+			select="com.his.dao.outpatientmark.BOutpatientMarkDao.selectByPrimaryKey" />
+    
+  </resultMap>
+  <sql id="Base_Column_List">
+    PatientTreatmentID, MarkID, TreatmentID, UnUsed1, UnUsed2
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PatientTreatment
+    where PatientTreatmentID = #{patienttreatmentid,jdbcType=CHAR}
+  </select>
+  
+   <select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from PatientTreatment
+		<where>
+			<if test="patienttreatmentid !=null and patienttreatmentid !=''">
+				and PatientTreatmentID = #{patienttreatmentid}
+			</if>
+		</where>
+	</select>
+	
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from PatientTreatment
+    where PatientTreatmentID = #{patienttreatmentid,jdbcType=CHAR}
+  </delete>
+  
+  
+  <delete id="deleteByMap" parameterType="Map">
+		delete from PatientTreatment
+		<where>
+			<if test="patienttreatmentid !=null and patienttreatmentid !=''">
+				and PatientTreatmentID = #{patienttreatmentid}
+			</if>
+		</where>
+	</delete>
+ 
+  
+  <insert id="insertSelective" parameterType="com.his.entity.outdoctor.PatientTreatment">
+    insert into PatientTreatment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="patienttreatmentid != null">
+        PatientTreatmentID,
+      </if>
+      <if test="boutpatientmark != null">
+        MarkID,
+      </if>
+      <if test="treatment != null">
+        TreatmentID,
+      </if>
+      <if test="unused1 != null">
+        UnUsed1,
+      </if>
+      <if test="unused2 != null">
+        UnUsed2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="patienttreatmentid != null">
+        #{patienttreatmentid,jdbcType=CHAR},
+      </if>
+      <if test="boutpatientmark != null">
+        #{boutpatientmark.markid,jdbcType=CHAR},
+      </if>
+      <if test="treatment != null">
+        #{treatment.treatmentid,jdbcType=CHAR},
+      </if>
+      <if test="unused1 != null">
+        #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null">
+        #{unused2,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.outdoctor.PatientTreatment">
+    update PatientTreatment
+    <set>
+      <if test="boutpatientmark != null">
+        MarkID = #{boutpatientmark.markid,jdbcType=CHAR},
+      </if>
+      <if test="treatment != null">
+        TreatmentID = #{treatment.treatmentid,jdbcType=CHAR},
+      </if>
+      <if test="unused1 != null">
+        UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null">
+        UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where PatientTreatmentID = #{patienttreatmentid,jdbcType=CHAR}
+  </update>
+  
+    <select id="findTreatment" parameterType="Map" resultMap="BaseResultMap">
+		select * from PatientTreatment
+		<where>
+			<if test="patienttreatmentid!=null and patienttreatmentid!='' ">
+				and PatientTreatmentID like #{patienttreatmentid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by PatientTreatmentID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+  
+ <select id="getTotalTreatment" parameterType="Map"
+		resultType="Long">
+		select count(*) from PatientTreatment
+		<where>
+			<if test="patienttreatmentid !=null and patienttreatmentid !=''">
+				and PatientTreatmentID = #{patienttreatmentid}
+			</if>
+		
+		</where>
+	</select>
+ 
+ 
+  <select id="getMaxTreatmentID" parameterType="Map"
+		resultType="String">
+		select MAX(PatientTreatmentID) from PatientTreatment
+			<where>
+			<!-- 依照前缀搜索 -->
+			<if test="prefix!=null and prefix!=''">
+				and PatientTreatmentID like #{prefix}
+			</if>
+		</where>
+	</select>
+
+</mapper>

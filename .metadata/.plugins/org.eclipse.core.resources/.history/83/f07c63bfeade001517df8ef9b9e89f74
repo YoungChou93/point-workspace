@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.drugroom.DrugRoomCheckDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.drugroom.DrugRoomCheck">
+		<id column="CheckID" property="checkid" jdbcType="CHAR" />
+		<result column="StoreID" property="storeid" jdbcType="CHAR" />
+		<result column="CheckNumber" property="checknumber" jdbcType="DECIMAL" />
+		<result column="AccountNumber" property="accountnumber" jdbcType="DECIMAL" />
+		<result column="CheckTime" property="checktime" jdbcType="TIMESTAMP" />
+		<result column="IsChange" property="ischange" jdbcType="INTEGER" />
+		<result column="CheckState" property="checkstate" jdbcType="INTEGER" />
+		<result column="LimitTime" property="limittime" jdbcType="DATE" />
+		<result column="InputPrice" property="inputprice" jdbcType="DECIMAL" />
+		<result column="RetailPrice" property="retailprice" jdbcType="DECIMAL" />
+
+		<association column="MedicineID" property="medicine"
+			select="com.his.dao.baseinfo.MedicineBaseInfoDao.selectPartByPrimaryKey" />
+		<association column="DeptID" property="dept"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey" />
+		<association column="CheckEmpID" property="checkemp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+		<association column="FactoryID" property="factoryInfo"
+			select="com.his.dao.drugrepo.FactoryInfoDao.selectPartByPrimaryKey" />
+		<association column="DeptID" property="dept"
+			select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey" />				
+	<association column="BillCode" property="billcode"
+		select="com.his.dao.drugrepo.BillRecDao.selectByPrimaryKey"></association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		CheckID, StoreID, MedicineID, CheckNumber, AccountNumber,
+		CheckTime,
+		CheckEmpID,
+		IsChange, CheckState, LimitTime, InputPrice,
+		RetailPrice, FactoryID, DeptID,BillCode
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from DrugRoomCheck
+		where CheckID = #{checkid,jdbcType=CHAR}
+	</select>
+	
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from DrugRoomCheck
+		<where>
+			<if test="checkid !=null and checkid !=''">
+				and CheckID = #{checkid}
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		DrugRoomCheck
+		where CheckID = #{checkid,jdbcType=CHAR}
+	</delete>
+	
+	<delete id="deleteByMap" parameterType="Map">
+		delete from DrugRoomCheck
+		<where>
+			<if test="checkid !=null and checkid !=''">
+				and CheckID = #{checkid}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.drugroom.DrugRoomCheck">
+		insert into DrugRoomCheck
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="checkid != null">
+				CheckID,
+			</if>
+			<if test="storeid != null">
+				StoreID,
+			</if>
+			<if test="medicine != null">
+				MedicineID,
+			</if>
+			<if test="checknumber != null">
+				CheckNumber,
+			</if>
+			<if test="accountnumber != null">
+				AccountNumber,
+			</if>
+			<if test="checktime != null">
+				CheckTime,
+			</if>
+			<if test="checkemp != null">
+				CheckEmpID,
+			</if>
+			<if test="ischange != null">
+				IsChange,
+			</if>
+			<if test="checkstate != null">
+				CheckState,
+			</if>	
+			<if test="limittime != null">
+				LimitTime,
+			</if>
+			<if test="inputprice != null">
+				InputPrice,
+			</if>
+			<if test="retailprice != null">
+				RetailPrice,
+			</if>
+			<if test="factoryInfo != null">
+				FactoryID,
+			</if>
+			<if test="dept != null">
+				DeptID,
+			</if>
+			<if test="billcode != null">
+				BillCode,
+			</if>			
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="checkid != null">
+				#{checkid,jdbcType=CHAR},
+			</if>
+			<if test="storeid != null">
+				#{storeid,jdbcType=CHAR},
+			</if>
+			<if test="medicine != null">
+				#{medicine.medicineid,jdbcType=CHAR},
+			</if>
+			<if test="checknumber != null">
+				#{checknumber,jdbcType=DECIMAL},
+			</if>
+			<if test="accountnumber != null">
+				#{accountnumber,jdbcType=DECIMAL},
+			</if>
+			<if test="checktime != null">
+				#{checktime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="checkemp != null">
+				#{checkemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="ischange != null">
+				#{ischange,jdbcType=INTEGER},
+			</if>
+			<if test="checkstate != null">
+				#{checkstate,jdbcType=INTEGER},
+			</if>
+			<if test="limittime != null">
+				#{limittime,jdbcType=DATE},
+			</if>
+			<if test="inputprice != null">
+				#{inputprice,jdbcType=DECIMAL},
+			</if>
+			<if test="retailprice != null">
+				#{retailprice,jdbcType=DECIMAL},
+			</if>
+			<if test="factoryInfo != null">
+				#{factoryInfo.factoryid,jdbcType=CHAR},
+			</if>
+			<if test="dept != null">
+				#{dept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="billcode != null">
+				#{billcode.billrecid,jdbcType=CHAR},
+			</if>			
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.drugroom.DrugRoomCheck">
+		update DrugRoomCheck
+		<set>
+			<if test="storeid != null">
+				StoreID = #{storeid,jdbcType=CHAR},
+			</if>
+			<if test="medicine != null">
+				MedicineID = #{medicine.medicineid,jdbcType=CHAR},
+			</if>
+			<if test="checknumber != null">
+				CheckNumber = #{checknumber,jdbcType=DECIMAL},
+			</if>
+			<if test="accountnumber != null">
+				AccountNumber = #{accountnumber,jdbcType=DECIMAL},
+			</if>
+			<if test="checktime != null">
+				CheckTime = #{checktime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="checkemp != null">
+				CheckEmpID = #{checkemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="ischange != null">
+				IsChange = #{ischange,jdbcType=INTEGER},
+			</if>
+			<if test="checkstate != null">
+				CheckState = #{checkstate,jdbcType=INTEGER},
+			</if>	
+			<if test="limittime != null">
+				LimitTime = #{limittime,jdbcType=DATE},
+			</if>
+			<if test="inputprice != null">
+				InputPrice = #{inputprice,jdbcType=DECIMAL},
+			</if>
+			<if test="retailprice != null">
+				RetailPrice = #{retailprice,jdbcType=DECIMAL},
+			</if>
+			<if test="factoryInfo != null">
+				FactoryID = #{factoryInfo.factoryid,jdbcType=CHAR},
+			</if>
+			<if test="dept != null">
+				DeptID = #{dept.deptid,jdbcType=CHAR},
+			</if>
+			<if test="billcode != null">
+				BillCode = #{billcode.billrecid,jdbcType=CHAR},
+			</if>			
+		</set>
+		where CheckID = #{checkid,jdbcType=CHAR}
+	</update>
+	
+	<select id="findDrugRoomCheck" parameterType="Map" resultMap="BaseResultMap">
+		select * from DrugRoomCheck
+		<where>
+			<if test="medicineid !=null and medicineid !=''">
+				and MedicineID = #{medicineid}
+			</if>
+			<if test="billcode !=null and billcode !=''">
+				and BillCode = #{billcode}
+			</if>		
+			<if test="deptid !=null and deptid !=''">
+				and DeptID = #{deptid}
+			</if>
+			<if test="checkemp !=null and checkemp !=''">
+				and CheckEmpID = #{checkemp}
+			</if>	
+			<if test="checkstate !=null ">
+				and CheckState = ${checkstate}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by CheckID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalDrugRoomCheck" parameterType="Map"
+		resultType="Long">
+		select count(*) from DrugRoomCheck
+		<where>
+			<if test="medicineid !=null and medicineid !=''">
+				and MedicineID = #{medicineid}
+			</if>
+			<if test="billcode !=null and billcode !=''">
+				and BillCode = #{billcode}
+			</if>		
+			<if test="deptid !=null and deptid !=''">
+				and DeptID = #{deptid}
+			</if>
+			<if test="checkemp !=null and checkemp !=''">
+				and CheckEmpID = #{checkemp}
+			</if>	
+			<if test="checkstate !=null ">
+				and CheckState = ${checkstate}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getMaxCheckID" parameterType="Map"
+		resultType="String">
+		select MAX(CheckID) from DrugRoomCheck
+		<where>
+			<if test="prefix !=null and prefix !=''">
+				and CheckID like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

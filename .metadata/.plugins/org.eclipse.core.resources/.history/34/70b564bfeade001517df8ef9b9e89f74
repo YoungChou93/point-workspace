@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.drugroom.DrugRoomInputDao" >
+
+  <resultMap id="BaseResultMap" type="com.his.entity.drugroom.DrugRoomInput" >
+    <id column="InputID" property="inputid" jdbcType="CHAR" />
+    <result column="InputNumber" property="inputnumber" jdbcType="DECIMAL" />
+    <result column="InputPrice" property="inputprice" jdbcType="DECIMAL" />
+    <result column="RetailPrice" property="retailprice" jdbcType="DECIMAL" />
+    <result column="InputTime" property="inputtime" jdbcType="TIMESTAMP" />
+
+    <result column="InputState" property="inputstate" jdbcType="INTEGER" />
+    <result column="InputType" property="inputtype" jdbcType="INTEGER" />
+    <result column="TransID" property="transid" jdbcType="CHAR" />
+    <result column="OutputID" property="outputid" jdbcType="CHAR" />
+    <result column="LimitTime" property="limittime" jdbcType="DATE" />
+    
+	<association column="ExecuteEmpID" property="executeemp"
+		select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey"></association>
+	<association column="DeptID" property="dept"
+		select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey"></association>
+	<association column="DrugRepoID" property="drugrepo"
+		select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey"></association>
+	<association column="MedicineID" property="medicine"
+		select="com.his.dao.baseinfo.MedicineBaseInfoDao.selectPartByPrimaryKey"></association>
+	<association column="FactoryID" property="factory"
+		select="com.his.dao.drugrepo.FactoryInfoDao.selectPartByPrimaryKey"></association>
+	<association column="BillCode" property="billcode"
+		select="com.his.dao.drugrepo.BillRecDao.selectByPrimaryKey"></association>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    InputID, MedicineID, InputNumber, InputPrice, RetailPrice, InputTime, ExecuteEmpID, 
+    DeptID, DrugRepoID, InputState, InputType, TransID, OutputID, BillCode, LimitTime, FactoryID
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DrugRoomInput
+    where InputID = #{inputid,jdbcType=CHAR}
+  </select>
+  
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from DrugRoomInput
+		<where>
+			<if test="inputid !=null and inputid !=''">
+				and InputID = #{inputid}
+			</if>
+		</where>
+	</select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DrugRoomInput
+    where InputID = #{inputid,jdbcType=CHAR}
+  </delete>
+  
+	<delete id="deleteByMap" parameterType="Map">
+		delete from DrugRoomInput
+		<where>
+			<if test="inputid !=null and inputid !=''">
+				and InputID = #{inputid}
+			</if>
+		</where>
+	</delete>
+  
+  <insert id="insertSelective" parameterType="com.his.entity.drugroom.DrugRoomInput" >
+    insert into DrugRoomInput
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inputid != null" >
+        InputID,
+      </if>
+      <if test="medicine != null" >
+        MedicineID,
+      </if>
+      <if test="inputnumber != null" >
+        InputNumber,
+      </if>
+      <if test="inputprice != null" >
+        InputPrice,
+      </if>
+      <if test="retailprice != null" >
+        RetailPrice,
+      </if>
+      <if test="inputtime != null" >
+        InputTime,
+      </if>
+      <if test="executeemp != null" >
+        ExecuteEmpID,
+      </if>
+      <if test="dept != null" >
+        DeptID,
+      </if>
+      <if test="drugrepo != null" >
+        DrugRepoID,
+      </if>
+      <if test="inputstate != null" >
+        InputState,
+      </if>
+      <if test="inputtype != null" >
+        InputType,
+      </if>
+      <if test="transid != null" >
+        TransID,
+      </if>
+      <if test="outputid != null" >
+        OutputID,
+      </if>
+      <if test="billcode != null" >
+        BillCode,
+      </if>
+      <if test="limittime != null" >
+        LimitTime,
+      </if>
+      <if test="factory != null" >
+        FactoryID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inputid != null" >
+        #{inputid,jdbcType=CHAR},
+      </if>
+      <if test="medicine != null" >
+        #{medicine.medicineid,jdbcType=CHAR},
+      </if>
+      <if test="inputnumber != null" >
+        #{inputnumber,jdbcType=DECIMAL},
+      </if>
+      <if test="inputprice != null" >
+        #{inputprice,jdbcType=DECIMAL},
+      </if>
+      <if test="retailprice != null" >
+        #{retailprice,jdbcType=DECIMAL},
+      </if>
+      <if test="inputtime != null" >
+        #{inputtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="executeemp != null" >
+        #{executeemp.empid,jdbcType=CHAR},
+      </if>
+      <if test="dept != null" >
+        #{dept.deptid,jdbcType=CHAR},
+      </if>
+      <if test="drugrepo != null" >
+        #{drugrepo.deptid,jdbcType=CHAR},
+      </if>
+      <if test="inputstate != null" >
+        #{inputstate,jdbcType=INTEGER},
+      </if>
+      <if test="inputtype != null" >
+        #{inputtype,jdbcType=INTEGER},
+      </if>
+      <if test="transid != null" >
+        #{transid,jdbcType=CHAR},
+      </if>
+      <if test="outputid != null" >
+        #{outputid,jdbcType=CHAR},
+      </if>
+      <if test="billcode != null" >
+        #{billcode.billrecid,jdbcType=CHAR},
+      </if>
+      <if test="limittime != null" >
+        #{limittime,jdbcType=DATE},
+      </if>
+      <if test="factory != null" >
+        #{factory.factoryid,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.drugroom.DrugRoomInput" >
+    update DrugRoomInput
+    <set >
+      <if test="medicine != null" >
+        MedicineID = #{medicine.medicineid,jdbcType=CHAR},
+      </if>
+      <if test="inputnumber != null" >
+        InputNumber = #{inputnumber,jdbcType=DECIMAL},
+      </if>
+      <if test="inputprice != null" >
+        InputPrice = #{inputprice,jdbcType=DECIMAL},
+      </if>
+      <if test="retailprice != null" >
+        RetailPrice = #{retailprice,jdbcType=DECIMAL},
+      </if>
+      <if test="inputtime != null" >
+        InputTime = #{inputtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="executeemp != null" >
+        ExecuteEmpID = #{executeemp.empid,jdbcType=CHAR},
+      </if>
+      <if test="dept != null" >
+        DeptID = #{dept.deptid,jdbcType=CHAR},
+      </if>
+      <if test="drugrepo != null" >
+        DrugRepoID = #{drugrepo.deptid,jdbcType=CHAR},
+      </if>
+      <if test="inputstate != null" >
+        InputState = #{inputstate,jdbcType=INTEGER},
+      </if>
+      <if test="inputtype != null" >
+        InputType = #{inputtype,jdbcType=INTEGER},
+      </if>
+      <if test="transid != null" >
+        TransID = #{transid,jdbcType=CHAR},
+      </if>
+      <if test="outputid != null" >
+        OutputID = #{outputid,jdbcType=CHAR},
+      </if>
+      <if test="billcode != null" >
+        BillCode =  #{billcode.billrecid,jdbcType=CHAR},
+      </if>
+      <if test="limittime != null" >
+        LimitTime = #{limittime,jdbcType=DATE},
+      </if>
+      <if test="factory != null" >
+        FactoryID = #{factory.factoryid,jdbcType=CHAR},
+      </if>
+    </set>
+    where InputID = #{inputid,jdbcType=CHAR}
+  </update>
+ 
+	<select id="findDrugRoomInput" parameterType="Map" resultMap="BaseResultMap">
+		select * from DrugRoomInput
+		<where>
+			<if test="medicineid !=null and medicineid !=''">
+				and MedicineID = #{medicineid}
+			</if>
+			<!-- 根据入库操作员查询入库记录 -->
+			<if test="executeempid !=null and executeempid !=''">
+				and ExecuteEmpID = #{executeempid}
+			</if>
+			<if test="billcode !=null and billcode !=''">
+				and BillCode = #{billcode}
+			</if>
+			<if test="inputstate !=null ">
+				and InputState = #{inputstate}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by InputID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalDrugRoomInput" parameterType="Map"
+		resultType="Long">
+		select count(*) from DrugRoomInput
+		<where>
+			<if test="medicineid !=null and medicineid !=''">
+				and MedicineID = #{medicineid}
+			</if>
+			<!-- 根据入库操作员查询入库记录 -->
+			<if test="executeempid !=null and executeempid !=''">
+				and ExecuteEmpID = #{executeempid}
+			</if>
+			<if test="billcode !=null and billcode !=''">
+				and BillCode = #{billcode}
+			</if>
+			<if test="inputstate !=null ">
+				and InputState = #{inputstate}
+			</if>
+		</where>
+	</select>
+
+	<select id="getMaxID" parameterType="Map" resultType="String">
+		select MAX(InputID) from DrugRoomInput
+		<where>
+			<if test="prefix !=null and prefix !=''">
+				and InputID like #{prefix}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getMaxBillCode" parameterType="Map" resultType="String">
+		select MAX(BillCode) from DrugRoomInput
+		<where>
+			<if test="prefix !=null and prefix !=''">
+				and BillCode like #{prefix}
+			</if>
+		</where>
+	</select>
+	
+</mapper>

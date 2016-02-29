@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.drugrepo.DrugRepoBuyPlanDao" >
+  <resultMap id="BaseResultMap" type="com.his.entity.drugrepo.DrugRepoBuyPlan" >
+    <id column="PlanID" property="planid" jdbcType="CHAR" />
+    <result column="PlanTime" property="plantime" jdbcType="TIMESTAMP" />
+    <result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+    <result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+    <result column="UnUsed3" property="unused3" jdbcType="NVARCHAR" />
+    
+    <association column="PlanEmpID" property="planemployee"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey"></association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PlanID, PlanEmpID, PlanTime, UnUsed1, UnUsed2, UnUsed3
+  </sql>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DrugRepoBuyPlan
+    where PlanID = #{planid,jdbcType=CHAR}
+  </delete>
+  
+  <delete id="deleteByMap" parameterType="Map" >
+		delete  from DrugRepoBuyPlan
+		<where>
+			<if test="planid !=null and planid !=''">
+				and PlanID=#{planid}
+			</if>
+		</where>
+  </delete>
+	
+  <insert id="insertSelective" parameterType="com.his.entity.drugrepo.DrugRepoBuyPlan" >
+    insert into DrugRepoBuyPlan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="planid != null" >
+        PlanID,
+      </if>
+      <if test="planemployee != null" >
+        PlanEmpID,
+      </if>
+      <if test="plantime != null" >
+        PlanTime,
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1,
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2,
+      </if>
+      <if test="unused3 != null" >
+        UnUsed3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="planid != null" >
+        #{planid,jdbcType=CHAR},
+      </if>
+      <if test="planemployee != null" >
+        #{planemployee.empid,jdbcType=CHAR},
+      </if>
+      <if test="plantime != null" >
+        #{plantime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="executeemployee != null" >
+        #{executeemployee.empid,jdbcType=CHAR},
+      </if>
+      <if test="executetime != null" >
+        #{executetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unused1 != null" >
+        #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        #{unused2,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused3 != null" >
+        #{unused3,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>	
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DrugRepoBuyPlan
+    where PlanID = #{planid,jdbcType=CHAR}
+  </select>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.drugrepo.DrugRepoBuyPlan" >
+    update DrugRepoBuyPlan
+    <set >
+      <if test="planemployee != null" >
+        PlanEmpID = #{planemployee.empid,jdbcType=CHAR},
+      </if>
+      <if test="plantime != null" >
+        PlanTime = #{plantime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+      </if>
+      <if test="unused3 != null" >
+        UnUsed3 = #{unused3,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where PlanID = #{planid,jdbcType=CHAR}
+  </update>
+  
+  <select id="findDrugRepoBuyPlan" parameterType="Map" resultMap="BaseResultMap">
+		select * from DrugRepoBuyPlan
+		<where>
+		<!-- 根据计划创建人查询采购计划 -->
+			<if test="planempid !=null and planempid !=''">
+				and PlanEmpID like #{planempid}
+			</if>
+			<if test="planid !=null and planid !=''">
+				and PlanID like #{planid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by PlanID DESC offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalDrugRepoBuyPlan" parameterType="Map"
+		resultType="Long">
+		select count(*) from DrugRepoBuyPlan
+		<where>
+			<if test="planempid !=null and planempid !=''">
+				and PlanEmpID like #{planempid}
+			</if>
+			<if test="planid !=null and planid !=''">
+				and PlanID like #{planid}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getMaxDrugRepoBuyPlanID" parameterType="java.lang.String" resultType="String">
+		select Max(PlanID) from DrugRepoBuyPlan where PlanID like #{dtime}
+	</select>
+</mapper>

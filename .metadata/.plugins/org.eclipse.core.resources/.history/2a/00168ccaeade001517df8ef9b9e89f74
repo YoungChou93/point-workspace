@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.baseinfo.FrequencyDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.baseinfo.Frequency">
+		<id column="FrequencyID" property="frequencyid" jdbcType="CHAR" />
+		<result column="FrequencyName" property="frequencyname"
+			jdbcType="NVARCHAR" />
+		<result column="DayRate" property="dayrate" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		FrequencyID, FrequencyName, DayRate
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from Frequency
+		where FrequencyID = #{frequencyid,jdbcType=CHAR}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from Frequency
+		where FrequencyID = #{frequencyid,jdbcType=CHAR}
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.his.entity.baseinfo.Frequency">
+		insert into Frequency
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="frequencyid != null">
+				FrequencyID,
+			</if>
+			<if test="frequencyname != null">
+				FrequencyName,
+			</if>
+			<if test="dayrate != null">
+				DayRate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="frequencyid != null">
+				#{frequencyid,jdbcType=CHAR},
+			</if>
+			<if test="frequencyname != null">
+				#{frequencyname,jdbcType=NVARCHAR},
+			</if>
+			<if test="dayrate != null">
+				#{dayrate,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.Frequency">
+		update Frequency
+		<set>
+			<if test="frequencyname != null">
+				FrequencyName = #{frequencyname,jdbcType=NVARCHAR},
+			</if>
+			<if test="dayrate != null">
+				DayRate = #{dayrate,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where FrequencyID = #{frequencyid,jdbcType=CHAR}
+	</update>
+
+	<select id="findFrequency" parameterType="Map" resultMap="BaseResultMap">
+		select * from Frequency
+		<if test="start!=null and size!=null">
+			order by FrequencyID offset ${start} rows fetch next ${size}
+			rows only
+		</if>
+	</select>
+	
+	<select id="getTotalFrequency" parameterType="Map" resultType="Long">
+		select count(*) from Frequency
+	</select>
+	
+  <select id="getMaxID" resultType="String" >
+    select MAX(FrequencyID) from Frequency
+  </select>		
+
+</mapper>

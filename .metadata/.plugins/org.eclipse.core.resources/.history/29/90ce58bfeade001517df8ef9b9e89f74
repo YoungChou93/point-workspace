@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.iccard.APatientInfoDao">
+	<resultMap id="BaseResultMap" type="com.his.entity.iccard.APatientInfo">
+		<id column="PatientID" property="patientid" jdbcType="CHAR" />
+		<result column="Name" property="name" jdbcType="NVARCHAR" />
+		<result column="Birthday" property="birthday" jdbcType="DATE" />
+		<result column="Sex" property="sex" jdbcType="BIT" />
+		<result column="IsActive" property="isactive" jdbcType="BIT" />
+		<result column="Relation" property="relation" jdbcType="VARCHAR" />
+		<result column="ParentID" property="parentid" jdbcType="VARCHAR" />
+		<result column="HealthCode" property="healthcode" jdbcType="NVARCHAR" />
+		<result column="IDType" property="idtype" jdbcType="NVARCHAR" />
+		<result column="IDCode" property="idcode" jdbcType="CHAR" />
+		<result column="MedicalCardNum" property="medicalcardnum"
+			jdbcType="VARCHAR" />
+		<result column="Married" property="married" jdbcType="BIT" />
+		<result column="Education" property="education" jdbcType="INTEGER" />
+		<result column="Nationality" property="nationality" jdbcType="INTEGER" />
+		<result column="Politic" property="politic" jdbcType="INTEGER" />
+		<result column="Religion" property="religion" jdbcType="INTEGER" />
+		<result column="NativePlace" property="nativeplace" jdbcType="NVARCHAR" />
+		<result column="Job" property="job" jdbcType="NVARCHAR" />
+		<result column="Workplace" property="workplace" jdbcType="NVARCHAR" />
+		<result column="HomeAddress" property="homeaddress" jdbcType="NVARCHAR" />
+		<result column="PostalCode" property="postalcode" jdbcType="CHAR" />
+		<result column="Mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="Tel" property="tel" jdbcType="VARCHAR" />
+		<result column="ContactName" property="contactname" jdbcType="NVARCHAR" />
+		<result column="Relationship" property="relationship" jdbcType="NVARCHAR" />
+		<result column="ContactMobile" property="contactmobile"
+			jdbcType="VARCHAR" />
+		<result column="ContactAddress" property="contactaddress"
+			jdbcType="NVARCHAR" />
+		<result column="Descripting" property="descripting" jdbcType="NVARCHAR" />
+		<result column="RegDate" property="regdate" jdbcType="DATE" />
+		<result column="TrueDate" property="truedate" jdbcType="DATE" />
+		<result column="FalseDate" property="falsedate" jdbcType="DATE" />
+		<result column="UpdateDate" property="updatedate" jdbcType="TIMESTAMP" />
+		<result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+		<result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+
+		<association column="ICCardID" property="iccard"
+			select="com.his.dao.iccard.AICCardDao.selectByPrimaryKey" />
+		<association column="EmpID" property="regemp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+		<association column="UpdateEmpID" property="updateemp"
+			select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		PatientID, ICCardID, Name, Birthday, Sex, IsActive,
+		Relation, ParentID,
+		HealthCode,
+		IDType, IDCode, MedicalCardNum, Married,
+		Education, Nationality, Politic,
+		Religion,
+		NativePlace, Job, Workplace,
+		HomeAddress, PostalCode, Mobile, Tel, ContactName,
+		Relationship,
+		ContactMobile, ContactAddress, Descripting, EmpID, RegDate, TrueDate,
+		FalseDate,
+		UpdateDate, UpdateEmpID, UnUsed1, UnUsed2
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from APatientInfo
+		where PatientID = #{patientid,jdbcType=CHAR}
+	</select>
+	
+	<select id="selectByICCardID" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select <include refid="Base_Column_List" /> from APatientInfo
+		where ICCardID = #{iccardid,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		APatientInfo
+		where PatientID = #{patientid,jdbcType=CHAR}
+	</delete>
+	<insert id="insertSelective" parameterType="com.his.entity.iccard.APatientInfo">
+		insert into APatientInfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="patientid != null">
+				PatientID,
+			</if>
+			<if test="iccard != null">
+				ICCardID,
+			</if>
+			<if test="name != null">
+				Name,
+			</if>
+			<if test="birthday != null">
+				Birthday,
+			</if>
+			<if test="sex != null">
+				Sex,
+			</if>
+			<if test="isactive != null">
+				IsActive,
+			</if>
+			<if test="relation != null">
+				Relation,
+			</if>
+			<if test="parentid != null">
+				ParentID,
+			</if>
+			<if test="healthcode != null">
+				HealthCode,
+			</if>
+			<if test="idtype != null">
+				IDType,
+			</if>
+			<if test="idcode != null">
+				IDCode,
+			</if>
+			<if test="medicalcardnum != null">
+				MedicalCardNum,
+			</if>
+			<if test="married != null">
+				Married,
+			</if>
+			<if test="education != null">
+				Education,
+			</if>
+			<if test="nationality != null">
+				Nationality,
+			</if>
+			<if test="politic != null">
+				Politic,
+			</if>
+			<if test="religion != null">
+				Religion,
+			</if>
+			<if test="nativeplace != null">
+				NativePlace,
+			</if>
+			<if test="job != null">
+				Job,
+			</if>
+			<if test="workplace != null">
+				Workplace,
+			</if>
+			<if test="homeaddress != null">
+				HomeAddress,
+			</if>
+			<if test="postalcode != null">
+				PostalCode,
+			</if>
+			<if test="mobile != null">
+				Mobile,
+			</if>
+			<if test="tel != null">
+				Tel,
+			</if>
+			<if test="contactname != null">
+				ContactName,
+			</if>
+			<if test="relationship != null">
+				Relationship,
+			</if>
+			<if test="contactmobile != null">
+				ContactMobile,
+			</if>
+			<if test="contactaddress != null">
+				ContactAddress,
+			</if>
+			<if test="descripting != null">
+				Descripting,
+			</if>
+			<if test="regemp != null">
+				EmpID,
+			</if>
+			<if test="regdate != null">
+				RegDate,
+			</if>
+			<if test="truedate != null">
+				TrueDate,
+			</if>
+			<if test="falsedate != null">
+				FalseDate,
+			</if>
+			<if test="updatedate != null">
+				UpdateDate,
+			</if>
+			<if test="updateemp != null">
+				UpdateEmpID,
+			</if>
+			<if test="unused1 != null">
+				UnUsed1,
+			</if>
+			<if test="unused2 != null">
+				UnUsed2,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="patientid != null">
+				#{patientid,jdbcType=CHAR},
+			</if>
+			<if test="iccard != null">
+				#{iccard.iccardid,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=NVARCHAR},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=DATE},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=BIT},
+			</if>
+			<if test="isactive != null">
+				#{isactive,jdbcType=BIT},
+			</if>
+			<if test="relation != null">
+				#{relation,jdbcType=VARCHAR},
+			</if>
+			<if test="parentid != null">
+				#{parentid,jdbcType=VARCHAR},
+			</if>
+			<if test="healthcode != null">
+				#{healthcode,jdbcType=NVARCHAR},
+			</if>
+			<if test="idtype != null">
+				#{idtype,jdbcType=NVARCHAR},
+			</if>
+			<if test="idcode != null">
+				#{idcode,jdbcType=CHAR},
+			</if>
+			<if test="medicalcardnum != null">
+				#{medicalcardnum,jdbcType=VARCHAR},
+			</if>
+			<if test="married != null">
+				#{married,jdbcType=BIT},
+			</if>
+			<if test="education != null">
+				#{education,jdbcType=INTEGER},
+			</if>
+			<if test="nationality != null">
+				#{nationality,jdbcType=INTEGER},
+			</if>
+			<if test="politic != null">
+				#{politic,jdbcType=INTEGER},
+			</if>
+			<if test="religion != null">
+				#{religion,jdbcType=INTEGER},
+			</if>
+			<if test="nativeplace != null">
+				#{nativeplace,jdbcType=NVARCHAR},
+			</if>
+			<if test="job != null">
+				#{job,jdbcType=NVARCHAR},
+			</if>
+			<if test="workplace != null">
+				#{workplace,jdbcType=NVARCHAR},
+			</if>
+			<if test="homeaddress != null">
+				#{homeaddress,jdbcType=NVARCHAR},
+			</if>
+			<if test="postalcode != null">
+				#{postalcode,jdbcType=CHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="contactname != null">
+				#{contactname,jdbcType=NVARCHAR},
+			</if>
+			<if test="relationship != null">
+				#{relationship,jdbcType=NVARCHAR},
+			</if>
+			<if test="contactmobile != null">
+				#{contactmobile,jdbcType=VARCHAR},
+			</if>
+			<if test="contactaddress != null">
+				#{contactaddress,jdbcType=NVARCHAR},
+			</if>
+			<if test="descripting != null">
+				#{descripting,jdbcType=NVARCHAR},
+			</if>
+			<if test="regemp != null">
+				#{regemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="regdate != null">
+				#{regdate,jdbcType=DATE},
+			</if>
+			<if test="truedate != null">
+				#{truedate,jdbcType=DATE},
+			</if>
+			<if test="falsedate != null">
+				#{falsedate,jdbcType=DATE},
+			</if>
+			<if test="updatedate != null">
+				#{updatedate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateemp != null">
+				#{updateemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="unused1 != null">
+				#{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				#{unused2,jdbcType=NVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.his.entity.iccard.APatientInfo">
+		update APatientInfo
+		<set>
+			<if test="iccard != null">
+				ICCardID = #{iccard.iccardid,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				Name = #{name,jdbcType=NVARCHAR},
+			</if>
+			<if test="birthday != null">
+				Birthday = #{birthday,jdbcType=DATE},
+			</if>
+			<if test="sex != null">
+				Sex = #{sex,jdbcType=BIT},
+			</if>
+			<if test="isactive != null">
+				IsActive = #{isactive,jdbcType=BIT},
+			</if>
+			<if test="relation != null">
+				Relation = #{relation,jdbcType=VARCHAR},
+			</if>
+			<if test="parentid != null">
+				ParentID = #{parentid,jdbcType=CHAR},
+			</if>
+			<if test="healthcode != null">
+				HealthCode = #{healthcode,jdbcType=NVARCHAR},
+			</if>
+			<if test="idtype != null">
+				IDType = #{idtype,jdbcType=NVARCHAR},
+			</if>
+			<if test="idcode != null">
+				IDCode = #{idcode,jdbcType=CHAR},
+			</if>
+			<if test="medicalcardnum != null">
+				MedicalCardNum = #{medicalcardnum,jdbcType=VARCHAR},
+			</if>
+			<if test="married != null">
+				Married = #{married,jdbcType=BIT},
+			</if>
+			<if test="education != null">
+				Education = #{education,jdbcType=INTEGER},
+			</if>
+			<if test="nationality != null">
+				Nationality = #{nationality,jdbcType=INTEGER},
+			</if>
+			<if test="politic != null">
+				Politic = #{politic,jdbcType=INTEGER},
+			</if>
+			<if test="religion != null">
+				Religion = #{religion,jdbcType=INTEGER},
+			</if>
+			<if test="nativeplace != null">
+				NativePlace = #{nativeplace,jdbcType=NVARCHAR},
+			</if>
+			<if test="job != null">
+				Job = #{job,jdbcType=NVARCHAR},
+			</if>
+			<if test="workplace != null">
+				Workplace = #{workplace,jdbcType=NVARCHAR},
+			</if>
+			<if test="homeaddress != null">
+				HomeAddress = #{homeaddress,jdbcType=NVARCHAR},
+			</if>
+			<if test="postalcode != null">
+				PostalCode = #{postalcode,jdbcType=CHAR},
+			</if>
+			<if test="mobile != null">
+				Mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				Tel = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="contactname != null">
+				ContactName = #{contactname,jdbcType=NVARCHAR},
+			</if>
+			<if test="relationship != null">
+				Relationship = #{relationship,jdbcType=NVARCHAR},
+			</if>
+			<if test="contactmobile != null">
+				ContactMobile = #{contactmobile,jdbcType=VARCHAR},
+			</if>
+			<if test="contactaddress != null">
+				ContactAddress = #{contactaddress,jdbcType=NVARCHAR},
+			</if>
+			<if test="descripting != null">
+				Descripting = #{descripting,jdbcType=NVARCHAR},
+			</if>
+			<if test="regemp != null">
+				EmpID = #{regemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="regdate != null">
+				RegDate = #{regdate,jdbcType=DATE},
+			</if>
+			<if test="truedate != null">
+				TrueDate = #{truedate,jdbcType=DATE},
+			</if>
+			<if test="falsedate != null">
+				FalseDate = #{falsedate,jdbcType=DATE},
+			</if>
+			<if test="updatedate != null">
+				UpdateDate = #{updatedate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateemp != null">
+				UpdateEmpID = #{updateemp.empid,jdbcType=CHAR},
+			</if>
+			<if test="unused1 != null">
+				UnUsed1 = #{unused1,jdbcType=NVARCHAR},
+			</if>
+			<if test="unused2 != null">
+				UnUsed2 = #{unused2,jdbcType=NVARCHAR},
+			</if>
+		</set>
+		where PatientID = #{patientid,jdbcType=CHAR}
+	</update>
+
+	<select id="findAPatientInfo" parameterType="Map" resultMap="BaseResultMap">
+		select * from APatientInfo
+		<where>
+			<if test="empid!=null and empid!=''">
+				and EmpID = #{empid}
+			</if>
+			<if test="name!=null and name!=''">
+				and Name like #{name}
+			</if>
+			<if test="idtype!=null and idtype!=''">
+				and IDType = #{idtype}
+			</if>
+			<if test="idcode!=null and idcode!=''">
+				and IDCode = #{idcode}
+			</if>
+			<if test="iccardid !=null and iccardid !=''">
+				and ICCardID like #{iccardid}
+			</if>
+			<if test="check !=null">
+				and ICCardID is not null
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by PatientID offset ${start} rows fetch next ${size}
+			rows only
+		</if>
+	</select>
+
+	<select id="getTotalAPatientInfo" parameterType="Map"
+		resultType="Long">
+		select count(*) from APatientInfo
+		<where>
+			<if test="empid!=null and empid!=''"> and
+				EmpID = #{empid}
+			</if>
+			<if test="idtype!=null and idtype!=''">
+				and IDType = #{idtype}
+			</if>
+			<if test="idcode!=null and idcode!=''">
+				and IDCode = #{idcode}
+			</if>
+		</where>
+	</select>
+
+	<select id="generateCode" resultType="String">
+		select MAX(PatientID)
+		from
+		APatientInfo
+	</select>
+
+	<select id="getAPatientInfo" parameterType="Map" resultMap="BaseResultMap">
+		select * from APatientInfo
+		<where>
+			<if test="idtype!=null and idtype!=''">
+				and IDType = #{idtype}
+			</if>
+			<if test="idcode!=null and idcode!=''">
+				and IDCode = #{idcode}
+			</if>
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.his.dao.baseinfo.EmployeeDao">
+  <resultMap id="BaseResultMap" type="com.his.entity.baseinfo.Employee">
+    <id column="EmpID" jdbcType="CHAR" property="empid" />
+    <result column="EmpName" jdbcType="NVARCHAR" property="empname" />
+    <result column="IDCode" jdbcType="CHAR" property="idcode" />
+    <result column="DocID" jdbcType="NVARCHAR" property="docid" />
+    <result column="ContractID" jdbcType="NVARCHAR" property="contractid" />
+    <result column="Birthday" jdbcType="DATE" property="birthday" />
+    
+    <result column="Sex" jdbcType="BIT" property="sex" />
+    <result column="Married" jdbcType="BIT" property="married" />
+    <result column="Education" jdbcType="INTEGER" property="education" />
+    <result column="Nationality" jdbcType="INTEGER" property="nationality" />
+    <result column="Politic" jdbcType="INTEGER" property="politic" />
+    <result column="Religion" jdbcType="INTEGER" property="religion" />
+    
+    <result column="NativePlace" jdbcType="NVARCHAR" property="nativeplace" />
+    <result column="EmpAddress" jdbcType="NVARCHAR" property="empaddress" />
+    <result column="PostalCode" jdbcType="VARCHAR" property="postalcode" />
+    <result column="Tel" jdbcType="VARCHAR" property="tel" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="HomePage" jdbcType="VARCHAR" property="homepage" />
+    <result column="QQ" jdbcType="VARCHAR" property="qq" />
+    
+    <result column="EmpResume" jdbcType="NVARCHAR" property="empresume" />
+    <result column="Photo" jdbcType="VARCHAR" property="photo" />
+    <result column="PyCode" jdbcType="NVARCHAR" property="pycode" />
+    <result column="WbCode" jdbcType="NVARCHAR" property="wbcode" />
+    <result column="LastModifyTime" jdbcType="TIMESTAMP" property="lastmodifytime" />
+    <result column="LeadDcotor" jdbcType="VARCHAR" property="leaddcotor" />
+    
+    <result column="IsActive" jdbcType="BIT" property="isactive" />
+    <result column="Title" jdbcType="INTEGER" property="title" />
+    <result column="Prescrible" jdbcType="BIT" property="prescrible" />
+    <result column="Drug" jdbcType="BIT" property="drug" />
+    <result column="Narcotic" jdbcType="BIT" property="narcotic" />
+    <result column="Psychotropic" jdbcType="BIT" property="psychotropic" />
+    
+    <result column="UnUsed1" property="unused1" jdbcType="NVARCHAR" />
+    <result column="UnUsed2" property="unused2" jdbcType="NVARCHAR" />
+    <association column="EmpType" property="emptype"
+			select="com.his.dao.baseinfo.SystemTypeDao.selectPartByPrimaryKey" />
+  </resultMap>
+  
+  <resultMap id="PartResultMap" type="com.his.entity.baseinfo.EmployeePart">
+    <id column="EmpID" jdbcType="CHAR" property="empid" />
+    <result column="EmpName" jdbcType="NVARCHAR" property="empname" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    EmpID, EmpName, IDCode, DocID, ContractID, Birthday, 
+    Sex, Married, Education, Nationality, Politic, Religion, 
+    NativePlace, EmpAddress, PostalCode, Tel, Email, HomePage, QQ, 
+    EmpResume, Photo, PyCode, WbCode, LastModifyTime, LeadDcotor,
+    IsActive, EmpType, Title, Prescrible,  Drug, Narcotic, Psychotropic,
+    UnUsed1, UnUsed2
+  </sql>
+  
+    <sql id="Part_Column_List">
+    EmpID, EmpName
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Employee
+    where EmpID = #{empid,jdbcType=CHAR}
+  </select>
+  
+  <select id="selectPartByPrimaryKey" parameterType="java.lang.String" resultMap="PartResultMap">
+    select 
+    <include refid="Part_Column_List" />
+    from Employee
+    where EmpID = #{empid,jdbcType=CHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from Employee
+    where EmpID = #{empid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.his.entity.baseinfo.Employee">
+    insert into Employee (EmpID, EmpName,
+      IDCode, DocID, ContractID, 
+      Birthday, Sex, Married, Education, 
+      Nationality, Politic, Religion, 
+      NativePlace, EmpAddress, PostalCode, 
+      Tel, Email, HomePage, 
+      QQ, EmpResume, Photo, 
+      PyCode, WbCode, LastModifyTime, 
+      IsActive, EmpType, Title, 
+      Prescrible, LeadDcotor, Drug, 
+      Narcotic, Psychotropic)
+    values (#{empid,jdbcType=VARCHAR}, #{empname,jdbcType=NVARCHAR}, 
+      #{idcode,jdbcType=CHAR}, #{docid,jdbcType=NVARCHAR}, #{contractid,jdbcType=NVARCHAR}, 
+      #{birthday,jdbcType=DATE}, #{sex,jdbcType=BIT}, #{married,jdbcType=BIT}, #{education,jdbcType=NVARCHAR}, 
+      #{nationality,jdbcType=NVARCHAR}, #{politic,jdbcType=NVARCHAR}, #{religion,jdbcType=NVARCHAR}, 
+      #{nativeplace,jdbcType=NVARCHAR}, #{empaddress,jdbcType=NVARCHAR}, #{postalcode,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{homepage,jdbcType=VARCHAR}, 
+      #{qq,jdbcType=VARCHAR}, #{empresume,jdbcType=NVARCHAR}, #{photo,jdbcType=VARCHAR}, 
+      #{pycode,jdbcType=NVARCHAR}, #{wbcode,jdbcType=NVARCHAR}, #{lastmodifytime,jdbcType=TIMESTAMP}, 
+      #{isactive,jdbcType=BIT}, #{emptype.typeid,jdbcType=INTEGER}, #{title,jdbcType=NVARCHAR}, 
+      #{prescrible,jdbcType=INTEGER}, #{leaddcotor,jdbcType=VARCHAR}, #{drug,jdbcType=BIT}, 
+      #{narcotic,jdbcType=BIT}, #{psychotropic,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.his.entity.baseinfo.Employee">
+    insert into Employee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="empid != null">
+        EmpID,
+      </if>
+      <if test="empname != null">
+        EmpName,
+      </if>
+     
+      <if test="idcode != null">
+        IDCode,
+      </if>
+      <if test="docid != null">
+        DocID,
+      </if>
+      <if test="contractid != null">
+        ContractID,
+      </if>
+      <if test="birthday != null">
+        Birthday,
+      </if>
+      <if test="sex != null">
+        Sex,
+      </if>
+      <if test="married != null">
+        Married,
+      </if>
+      <if test="education != null">
+        Education,
+      </if>
+      <if test="nationality != null">
+        Nationality,
+      </if>
+      <if test="politic != null">
+        Politic,
+      </if>
+      <if test="religion != null">
+        Religion,
+      </if>
+      <if test="nativeplace != null">
+        NativePlace,
+      </if>
+      <if test="empaddress != null">
+        EmpAddress,
+      </if>
+      <if test="postalcode != null">
+        PostalCode,
+      </if>
+      <if test="tel != null">
+        Tel,
+      </if>
+      <if test="email != null">
+        Email,
+      </if>
+      <if test="homepage != null">
+        HomePage,
+      </if>
+      <if test="qq != null">
+        QQ,
+      </if>
+      <if test="empresume != null">
+        EmpResume,
+      </if>
+      <if test="photo != null">
+        Photo,
+      </if>
+      <if test="pycode != null">
+        PyCode,
+      </if>
+      <if test="wbcode != null">
+        WbCode,
+      </if>
+      <if test="lastmodifytime != null">
+        LastModifyTime,
+      </if>
+      <if test="isactive != null">
+        IsActive,
+      </if>
+      <if test="emptype != null">
+        EmpType,
+      </if>
+      <if test="title != null">
+        Title,
+      </if>
+      <if test="prescrible != null">
+        Prescrible,
+      </if>
+      <if test="leaddcotor != null">
+        LeadDcotor,
+      </if>
+      <if test="drug != null">
+        Drug,
+      </if>
+      <if test="narcotic != null">
+        Narcotic,
+      </if>
+      <if test="psychotropic != null">
+        Psychotropic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="empid != null">
+        #{empid,jdbcType=VARCHAR},
+      </if>
+      <if test="empname != null">
+        #{empname,jdbcType=NVARCHAR},
+      </if>
+      <if test="idcode != null">
+        #{idcode,jdbcType=CHAR},
+      </if>
+      <if test="docid != null">
+        #{docid,jdbcType=NVARCHAR},
+      </if>
+      <if test="contractid != null">
+        #{contractid,jdbcType=NVARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=BIT},
+      </if>
+      <if test="married != null">
+        #{married,jdbcType=BIT},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=NVARCHAR},
+      </if>
+      <if test="nationality != null">
+        #{nationality,jdbcType=NVARCHAR},
+      </if>
+      <if test="politic != null">
+        #{politic,jdbcType=NVARCHAR},
+      </if>
+      <if test="religion != null">
+        #{religion,jdbcType=NVARCHAR},
+      </if>
+      <if test="nativeplace != null">
+        #{nativeplace,jdbcType=NVARCHAR},
+      </if>
+      <if test="empaddress != null">
+        #{empaddress,jdbcType=NVARCHAR},
+      </if>
+      <if test="postalcode != null">
+        #{postalcode,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="homepage != null">
+        #{homepage,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="empresume != null">
+        #{empresume,jdbcType=NVARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="pycode != null">
+        #{pycode,jdbcType=NVARCHAR},
+      </if>
+      <if test="wbcode != null">
+        #{wbcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastmodifytime != null">
+        #{lastmodifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isactive != null">
+        #{isactive,jdbcType=BIT},
+      </if>
+      <if test="emptype != null">
+        #{emptype.typeid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=NVARCHAR},
+      </if>
+      <if test="prescrible != null">
+        #{prescrible,jdbcType=INTEGER},
+      </if>
+      <if test="leaddcotor != null">
+        #{leaddcotor,jdbcType=VARCHAR},
+      </if>
+      <if test="drug != null">
+        #{drug,jdbcType=BIT},
+      </if>
+      <if test="narcotic != null">
+        #{narcotic,jdbcType=BIT},
+      </if>
+      <if test="psychotropic != null">
+        #{psychotropic,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.baseinfo.Employee">
+    update Employee
+    <set>
+      <if test="empname != null">
+        EmpName = #{empname,jdbcType=NVARCHAR},
+      </if>
+      <if test="idcode != null">
+        IDCode = #{idcode,jdbcType=CHAR},
+      </if>
+      <if test="docid != null">
+        DocID = #{docid,jdbcType=NVARCHAR},
+      </if>
+      <if test="contractid != null">
+        ContractID = #{contractid,jdbcType=NVARCHAR},
+      </if>
+      <if test="birthday != null">
+        Birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="sex != null">
+        Sex = #{sex,jdbcType=BIT},
+      </if>
+      <if test="married != null">
+        Married = #{married,jdbcType=BIT},
+      </if>
+      <if test="education != null">
+        Education = #{education,jdbcType=NVARCHAR},
+      </if>
+      <if test="nationality != null">
+        Nationality = #{nationality,jdbcType=NVARCHAR},
+      </if>
+      <if test="politic != null">
+        Politic = #{politic,jdbcType=NVARCHAR},
+      </if>
+      <if test="religion != null">
+        Religion = #{religion,jdbcType=NVARCHAR},
+      </if>
+      <if test="nativeplace != null">
+        NativePlace = #{nativeplace,jdbcType=NVARCHAR},
+      </if>
+      <if test="empaddress != null">
+        EmpAddress = #{empaddress,jdbcType=NVARCHAR},
+      </if>
+      <if test="postalcode != null">
+        PostalCode = #{postalcode,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        Tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="homepage != null">
+        HomePage = #{homepage,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        QQ = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="empresume != null">
+        EmpResume = #{empresume,jdbcType=NVARCHAR},
+      </if>
+      <if test="photo != null">
+        Photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="pycode != null">
+        PyCode = #{pycode,jdbcType=NVARCHAR},
+      </if>
+      <if test="wbcode != null">
+        WbCode = #{wbcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="lastmodifytime != null">
+        LastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isactive != null">
+        IsActive = #{isactive,jdbcType=BIT},
+      </if>
+      <if test="emptype != null">
+        EmpType = #{emptype.typeid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        Title = #{title,jdbcType=NVARCHAR},
+      </if>
+      <if test="prescrible != null">
+        Prescrible = #{prescrible,jdbcType=INTEGER},
+      </if>
+      <if test="leaddcotor != null">
+        LeadDcotor = #{leaddcotor,jdbcType=VARCHAR},
+      </if>
+      <if test="drug != null">
+        Drug = #{drug,jdbcType=BIT},
+      </if>
+      <if test="narcotic != null">
+        Narcotic = #{narcotic,jdbcType=BIT},
+      </if>
+      <if test="psychotropic != null">
+        Psychotropic = #{psychotropic,jdbcType=BIT},
+      </if>
+    </set>
+    where EmpID = #{empid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.his.entity.baseinfo.Employee">
+    update Employee
+    set EmpName = #{empname,jdbcType=NVARCHAR},
+      IDCode = #{idcode,jdbcType=CHAR},
+      DocID = #{docid,jdbcType=NVARCHAR},
+      ContractID = #{contractid,jdbcType=NVARCHAR},
+      Birthday = #{birthday,jdbcType=DATE},
+      Sex = #{sex,jdbcType=BIT},
+      Married = #{married,jdbcType=BIT},
+      Education = #{education,jdbcType=NVARCHAR},
+      Nationality = #{nationality,jdbcType=NVARCHAR},
+      Politic = #{politic,jdbcType=NVARCHAR},
+      Religion = #{religion,jdbcType=NVARCHAR},
+      NativePlace = #{nativeplace,jdbcType=NVARCHAR},
+      EmpAddress = #{empaddress,jdbcType=NVARCHAR},
+      PostalCode = #{postalcode,jdbcType=VARCHAR},
+      Tel = #{tel,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      HomePage = #{homepage,jdbcType=VARCHAR},
+      QQ = #{qq,jdbcType=VARCHAR},
+      EmpResume = #{empresume,jdbcType=NVARCHAR},
+      Photo = #{photo,jdbcType=VARCHAR},
+      PyCode = #{pycode,jdbcType=NVARCHAR},
+      WbCode = #{wbcode,jdbcType=NVARCHAR},
+      LastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
+      IsActive = #{isactive,jdbcType=BIT},
+      EmpType = #{emptype.typeid,jdbcType=INTEGER},
+      Title = #{title,jdbcType=NVARCHAR},
+      Prescrible = #{prescrible,jdbcType=INTEGER},
+      LeadDcotor = #{leaddcotor,jdbcType=VARCHAR},
+      Drug = #{drug,jdbcType=BIT},
+      Narcotic = #{narcotic,jdbcType=BIT},
+      Psychotropic = #{psychotropic,jdbcType=BIT}
+    where EmpID = #{empid,jdbcType=CHAR}
+  </update>
+  
+  <select id="findEmployee" parameterType="Map" resultMap="BaseResultMap">
+	select * from Employee
+		<where>
+		    <if test="filter !=null and filter !='' ">
+				and ( EmpName like #{filter} or PyCode like #{filter} or
+							 WbCode like #{filter} or EmpName like #{filter}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by EmpID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+	
+	<select id="getTotalEmployee" parameterType="Map" resultType="Long">
+		select count(*) from Employee
+		<where>
+		    <if test="filter !=null and filter !='' ">
+				and ( EmpName like #{filter} or PyCode like #{filter} or
+							 WbCode like #{filter} or EmpName like #{filter}
+			</if>
+		</where>
+	</select>
+	
+	<select id="generateCode" parameterType="Map" resultType="java.lang.String">
+		select max(EmpID) from Employee
+		<where>
+		    <if test="prefix !=null and prefix !='' ">
+				and EmpID like #{prefix}
+			</if>
+		</where>
+	</select>
+	
+  <select id="findEmployeePart" parameterType="Map" resultMap="PartResultMap">
+	select <include refid="Part_Column_List" /> from Employee
+		<where>
+		    <if test="filter !=null and filter !='' ">
+				and (PyCode like #{filter} or WbCode like #{filter} or EmpName like #{filter} )
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by EmpID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+</mapper>

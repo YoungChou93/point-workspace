@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.his.dao.drugroom.DrugRoomLostDao" >
+  <resultMap id="BaseResultMap" type="com.his.entity.drugroom.DrugRoomLost" >
+    <id column="LostID" property="lostid" jdbcType="CHAR" />
+    <result column="StoreID" property="storeid" jdbcType="CHAR" />
+    <result column="LostState" property="loststate" jdbcType="INTEGER" />
+    <result column="LostNumber" property="lostnumber" jdbcType="DECIMAL" />
+    <result column="LostTime" property="losttime" jdbcType="TIMESTAMP" />
+    <result column="LimitTime" property="limittime" jdbcType="DATE" />
+    <result column="InputPrice" property="inputprice" jdbcType="DECIMAL" />
+    <result column="RetailPrice" property="retailprice" jdbcType="DECIMAL" />
+    <result column="cause" property="cause" jdbcType="NVARCHAR" />
+    <result column="memo" property="memo" jdbcType="NVARCHAR" />
+    <result column="BillCode" property="billcode" jdbcType="CHAR" />
+ 
+    <association column="MedicineID" property="medicine"
+		select="com.his.dao.baseinfo.MedicineBaseInfoDao.selectPartByPrimaryKey"></association>
+	<association column="DeptID" property="dept"
+		select="com.his.dao.baseinfo.DepartmentDao.selectPartByPrimaryKey"></association>	
+	<association column="LostEmpID" property="lostemp"
+		select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey"></association>
+	<association column="ExecuteEmpID" property="executeemp"
+		select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey"></association>					
+	<association column="EnsureEmpID" property="ensureemp"
+		select="com.his.dao.baseinfo.EmployeeDao.selectPartByPrimaryKey"></association>
+	<association column="FactoryID" property="factory"
+		select="com.his.dao.drugrepo.FactoryInfoDao.selectPartByPrimaryKey"></association>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    LostID, StoreID, MedicineID, LostState, LostNumber, DeptID, LostEmpID, ExecuteEmpID, 
+    EnsureEmpID, LostTime, LimitTime, InputPrice, RetailPrice, FactoryID, cause, memo, 
+    BillCode
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from DrugRoomLost
+    where LostID = #{lostid,jdbcType=CHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from DrugRoomLost
+    where LostID = #{lostid,jdbcType=CHAR}
+  </delete>
+
+
+  <insert id="insertSelective" parameterType="com.his.entity.drugroom.DrugRoomLost" >
+    insert into DrugRoomLost
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lostid != null" >
+        LostID,
+      </if>
+      <if test="storeid != null" >
+        StoreID,
+      </if>
+      <if test="medicine != null" >
+        MedicineID,
+      </if>
+      <if test="loststate != null" >
+        LostState,
+      </if>
+      <if test="lostnumber != null" >
+        LostNumber,
+      </if>
+      <if test="dept != null" >
+        DeptID,
+      </if>
+      <if test="lostemp != null" >
+        LostEmpID,
+      </if>
+      <if test="executeemp != null" >
+        ExecuteEmpID,
+      </if>
+      <if test="ensureemp != null" >
+        EnsureEmpID,
+      </if>
+      <if test="losttime != null" >
+        LostTime,
+      </if>
+      <if test="limittime != null" >
+        LimitTime,
+      </if>
+      <if test="inputprice != null" >
+        InputPrice,
+      </if>
+      <if test="retailprice != null" >
+        RetailPrice,
+      </if>
+      <if test="factory != null" >
+        FactoryID,
+      </if>
+      <if test="cause != null" >
+        cause,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="billcode != null" >
+        BillCode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lostid != null" >
+        #{lostid,jdbcType=CHAR},
+      </if>
+      <if test="storeid != null" >
+        #{storeid,jdbcType=CHAR},
+      </if>
+      <if test="medicine != null" >
+        #{medicine.medicineid,jdbcType=CHAR},
+      </if>
+      <if test="loststate != null" >
+        #{loststate,jdbcType=INTEGER},
+      </if>
+      <if test="lostnumber != null" >
+        #{lostnumber,jdbcType=DECIMAL},
+      </if>
+      <if test="dept != null" >
+        #{dept.deptid,jdbcType=CHAR},
+      </if>
+      <if test="lostemp != null" >
+        #{lostemp.empid,jdbcType=CHAR},
+      </if>
+      <if test="executeemp != null" >
+        #{executeemp.empid,jdbcType=CHAR},
+      </if>
+      <if test="ensureemp != null" >
+        #{ensureemp.empid,jdbcType=CHAR},
+      </if>
+      <if test="losttime != null" >
+        #{losttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limittime != null" >
+        #{limittime,jdbcType=DATE},
+      </if>
+      <if test="inputprice != null" >
+        #{inputprice,jdbcType=DECIMAL},
+      </if>
+      <if test="retailprice != null" >
+        #{retailprice,jdbcType=DECIMAL},
+      </if>
+      <if test="factory != null" >
+        #{factory.factoryid,jdbcType=CHAR},
+      </if>
+      <if test="cause != null" >
+        #{cause,jdbcType=NVARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=NVARCHAR},
+      </if>
+      <if test="billcode != null" >
+        #{billcode,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.his.entity.drugroom.DrugRoomLost" >
+    update DrugRoomLost
+    <set >
+      <if test="storeid != null" >
+        StoreID = #{storeid,jdbcType=CHAR},
+      </if>
+      <if test="medicine != null" >
+        MedicineID = #{medicine.medicineid,jdbcType=CHAR},
+      </if>
+      <if test="loststate != null" >
+        LostState = #{loststate,jdbcType=INTEGER},
+      </if>
+      <if test="lostnumber != null" >
+        LostNumber = #{lostnumber,jdbcType=DECIMAL},
+      </if>
+      <if test="dept != null" >
+        DeptID = #{dept.deptid,jdbcType=CHAR},
+      </if>
+      <if test="lostemp != null" >
+        LostEmpID = #{lostemp.empid,jdbcType=CHAR},
+      </if>
+      <if test="executeemp != null" >
+        ExecuteEmpID = #{executeemp.empid,jdbcType=CHAR},
+      </if>
+      <if test="ensureemp != null" >
+        EnsureEmpID = #{ensureemp.empid,jdbcType=CHAR},
+      </if>
+      <if test="losttime != null" >
+        LostTime = #{losttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limittime != null" >
+        LimitTime = #{limittime,jdbcType=DATE},
+      </if>
+      <if test="inputprice != null" >
+        InputPrice = #{inputprice,jdbcType=DECIMAL},
+      </if>
+      <if test="retailprice != null" >
+        RetailPrice = #{retailprice,jdbcType=DECIMAL},
+      </if>
+      <if test="factory != null" >
+        FactoryID = #{factory.factoryid,jdbcType=CHAR},
+      </if>
+      <if test="cause != null" >
+        cause = #{cause,jdbcType=NVARCHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=NVARCHAR},
+      </if>
+      <if test="billcode != null" >
+        BillCode = #{billcode,jdbcType=CHAR},
+      </if>
+    </set>
+    where LostID = #{lostid,jdbcType=CHAR}
+  </update>
+  
+ 	<select id="findDrugRoomLost" parameterType="Map" resultMap="BaseResultMap">
+		select * from DrugRoomLost
+		<where>
+			<if test="medicineid !=null and medicineid !=''">
+				and MedicineID = #{medicineid}
+			</if>
+			<!-- 根据入库操作员查询入库记录 -->
+			<if test="executeempid !=null and executeempid !=''">
+				and ExecuteEmpID = #{executeempid}
+			</if>
+			<if test="billcode !=null and billcode !=''">
+				and BillCode = #{billcode}
+			</if>
+			<if test="loststate !=null ">
+				and LostState = #{loststate}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by LostID offset ${start} rows fetch next ${size} rows only
+		</if>
+	</select>
+
+	<select id="getTotalDrugRoomLost" parameterType="Map"
+		resultType="Long">
+		select count(*) from DrugRoomLost
+		<where>
+			<if test="medicineid !=null and medicineid !=''">
+				and MedicineID = #{medicineid}
+			</if>
+			<!-- 根据入库操作员查询入库记录 -->
+			<if test="executeempid !=null and executeempid !=''">
+				and ExecuteEmpID = #{executeempid}
+			</if>
+			<if test="billcode !=null and billcode !=''">
+				and BillCode = #{billcode}
+			</if>
+			<if test="loststate !=null ">
+				and LostState = #{loststate}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getMaxID" parameterType="java.lang.String" resultType="String">
+		select MAX(LostID) from DrugRoomLost
+		where LostID like #{prefix}
+	</select>
+	
+</mapper>
