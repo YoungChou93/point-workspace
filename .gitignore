@@ -23,5 +23,5 @@ photo
 *.sw*
 
 #ignore
-.metadata/*
+.metadata/
 .war

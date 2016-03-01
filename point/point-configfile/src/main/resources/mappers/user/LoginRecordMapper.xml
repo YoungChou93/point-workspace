@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.point.dao.user.LoginRecordDao" >
+  <resultMap id="BaseResultMap" type="com.point.entity.user.LoginRecord" >
+    <id column="Id" property="id" jdbcType="CHAR" />
+    <result column="Uid" property="user" jdbcType="CHAR" />
+    <result column="LoginTime" property="logintime" jdbcType="TIMESTAMP" />
+    <result column="LoginIp" property="loginip" jdbcType="VARCHAR" />
+    <result column="LogoutTime" property="logouttime" jdbcType="TIMESTAMP" />
+    <result column="UnUsed1" property="unused1" jdbcType="VARCHAR" />
+    <result column="UnUsed2" property="unused2" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    Id, Uid, LoginTime, LoginIp, LogoutTime, UnUsed1, UnUsed2
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from loginrecord
+    where Id = #{id,jdbcType=CHAR}
+  </select>
+  
+  <select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select * from loginrecord
+		<where>
+			<if test="uid !=null and uid !=''">
+				and Uid = #{uid}
+			</if>
+		</where>
+	</select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from loginrecord
+    where Id = #{id,jdbcType=CHAR}
+  </delete>
+  
+   <delete id="deleteByMap" parameterType="Map">
+		delete from loginrecord
+		<where>
+			<if test="uid !=null and uid !=''">
+				and Uid = #{uid}
+			</if>
+		</where>
+	</delete>
+	
+  <insert id="insertSelective" parameterType="com.point.entity.user.LoginRecord" >
+    insert into loginrecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="user != null" >
+        Uid,
+      </if>
+      <if test="logintime != null" >
+        LoginTime,
+      </if>
+      <if test="loginip != null" >
+        LoginIp,
+      </if>
+      <if test="logouttime != null" >
+        LogoutTime,
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1,
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="user != null" >
+        #{user.uid,jdbcType=CHAR},
+      </if>
+      <if test="logintime != null" >
+        #{logintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginip != null" >
+        #{loginip,jdbcType=VARCHAR},
+      </if>
+      <if test="logouttime != null" >
+        #{logouttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unused1 != null" >
+        #{unused1,jdbcType=VARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        #{unused2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.point.entity.user.LoginRecord" >
+    update loginrecord
+    <set >
+      <if test="user != null" >
+        Uid = #{user.uid,jdbcType=CHAR},
+      </if>
+      <if test="logintime != null" >
+        LoginTime = #{logintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginip != null" >
+        LoginIp = #{loginip,jdbcType=VARCHAR},
+      </if>
+      <if test="logouttime != null" >
+        LogoutTime = #{logouttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unused1 != null" >
+        UnUsed1 = #{unused1,jdbcType=VARCHAR},
+      </if>
+      <if test="unused2 != null" >
+        UnUsed2 = #{unused2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=CHAR}
+  </update>
+  
+<select id="findLoginRecord" parameterType="Map" resultMap="BaseResultMap">
+		select * from loginrecord
+		<where>
+			<if test="uid !=null and uid != ''">
+				and uid = #{uid}
+			</if>	
+		</where>
+		<if test="start!=null and size!=null">
+			order by id offset ${start} rows fetch next ${size} rows only
+		</if>	
+	</select>
+	
+	<select id="getTotalLoginRecord" parameterType="Map" resultType="Long">
+		select count(*) from loginrecord
+		<where>
+			<if test="uid !=null and uid != ''">
+				and uid = #{uid}
+			</if>	
+		</where>
+	</select>
+	
+	<select id="getMaxID"  resultType="String">
+		select MAX(id) from loginrecord
+	</select>
+</mapper>

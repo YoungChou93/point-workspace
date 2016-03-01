@@ -5,10 +5,25 @@
 			<item value="com.point"/>
 		</list>
 		<list key="name">
+			<item value="point-controller-base"/>
+			<item value="point-util"/>
+			<item value="point-web"/>
+			<item value="point-controller-user"/>
+			<item value="point-controller"/>
+			<item value="point-service-user"/>
+			<item value="point-service"/>
 		</list>
 		<list key="artifactId">
-			<item value="point-entity"/>
+			<item value="point-controller-base"/>
+			<item value="point-controller"/>
+			<item value="point-util"/>
 			<item value="point"/>
+			<item value="point-web"/>
+			<item value="point-controller-user"/>
+			<item value="point-service-user"/>
+			<item value="point-service"/>
+			<item value="point-dao-user"/>
+			<item value="point-dao"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -53,9 +68,18 @@
 	</section>
 	<section name="MavenModuleWizardParentPage">
 		<list key="moduleName">
-			<item value="point-entity"/>
+			<item value="point-controller-base"/>
+			<item value="point-util"/>
+			<item value="point-web"/>
+			<item value="point-controller-user"/>
+			<item value="point-controller"/>
+			<item value="point-service-user"/>
+			<item value="point-service"/>
+			<item value="point-dao-user"/>
 			<item value="point-configfile"/>
+			<item value="point-entity-user"/>
 			<item value="point-dao"/>
+			<item value="point-entity"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -82,17 +106,13 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
-			<item value="org.point.entity"/>
-			<item value="org.point.configfile"/>
-			<item value="com.point"/>
+			<item value="org.point.controller.base"/>
 		</list>
 		<list key="groupId">
 			<item value="com.point"/>
 		</list>
 		<list key="artifactId">
-			<item value="point-entity"/>
-			<item value="point-configfile"/>
-			<item value="point-dao"/>
+			<item value="point-controller-base"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
