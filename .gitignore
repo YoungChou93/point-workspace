@@ -22,10 +22,11 @@ photo
 #ignore vi/vim temperate file
 *.sw*
 
-#ignore
-/.metadata/
-/.recommenders/
-/RemoteSystemsTempFiles/
-.snap
-.war
+#ignore eclipse files
+.metadata
+.recommenders
+RemoteSystemsTempFiles
+
+# project release file
+*.war
 .gitignore
