@@ -23,5 +23,9 @@ photo
 *.sw*
 
 #ignore
-.metadata/
+/.metadata/
+/.recommenders/
+/RemoteSystemsTempFiles/
+.snap
 .war
+.gitignore
