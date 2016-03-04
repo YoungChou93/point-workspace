@@ -15,6 +15,7 @@
 	<bean id="userService" class="com.point.service.user.impl.UserServiceImpl">
 		<property name="userDao" ref="userDao" />
 		<property name="onlineUserDao" ref="onlineUserDao" />
+		<property name="loginRecordDao" ref="loginRecordDao" />
 	</bean>
 	
     

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -46,14 +47,14 @@
 
 						<ul class="nav navbar-nav navbar-right">
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown">与中秋有约<b class="caret"></b>
+								data-toggle="dropdown">${sessionScope.user.nickname}<b class="caret"></b>
 							</a>
 								<ul class="dropdown-menu ">
 									<li><a href="#">个人主页</a></li>
 									<li class="divider"></li>
-									<li><a href="${pageContext.request.contextPath}/userinfo.jsp" target="main">我的资料</a></li>
+									<li><a href="${pageContext.request.contextPath}/user/userinfo.jsp" target="main">我的资料</a></li>
 									<li class="divider"></li>
-									<li><a href="#">登出</a></li>
+									<li><a href="${pageContext.request.contextPath}/user/logout.action"><span class="glyphicon glyphicon-off"></span>登出</a></li>
 								</ul></li>
 
 						</ul>

@@ -1,5 +1,6 @@
 package com.point.controller.base;
 
+
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -24,8 +25,8 @@ public class SessionTimeOutListener implements HttpSessionListener{
 		System.out.println("session:"+session.getId()+" is destroyed");
 		ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(
 				e.getSession().getServletContext());
-		UserService userService = (UserService)ctx.getBean("UserService");
-		userService.deleteOnlineUser(e.getSession().getId());
+		UserService userService = (UserService)ctx.getBean("userService");
+		userService.loginOut(session);
 		System.out.println("session:"+session.getId()+" is delete from Table OnlineUser");
 	}
 

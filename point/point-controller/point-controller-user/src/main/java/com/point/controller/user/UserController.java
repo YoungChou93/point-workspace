@@ -132,4 +132,14 @@ public class UserController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping("/logout")
+	public ModelAndView logout(HttpSession httpSession){
+		ModelAndView mav = new ModelAndView();
+		
+		userService.loginOut(httpSession);
+		mav.setViewName("/user/login");
+		
+		return mav;
+	}
 }

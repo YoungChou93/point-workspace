@@ -49,15 +49,8 @@ public interface UserService {
 	 * @author zhouyang
 	 * @date 2016年3月4日 下午7:31:20
 	 */
-	public Map<String,Object> loginOut(UserCustom userCustom,HttpServletRequest httpServletRequest);
+	public void loginOut(HttpSession httpSession);
 	
-	/**
-	 * 
-	 * @brief 删除退出登录用户
-	 * @param sessionid
-	 * @author zhouyang
-	 * @date 2016年3月4日 下午7:32:38
-	 */
-	public void deleteOnlineUser(String sessionid);
+	
 
 }

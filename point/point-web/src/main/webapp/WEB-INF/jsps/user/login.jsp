@@ -5,13 +5,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 针对移动设备，为了确保适当的绘制和触屏缩放 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/bootstrap/js/jquery-2.2.1.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
+<title>登录</title>
 <style type="text/css">
 @font-face {
     font-family: 'Raleway-Bold';
