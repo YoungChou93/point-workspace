@@ -2,6 +2,7 @@ package com.point.service.user;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.point.entity.user.custom.UserCustom;
@@ -38,6 +39,25 @@ public interface UserService {
 	 * @author zhouyang
 	 * @date 2016年3月4日 下午2:37:35
 	 */
-	public Map<String,Object> login(UserCustom userCustom,HttpSession httpSession);
+	public Map<String,Object> login(UserCustom userCustom,HttpServletRequest httpServletRequest);
+	
+	/**
+	 * 
+	 * @brief 用户登出
+	 * @param userCustom
+	 * @param httpServletRequest
+	 * @author zhouyang
+	 * @date 2016年3月4日 下午7:31:20
+	 */
+	public Map<String,Object> loginOut(UserCustom userCustom,HttpServletRequest httpServletRequest);
+	
+	/**
+	 * 
+	 * @brief 删除退出登录用户
+	 * @param sessionid
+	 * @author zhouyang
+	 * @date 2016年3月4日 下午7:32:38
+	 */
+	public void deleteOnlineUser(String sessionid);
 
 }

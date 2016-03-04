@@ -5,9 +5,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
+
+import com.point.dao.user.OnlineUserDao;
 import com.point.dao.user.UserDao;
+import com.point.entity.user.OnlineUser;
 import com.point.entity.user.User;
 import com.point.entity.user.custom.UserCustom;
 import com.point.service.user.UserService;
@@ -19,8 +24,14 @@ public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;
 
+	private OnlineUserDao onlineUserDao;
+	
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+
+	public void setOnlineUserDao(OnlineUserDao onlineUserDao) {
+		this.onlineUserDao = onlineUserDao;
 	}
 
 	@Override
@@ -77,7 +88,7 @@ public class UserServiceImpl implements UserService {
 
 		userDao.insertSelective(userCustom);
 		
-		// 发送激活邮件邮件
+		/* 发送激活邮件邮件*/
 		SendMail sendMail = new SendMail();
 		sendMail.send(userCustom.getEmail(),userCustom.getActivationcode());
 
@@ -86,16 +97,48 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Map<String, Object> activateUser(String activationCode) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		/* 数据非空验证 */
+		if (null == activationCode || "".equals(activationCode)){
+			result.put("errorMsg", "激活码为空！");
+			return result;
+		}
+		
+		/* 激活码是否存在验证 */
+		Map<String, Object> map= new HashMap<String, Object>();
+		map.put("activationcode", activationCode);
+		User activateUser=userDao.selectByMap(map);
+		if(null==activateUser || null==activateUser.getUid() || "".equals(activateUser.getUid())){
+			result.put("errorMsg", "激活码有误！");
+			return result;
+		}
+		
+		/* 对应账户是否激活验证 */
+		if((byte)0!=activateUser.getStatus()){
+			result.put("errorMsg", "账户已激活！");
+			return result;
+		}
+		
+		
+		/* 更新账户为激活状态*/
+		activateUser.setStatus((byte)1);
+		userDao.updateByPrimaryKeySelective(activateUser);
+		
+		
+		return result;
 	}
 
 	@Override
-	public Map<String, Object> login(UserCustom userCustom, HttpSession httpSession) {
+	public Map<String, Object> login(UserCustom userCustom,HttpServletRequest httpServletRequest) {
 
+		HttpSession httpSession =httpServletRequest.getSession();
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 
 		String loginVerifyCode = (String) httpSession.getAttribute("verifyCode");
+		
 
 		/* 数据非空验证 */
 		if (null == userCustom.getEmail() || "".equals(userCustom.getEmail()) || null == userCustom.getPassword()) {
@@ -122,9 +165,52 @@ public class UserServiceImpl implements UserService {
 		} else if (!loginUser.getPassword().equals(userCustom.getPassword())) {
 			result.put("errorMsg", "密码错误！");
 		}
-
+		
+		/* 账号是否可用*/
+		if((byte)0==loginUser.getStatus()){
+			result.put("errorMsg", "账号未激活！");
+		}else if((byte)2==loginUser.getStatus()){
+			result.put("errorMsg", "账号已注销！");
+		}
+		
+		/* 判断用户是否已登录*/
+		
+		
+		
+		/* 修改用户登录次数、用户最后登录时间、用户最后登录地点、增加用户积分*/
+		
+		
+		
+		/* 账号信息存入session*/
+		httpSession.setAttribute("user", loginUser);
+		
+		/* 插入在线用户表*/
+		OnlineUser onlineUser=new OnlineUser(this.getOnlineUserId());
+		onlineUser.setUser(loginUser);
+		onlineUser.setIpcode(httpServletRequest.getRemoteAddr());
+		onlineUser.setSessionid(httpSession.getId());
+		onlineUserDao.insertSelective(onlineUser);
+		
+		/* 插入用户登录记录表*/
+		
+		
 		return result;
 
+	}
+	
+	@Override
+	public Map<String, Object> loginOut(UserCustom userCustom, HttpServletRequest httpServletRequest) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteOnlineUser(String sessionid) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("sessionid", sessionid);
+		onlineUserDao.deleteByMap(map);
+		
 	}
 
 	private String getUid() {
@@ -143,5 +229,24 @@ public class UserServiceImpl implements UserService {
 		return uid;
 
 	}
+	
+	private String getOnlineUserId() {
+		String onlineUserId = null;
+		SimpleDateFormat myformat = new SimpleDateFormat("yyyyMMdd");
+		String prefix = myformat.format(new Date()); // id前缀
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("prefix", prefix + "%");
+		String tmp = onlineUserDao.getMaxID(map);
+		if (null == tmp) {
+			onlineUserId = prefix + "00000001";
+		} else {
+			onlineUserId = prefix + GenerateCode.Generating(Long.parseLong(tmp.substring(8)), 8);
+		}
+		return onlineUserId;
+
+	}
+
+	
 
 }

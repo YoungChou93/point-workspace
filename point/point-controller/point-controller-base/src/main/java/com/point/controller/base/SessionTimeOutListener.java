@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSessionListener;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.point.service.user.UserService;
+
 
 
 public class SessionTimeOutListener implements HttpSessionListener{
@@ -22,8 +24,8 @@ public class SessionTimeOutListener implements HttpSessionListener{
 		System.out.println("session:"+session.getId()+" is destroyed");
 		ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(
 				e.getSession().getServletContext());
-		//OnlineUserService onlineUserService = (OnlineUserService)ctx.getBean("onlineUserService");
-		//onlineUserService.deleteSessionTimeout(e.getSession().getId());
+		UserService userService = (UserService)ctx.getBean("UserService");
+		userService.deleteOnlineUser(e.getSession().getId());
 		System.out.println("session:"+session.getId()+" is delete from Table OnlineUser");
 	}
 

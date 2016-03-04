@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.point.entity.user.custom.UserCustom;
@@ -26,8 +28,17 @@ public class UserController {
 	@Resource
 	private UserService userService;
 
+	
+	/**
+	 * @brief 登录
+	 * @param httpSession
+	 * @param userCustom
+	 * @param bindingResult
+	 * @author zhouyang
+	 * @date 2016年3月4日 下午6:56:21
+	 */
 	@RequestMapping("/login")
-	public ModelAndView login(HttpSession httpSession,
+	public ModelAndView login(HttpServletRequest httpServletRequest,
 			@Validated(value = { LoginValidation.class }) UserCustom userCustom, BindingResult bindingResult) {
 
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -46,7 +57,7 @@ public class UserController {
 			return mav;
 		}
 
-		result = userService.login(userCustom, httpSession);
+		result = userService.login(userCustom, httpServletRequest);
 		if (result.containsKey("errorMsg")) {
 			mav.addObject("errorMsg", result.get("errorMsg"));//添加错误信息
 			mav.addObject("userCustom", userCustom);//数据回显
@@ -58,6 +69,15 @@ public class UserController {
 		return mav;
 	}
 
+	/**
+	 * 
+	 * @brief 注册
+	 * @param httpSession
+	 * @param userCustom
+	 * @param bindingResult
+	 * @author zhouyang
+	 * @date 2016年3月4日 下午6:56:45
+	 */
 	@RequestMapping("/register")
 	public ModelAndView register(HttpSession httpSession,
 			@Validated(value = { RegisterValidation.class }) UserCustom userCustom, BindingResult bindingResult) {
@@ -84,10 +104,32 @@ public class UserController {
 			mav.addObject("registerUserCustom", userCustom);
 			mav.setViewName("/user/login");
 		} else {
-			mav.setViewName("/user/activative");
+			mav.setViewName("/user/activative");//跳转到激活提示页面
 		}
 
 		return mav;
 	}
 
+	/**
+	 * 
+	 * @brief 激活
+	 * @logic
+	 * @param activationCode
+	 * @author zhouyang
+	 * @date 2016年3月4日 下午6:57:02
+	 */
+	@RequestMapping("/activate")
+	public ModelAndView activate(@RequestParam(value="activationCode",required=true)String activationCode){
+		Map<String, Object> result = new HashMap<String, Object>();
+		ModelAndView mav = new ModelAndView();
+		
+		result = userService.activateUser(activationCode);
+		if (result.containsKey("errorMsg")) {
+			mav.addObject("errorMsg", result.get("errorMsg"));
+			mav.setViewName("/user/activative");
+		} else {
+			mav.setViewName("/user/login");
+		}
+		return mav;
+	}
 }
