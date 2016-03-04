@@ -82,7 +82,11 @@
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.3.0.Final</version>
+		</dependency>
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
@@ -146,6 +150,7 @@
 		<module>point-controller</module>
 		<module>point-web</module>
 		<module>point-util</module>
+		<module>point-validation</module>
 	</modules>
 
 	<build>

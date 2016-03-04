@@ -2,13 +2,21 @@ package com.point.entity.user;
 
 import java.util.Date;
 
+import javax.validation.constraints.Size;
+
+import com.point.validation.LoginValidation;
+import com.point.validation.RegisterValidation;
+
 public class User {
     private String uid;
 
+    @Size(min=1,max=40,message="{user.email.length.error}",groups={LoginValidation.class,RegisterValidation.class})
     private String email;
 
+    @Size(min=1,max=15,message="{user.password.length.error}",groups={LoginValidation.class,RegisterValidation.class})
     private String password;
 
+    @Size(min=1,max=10,message="{user.nickname.length.error}",groups={RegisterValidation.class})
     private String nickname;
 
     private Byte gender;

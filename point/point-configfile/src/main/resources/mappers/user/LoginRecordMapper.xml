@@ -3,12 +3,14 @@
 <mapper namespace="com.point.dao.user.LoginRecordDao" >
   <resultMap id="BaseResultMap" type="com.point.entity.user.LoginRecord" >
     <id column="Id" property="id" jdbcType="CHAR" />
-    <result column="Uid" property="user" jdbcType="CHAR" />
     <result column="LoginTime" property="logintime" jdbcType="TIMESTAMP" />
     <result column="LoginIp" property="loginip" jdbcType="VARCHAR" />
     <result column="LogoutTime" property="logouttime" jdbcType="TIMESTAMP" />
     <result column="UnUsed1" property="unused1" jdbcType="VARCHAR" />
     <result column="UnUsed2" property="unused2" jdbcType="VARCHAR" />
+    
+    <association column="Uid" property="user"
+			select="com.point.dao.user.UserDao.selectByPrimaryKey"></association>
   </resultMap>
   
   <sql id="Base_Column_List" >

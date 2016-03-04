@@ -7,6 +7,24 @@
         <dependent-module archiveName="point-controller-base-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/point-controller-base/point-controller-base">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="point-controller-user-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/point-controller-user/point-controller-user">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="point-service-user-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/point-service-user/point-service-user">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="point-dao-user-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/point-dao-user/point-dao-user">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="point-configfile-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/point-configfile/point-configfile">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="point-entity-user-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/point-entity-user/point-entity-user">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="point-util-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/point-util/point-util">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="point-web"/>
         <property name="java-output-path" value="/point-web/target/classes"/>
     </wb-module>

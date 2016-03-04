@@ -3,11 +3,13 @@
 <mapper namespace="com.point.dao.user.OnlineUserDao" >
   <resultMap id="BaseResultMap" type="com.point.entity.user.OnlineUser" >
     <id column="Id" property="id" jdbcType="CHAR" />
-    <result column="Uid" property="user" jdbcType="CHAR" />
     <result column="SessionID" property="sessionid" jdbcType="VARCHAR" />
     <result column="IpCode" property="ipcode" jdbcType="VARCHAR" />
     <result column="UnUsed1" property="unused1" jdbcType="VARCHAR" />
     <result column="UnUsed2" property="unused2" jdbcType="VARCHAR" />
+    
+    <association column="Uid" property="user"
+			select="com.point.dao.user.UserDao.selectByPrimaryKey"></association>
   </resultMap>
   
   <sql id="Base_Column_List" >
