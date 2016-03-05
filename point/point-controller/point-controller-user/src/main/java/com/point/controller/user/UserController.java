@@ -104,6 +104,7 @@ public class UserController {
 			mav.addObject("registerUserCustom", userCustom);
 			mav.setViewName("/user/login");
 		} else {
+			mav.addObject("message", "请到邮箱"+userCustom.getEmail()+"中查看激活邮件，可能在垃圾箱中");
 			mav.setViewName("/user/activative");//跳转到激活提示页面
 		}
 
@@ -128,7 +129,8 @@ public class UserController {
 			mav.addObject("errorMsg", result.get("errorMsg"));
 			mav.setViewName("/user/activative");
 		} else {
-			mav.setViewName("/user/login");
+			mav.addObject("message", "激活成功！");
+			mav.setViewName("/user/activative");
 		}
 		return mav;
 	}

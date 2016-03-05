@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	private OnlineUserDao onlineUserDao;
-	
+
 	private LoginRecordDao loginRecordDao;
 
 	public void setUserDao(UserDao userDao) {
@@ -91,13 +91,13 @@ public class UserServiceImpl implements UserService {
 		// 设置注册日期
 		userCustom.setRegistertime(new Date());
 		// 设置默认头像
-		userCustom.setHeadpicture("/1234.jpg");
+		userCustom.setHeadpicture("/file/user/headpicture/headpicture.png");
 
 		userDao.insertSelective(userCustom);
 
 		/* 发送激活邮件邮件 */
-		// SendMail sendMail = new SendMail();
-		// sendMail.send(userCustom.getEmail(),userCustom.getActivationcode());
+		 SendMail sendMail = new SendMail();
+		 sendMail.send(userCustom.getEmail(),userCustom.getActivationcode());
 
 		return result;
 	}
@@ -136,14 +136,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Map<String, Object> login(UserCustom userCustom,HttpServletRequest httpServletRequest) {
+	public Map<String, Object> login(UserCustom userCustom, HttpServletRequest httpServletRequest) {
 
-		HttpSession httpSession =httpServletRequest.getSession();
-		
+		HttpSession httpSession = httpServletRequest.getSession();
+
 		Map<String, Object> result = new HashMap<String, Object>();
 
 		String loginVerifyCode = (String) httpSession.getAttribute("verifyCode");
-		
 
 		/* 数据非空验证 */
 		if (null == userCustom.getEmail() || "".equals(userCustom.getEmail()) || null == userCustom.getPassword()) {
@@ -156,7 +155,7 @@ public class UserServiceImpl implements UserService {
 			result.put("errorMsg", "验证码为空！");
 			return result;
 		}
-		if (!loginVerifyCode.equals(userCustom.getVerifyCode())) {
+		if (null==loginVerifyCode || !loginVerifyCode.equals(userCustom.getVerifyCode())) {
 			result.put("errorMsg", "验证码错误！");
 			return result;
 		}
@@ -172,87 +171,89 @@ public class UserServiceImpl implements UserService {
 			result.put("errorMsg", "密码错误！");
 			return result;
 		}
-		
-		/* 账号是否可用*/
-		if((byte)0==loginUser.getStatus()){
+
+		/* 账号是否可用 */
+		if ((byte) 0 == loginUser.getStatus()) {
 			result.put("errorMsg", "账号未激活！");
 			return result;
-		}else if((byte)2==loginUser.getStatus()){
+		} else if ((byte) 2 == loginUser.getStatus()) {
 			result.put("errorMsg", "账号已注销！");
 			return result;
 		}
-		
-		/* 判断用户是否已登录*/
+
+		/* 判断用户是否已登录 */
 		map.put("uid", loginUser.getUid());
-		OnlineUser loginOnlineUser=onlineUserDao.selectByMap(map);
-		if(null!=loginOnlineUser){
+		OnlineUser loginOnlineUser = onlineUserDao.selectByMap(map);
+		if (null != loginOnlineUser) {
+			/*User user = (User) httpSession.getAttribute("user");
+			if (null == user || !user.getUid().equals(loginUser.getUid())) {
+				result.put("errorMsg", "账号已登录！");
+			}*/
 			result.put("errorMsg", "账号已登录！");
 			return result;
 		}
-		
-		/* 增加用户登录积分*/
-		if(loginUser.getLasttime()==null){
-			loginUser.setScore(loginUser.getScore()+1);
-		}else{
+
+		/* 增加用户登录积分 */
+		if (loginUser.getLasttime() == null) {
+			loginUser.setScore(loginUser.getScore() + 1);
+		} else {
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
-			String lastTime=df.format(loginUser.getLasttime());
-			String today=df.format(new Date());
-			if(!lastTime.equals(today)){
-				loginUser.setScore(loginUser.getScore()+1);
+			String lastTime = df.format(loginUser.getLasttime());
+			String today = df.format(new Date());
+			if (!lastTime.equals(today)) {
+				loginUser.setScore(loginUser.getScore() + 1);
 			}
 		}
-		
-		/* 修改用户登录次数、用户最后登录时间、用户最后登录ip*/
+
+		/* 修改用户登录次数、用户最后登录时间、用户最后登录ip */
 		loginUser.setLastip(httpServletRequest.getRemoteAddr());
 		loginUser.setLasttime(new Date());
-		loginUser.setLogincounts(loginUser.getLogincounts()+1);
-		
+		loginUser.setLogincounts(loginUser.getLogincounts() + 1);
+
 		userDao.updateByPrimaryKeySelective(loginUser);
-		
-		
-		/* 账号信息存入session*/
+
+		/* 账号信息存入session */
 		httpSession.setAttribute("user", loginUser);
-		
-		/* 插入在线用户表*/
-		OnlineUser onlineUser=new OnlineUser(this.getOnlineUserId());
+
+		/* 插入在线用户表 */
+		OnlineUser onlineUser = new OnlineUser(this.getOnlineUserId());
 		onlineUser.setUser(loginUser);
 		onlineUser.setIpcode(httpServletRequest.getRemoteAddr());
 		onlineUser.setSessionid(httpSession.getId());
 		onlineUserDao.insertSelective(onlineUser);
-		
-		/* 插入用户登录记录表*/
-		LoginRecord loginRecord=new LoginRecord(this.getLoginRecordId());
+
+		/* 插入用户登录记录表 */
+		LoginRecord loginRecord = new LoginRecord(this.getLoginRecordId());
 		loginRecord.setLoginip(httpServletRequest.getRemoteAddr());
 		loginRecord.setLogintime(new Date());
 		loginRecord.setUser(loginUser);
 		loginRecordDao.insertSelective(loginRecord);
-		
-		/* 用户登录信息存入session*/
+
+		/* 用户登录信息存入session */
 		httpSession.setAttribute("loginRecord", loginRecord);
-		
+
 		return result;
 
 	}
 
 	@Override
 	public void loginOut(HttpSession httpSession) {
-		
-		/* 从OnlineUser中删除*/
+
+		/* 从OnlineUser中删除 */
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("sessionid", httpSession.getId());
 		onlineUserDao.deleteByMap(map);
-		
-		/* LoginRecord中添加登出时间*/
-		LoginRecord loginRecord=(LoginRecord) httpSession.getAttribute("loginRecord");
+
+		/* LoginRecord中添加登出时间 */
+		LoginRecord loginRecord = (LoginRecord) httpSession.getAttribute("loginRecord");
 		loginRecord.setLogouttime(new Date());
 		loginRecordDao.updateByPrimaryKeySelective(loginRecord);
-		
-		/* 用户信息从session中删除*/
+
+		/* 用户信息从session中删除 */
 		httpSession.removeAttribute("user");
 		httpSession.removeAttribute("loginRecord");
-		
-	}
 
+	}
 
 	private String getUid() {
 		String uid = null;
@@ -287,7 +288,7 @@ public class UserServiceImpl implements UserService {
 		return onlineUserId;
 
 	}
-	
+
 	private String getLoginRecordId() {
 		String loginRecordId = null;
 		SimpleDateFormat myformat = new SimpleDateFormat("yyyyMMdd");

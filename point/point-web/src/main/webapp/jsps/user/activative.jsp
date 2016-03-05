@@ -17,8 +17,8 @@
 </head>
 <body>
 <div class="container">
-<h5></h5>
-<p>请查看邮箱中的激活邮件</p>
+<h1>${errorMsg}${message}</h1>
+
 </div>
 
 </body>

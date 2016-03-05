@@ -48,7 +48,7 @@
 		<property name="validationMessageSource" ref="messageSource" />
 	</bean>
 
-    <!-- 校验错误信息配置文件-->
+	<!-- 校验错误信息配置文件 -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames">
@@ -67,12 +67,20 @@
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<!-- jsp页面的前缀和后缀 -->
-		<property name="prefix" value="/WEB-INF/jsps" />
+		<property name="prefix" value="/jsps" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
+
 	<!-- 全局的异常处理器 -->
-	<bean class="com.point.util.PointExceptionResolver"/>
+	<bean class="com.point.util.PointExceptionResolver" />
+
+	<!-- 拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.point.interceptor.LoginUserInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<!-- 文件上传 -->
 	<bean id="multipartResolver"

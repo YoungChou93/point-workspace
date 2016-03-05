@@ -24,12 +24,42 @@ html, body {
 </head>
 <body>
 
+	<div class="container text-center" style="padding:5px;">
+
+		<form role="form" class="form-inline">
+			<div class="form-group">
+				<label>省：</label> <select class="form-control">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>市：</label> <select class="form-control">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>数量：</label> <select class="form-control">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+			</div>
+		</form>
+	</div>
+
 	<div id="allmap"
 		style="width: 100%; height: 100%; position: absolute; z-index: 2;">
 	</div>
-
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/map/js/baidumap.js"></script>
 
 	<script type="text/javascript">
 		// 百度地图API功能
@@ -42,7 +72,6 @@ html, body {
 		}); //右上角，仅包含平移和缩放按钮
 		/*缩放控件type有四种类型:
 		BMAP_NAVIGATION_CONTROL_SMALL：仅包含平移和缩放按钮；BMAP_NAVIGATION_CONTROL_PAN:仅包含平移按钮；BMAP_NAVIGATION_CONTROL_ZOOM：仅包含缩放按钮*/
-		map.addControl(top_left_control);
 		map.addControl(top_right_navigation);
 
 		var navigationControl = new BMap.NavigationControl({

@@ -49,6 +49,12 @@
 			<if test="email !=null and email !=''">
 				and Email = #{email}
 			</if>
+			<if test="activationcode !=null and activationcode !=''">
+				and ActivationCode = #{activationcode}
+			</if>
+			<if test="nickname !=null and nickname !=''">
+				and Nickname = #{nickname}
+			</if>
 		</where>
 	</select>
 

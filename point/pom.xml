@@ -151,6 +151,7 @@
 		<module>point-web</module>
 		<module>point-util</module>
 		<module>point-validation</module>
+		<module>point-interceptor</module>
 	</modules>
 
 	<build>
