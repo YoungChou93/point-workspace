@@ -26,31 +26,36 @@ html, body {
 </head>
 <body>
 
-	<div class="container" style="padding:5px;">
-<div class="row">
-<div class="col-md-10">
-		<form role="form" class="form-inline">
-			<div class="form-group">
-				<label>省份：</label> <select id="ddlProvince" onchange="selectMoreCity(this)" class="form-control">
-				</select>
+	<div class="container"
+		style="padding: 5px; position: absolute; z-index: 3; top: 10%; left: 5%;">
+		<div class="row">
+			<div class="col-md-5">
+				<form role="form" class="form-horizontal"
+					style="background: rgba(228, 232, 246, 0.6); padding: 20px;">
+					<div class="form-group form-inline">
+						<label class="col-md-3">标题：</label> <input type="text" name=""
+							id="" class="form-control" placeholder="title">
+					</div>
+
+
+					<div class="form-group form-inline">
+						<label class="col-md-3">地点：</label> <select id="ddlProvince"
+							onchange="selectMoreCity(this)" class="form-control">
+						</select> <select id="ddlCity" class="form-control ">
+						</select>
+					</div>
+
+					<div class="form-group form-inline">
+						<label class="col-md-3">经度：</label> 
+						<input type="text" name="" id="" class="form-control" />
+					</div>
+					<div class="form-group form-inline">
+						<label class="col-md-3">纬度：</label> 
+						<input type="text" name="" id="" class="form-control" />
+					</div>
+
+				</form>
 			</div>
-			<div class="form-group">
-				<label>城市：</label> <select id="ddlCity" class="form-control">
-				</select>
-			</div>
-			<div class="form-group">
-				<label>数量：</label> <select class="form-control">
-					<option value="10">10</option>
-					<option value="20">20</option>
-					<option value="50">50</option>
-					<option value="100">全部</option>
-				</select>
-			</div>
-		</form>
-		</div>
-		<div class="col-md-2">
-		<a  href="${pageContext.request.contextPath}/jsps/point/addpoint.jsp" class="btn btn-primary" target="main">添加</a>
-		</div>
 		</div>
 	</div>
 
@@ -59,8 +64,8 @@ html, body {
 	</div>
 
 	<script type="text/javascript">
-	BindCity("武汉");
-	     
+		BindCity("武汉");
+
 		// 百度地图API功能
 		var map = new BMap.Map("allmap");
 		var point = new BMap.Point(114.404, 39.915);

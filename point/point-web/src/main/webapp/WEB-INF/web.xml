@@ -53,7 +53,7 @@
 		<listener-class>com.point.controller.base.SessionTimeOutListener</listener-class>
 	</listener>
 	<session-config><!-- session 失效的时间，单位：分钟 -->
-		<session-timeout>10</session-timeout>
+		<session-timeout>3</session-timeout>
 	</session-config>
 
 	<!-- MDC过滤器 -->

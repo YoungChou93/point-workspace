@@ -11,15 +11,12 @@
 	src="${pageContext.request.contextPath}/bootstrap/js/jquery-2.2.1.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/res/css/style.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 <title>登录</title>
 <style type="text/css">
-body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
-	font-family: Microsoft YaHei, '宋体', Tahoma, Helvetica, Arial,
-		"\5b8b\4f53", sans-serif;
-}
-
 html, body {
 	font-size: 100%;
 	background: #fff;
@@ -30,7 +27,8 @@ body {
 }
 
 .banner {
-	background: url(${pageContext.request.contextPath}/img/loginbackground1.jpg)
+	background:
+		url(${pageContext.request.contextPath}/res/img/loginbackground1.jpg)
 		no-repeat center top;
 	background-size: cover;
 	-webkit-background-size: cover;
@@ -87,10 +85,11 @@ body {
 				</ul>
 
 				<div class="tab-content" align="center">
-				<img  src="${pageContext.request.contextPath}/img/logo.png" style="height:90px;text-align:center;"/>
-				<!-- <h1 class="text-center">CityPoint</h1> -->
+					<img src="${pageContext.request.contextPath}/res/img/logo.png"
+						style="height: 90px; text-align: center;" />
+					<!-- <h1 class="text-center">CityPoint</h1> -->
 					<div class="tab-pane fade in active" id="login">
-						
+
 						<font color="red">${errorMsg}</font>
 						<form class="form-horizontal" method="post" style="margin: 20px;"
 							action="${pageContext.request.contextPath}/user/login.action">
@@ -118,7 +117,7 @@ body {
 						</form>
 					</div>
 					<div class="tab-pane fade" id="register">
-
+						<font color="red">${errorMsg}</font>
 						<form class="form-horizontal" method="post" style="margin: 20px;"
 							action="${pageContext.request.contextPath}/user/register.action">
 							<div class="form-group">
@@ -187,6 +186,11 @@ body {
 							+ new Date().getTime());
 
 		}
+		
+		<c:if test="${!empty registerUserCustom}"> 
+		      $('#myTab a:last').tab('show');
+		</c:if>
+		
 	</script>
 </body>
 </html>

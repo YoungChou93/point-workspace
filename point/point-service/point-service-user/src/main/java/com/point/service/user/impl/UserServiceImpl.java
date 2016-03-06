@@ -96,8 +96,8 @@ public class UserServiceImpl implements UserService {
 		userDao.insertSelective(userCustom);
 
 		/* 发送激活邮件邮件 */
-		 SendMail sendMail = new SendMail();
-		 sendMail.send(userCustom.getEmail(),userCustom.getActivationcode());
+		 //SendMail sendMail = new SendMail();
+		// sendMail.send(userCustom.getEmail(),userCustom.getActivationcode());
 
 		return result;
 	}
@@ -254,6 +254,20 @@ public class UserServiceImpl implements UserService {
 		httpSession.removeAttribute("loginRecord");
 
 	}
+	
+	@Override
+	public Map<String, Object> getOnlineExisting(HttpSession httpSession) {
+		User loginUser=(User) httpSession.getAttribute("user");
+		Map<String, Object> restlt=new HashMap<String, Object>();
+		if(loginUser!=null){
+			restlt.put("success", null);
+		}else{
+			restlt.put("fail", null);
+		}
+		
+		return restlt;
+		
+	}
 
 	private String getUid() {
 		String uid = null;
@@ -305,5 +319,7 @@ public class UserServiceImpl implements UserService {
 		return loginRecordId;
 
 	}
+
+	
 
 }

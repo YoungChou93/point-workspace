@@ -145,5 +145,10 @@
 	
 	<select id="getMaxID"  resultType="String">
 		select MAX(id) from loginrecord
+		<where>
+			<if test="prefix !=null and prefix != ''">
+				and id like #{prefix}
+			</if>
+		</where>
 	</select>
 </mapper>

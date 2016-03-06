@@ -52,5 +52,14 @@ public interface UserService {
 	public void loginOut(HttpSession httpSession);
 	
 	
+	
+	/**
+	 * 
+	 * @brief 判断用户是否还在登录状态
+	 * @param httpSession
+	 * @author zhouyang
+	 * @date 2016年3月6日 下午7:17:36
+	 */
+	public Map<String, Object> getOnlineExisting(HttpSession httpSession);
 
 }

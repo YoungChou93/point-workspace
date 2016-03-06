@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.json.JsonObject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -18,8 +20,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.point.entity.user.custom.UserCustom;
 import com.point.service.user.UserService;
+import com.point.util.ResponseUtil;
 import com.point.validation.LoginValidation;
 import com.point.validation.RegisterValidation;
+
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/user")
@@ -104,7 +109,8 @@ public class UserController {
 			mav.addObject("registerUserCustom", userCustom);
 			mav.setViewName("/user/login");
 		} else {
-			mav.addObject("message", "请到邮箱"+userCustom.getEmail()+"中查看激活邮件，可能在垃圾箱中");
+			mav.addObject("message", "注册成功！");
+			mav.addObject("content", "尊敬的"+userCustom.getNickname()+"，请到邮箱"+userCustom.getEmail()+"中查看激活邮件，若找不到邮件，可能在垃圾箱中!");
 			mav.setViewName("/user/activative");//跳转到激活提示页面
 		}
 
@@ -144,4 +150,18 @@ public class UserController {
 		
 		return mav;
 	}
+	
+	@RequestMapping("/timer")
+	public String timer(HttpSession httpSession, HttpServletResponse response) throws Exception{
+		Map<String, Object> restlt=userService.getOnlineExisting(httpSession);
+		JSONObject jsonObject=new JSONObject();
+		if(restlt.containsKey("success")){
+			jsonObject.put("success", true);
+		}else{
+			jsonObject.put("success", false);
+		}
+		ResponseUtil.write(response,jsonObject);
+		return null;
+	}
+	
 }
