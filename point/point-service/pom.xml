@@ -11,6 +11,7 @@
 	<name>point-service</name>
 	<modules>
 		<module>point-service-user</module>
+		<module>point-service-point</module>
 	</modules>
 
 	<dependencies>

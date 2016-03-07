@@ -11,6 +11,7 @@
 	<name>point-entity</name>
 	<modules>
 		<module>point-entity-user</module>
+		<module>point-entity-point</module>
 	</modules>
 	
 	<dependencies>

@@ -22,6 +22,11 @@
 
 		<!-- log4j的依赖包 -->
 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
@@ -110,11 +115,8 @@
 			<version>5.1.34</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>sqljdbc41</artifactId>
-			<version>4.1</version>
-		</dependency>
+		<!-- <dependency> <groupId>com.microsoft.sqlserver</groupId> <artifactId>sqljdbc41</artifactId> 
+			<version>4.1</version> </dependency> -->
 
 		<dependency>
 			<groupId>javax</groupId>
@@ -127,6 +129,8 @@
 			<version>2.4</version>
 			<classifier>jdk15</classifier>
 		</dependency>
+
+		
 
 		<!-- Apache Commons FileUpload -->
 		<dependency>

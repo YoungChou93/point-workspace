@@ -65,7 +65,7 @@ body {
 							<li><a href="" target="main">照片</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/jsps/point/map.jsp"
-								target="main">地图</a></li>
+								target="main">城市</a></li>
 							<li><a href="" target="main">分享</a></li>
 							<li><a href="" target="main">关于</a></li>
 						</ul>
@@ -85,6 +85,14 @@ body {
 										href="${pageContext.request.contextPath}/jsps/user/userinfo.jsp"
 										target="main"><span class="glyphicon glyphicon-user"></span>我的资料</a></li>
 									<li class="divider"></li>
+									<c:if test="${sessionScope.user.role==0}">
+									<li><a
+										href=""
+										target="main"><span class="glyphicon glyphicon-asterisk"></span>管理员</a></li>
+									
+									<li class="divider"></li>
+									</c:if>
+									
 									<li><a
 										href="${pageContext.request.contextPath}/user/logout.action"><span
 											class="glyphicon glyphicon-off"></span>登出</a></li>

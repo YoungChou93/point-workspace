@@ -10,5 +10,13 @@
   <name>point-dao</name>
   <modules>
   	<module>point-dao-user</module>
+  	<module>point-dao-point</module>
   </modules>
+  <dependencies>
+  	<dependency>
+			<groupId>com.point</groupId>
+			<artifactId>point-configfile</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		</dependencies>
 </project>

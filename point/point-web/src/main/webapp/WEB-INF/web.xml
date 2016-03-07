@@ -83,11 +83,9 @@
 	</servlet-mapping>
 
 	<!-- 配置错误处理 -->
-	<!-- <error-page> <error-code>404</error-code> <location>/login.jsp</location> 
-		</error-page> -->
 	<error-page>
 		<error-code>500</error-code>
-		<location>/login.jsp</location>
+		<location>/error.jsp</location>
 	</error-page>
 
 </web-app>

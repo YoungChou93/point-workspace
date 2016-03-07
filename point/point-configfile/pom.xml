@@ -9,6 +9,19 @@
   <name>point-configfile</name>
   
   
+  <dependencies>
+		<dependency>
+			<groupId>com.point</groupId>
+			<artifactId>point-entity-user</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.point</groupId>
+			<artifactId>point-entity-point</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+	
    <build>
     <plugins>
         <plugin>

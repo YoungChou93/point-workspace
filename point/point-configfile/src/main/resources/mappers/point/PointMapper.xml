@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.point.dao.point.PointDao">
+	<resultMap id="BaseResultMap" type="com.point.entity.point.Point">
+		<id column="PointID" property="pointid" jdbcType="CHAR" />
+		<result column="Title" property="title" jdbcType="VARCHAR" />
+		<result column="Longitude" property="longitude" jdbcType="CHAR" />
+		<result column="Latitude" property="latitude" jdbcType="CHAR" />
+		<result column="CreateTime" property="createtime" jdbcType="DATE" />
+		<result column="City" property="city" jdbcType="VARCHAR" />
+		<result column="Status" property="status" jdbcType="INTEGER" />
+		<result column="BigPhoto" property="bigphoto" jdbcType="VARCHAR" />
+		<result column="SmallPhoto" property="smallphoto" jdbcType="VARCHAR" />
+		<result column="Praise" property="praise" jdbcType="INTEGER" />
+		<result column="Down" property="down" jdbcType="INTEGER" />
+		<result column="Label" property="label" jdbcType="VARCHAR" />
+		<result column="UnUsed1" property="unused1" jdbcType="VARCHAR" />
+		<result column="UnUsed2" property="unused2" jdbcType="VARCHAR" />
+		<result column="UnUsed3" property="unused3" jdbcType="VARCHAR" />
+
+		<association column="Uid" property="user"
+			select="com.point.dao.user.UserDao.selectByPrimaryKey"></association>
+	</resultMap>
+
+	<resultMap id="ResultMapWithBLOBs" type="com.point.entity.point.Point"
+		extends="BaseResultMap">
+		<result column="Content" property="content" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		PointID, Title, Longitude, Latitude, CreateTime, City,
+		Status, BigPhoto,
+		SmallPhoto,
+		Uid, Praise, Down, Label, UnUsed1,
+		UnUsed2, UnUsed3
+	</sql>
+	<sql id="Blob_Column_List">
+		Content
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from point
+		where PointID = #{pointid,jdbcType=CHAR}
+	</select>
+
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from point
+		<where>
+			<if test="uid !=null and uid !=''">
+				and Uid = #{uid}
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from point
+		where PointID = #{pointid,jdbcType=CHAR}
+	</delete>
+
+	<delete id="deleteByMap" parameterType="Map">
+		delete from point
+		<where>
+			<if test="uid !=null and uid !=''">
+				and Uid = #{uid}
+			</if>
+		</where>
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.point.entity.point.Point">
+		insert into point
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pointid != null">
+				PointID,
+			</if>
+			<if test="title != null">
+				Title,
+			</if>
+			<if test="longitude != null">
+				Longitude,
+			</if>
+			<if test="latitude != null">
+				Latitude,
+			</if>
+			<if test="createtime != null">
+				CreateTime,
+			</if>
+			<if test="city != null">
+				City,
+			</if>
+			<if test="status != null">
+				Status,
+			</if>
+			<if test="bigphoto != null">
+				BigPhoto,
+			</if>
+			<if test="smallphoto != null">
+				SmallPhoto,
+			</if>
+			<if test="user != null">
+				Uid,
+			</if>
+			<if test="praise != null">
+				Praise,
+			</if>
+			<if test="down != null">
+				Down,
+			</if>
+			<if test="label != null">
+				Label,
+			</if>
+			<if test="unused1 != null">
+				UnUsed1,
+			</if>
+			<if test="unused2 != null">
+				UnUsed2,
+			</if>
+			<if test="unused3 != null">
+				UnUsed3,
+			</if>
+			<if test="content != null">
+				Content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pointid != null">
+				#{pointid,jdbcType=CHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="longitude != null">
+				#{longitude,jdbcType=CHAR},
+			</if>
+			<if test="latitude != null">
+				#{latitude,jdbcType=CHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=DATE},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="bigphoto != null">
+				#{bigphoto,jdbcType=VARCHAR},
+			</if>
+			<if test="smallphoto != null">
+				#{smallphoto,jdbcType=VARCHAR},
+			</if>
+			<if test="user != null">
+				#{user.uid,jdbcType=CHAR},
+			</if>
+			<if test="praise != null">
+				#{praise,jdbcType=INTEGER},
+			</if>
+			<if test="down != null">
+				#{down,jdbcType=INTEGER},
+			</if>
+			<if test="label != null">
+				#{label,jdbcType=VARCHAR},
+			</if>
+			<if test="unused1 != null">
+				#{unused1,jdbcType=VARCHAR},
+			</if>
+			<if test="unused2 != null">
+				#{unused2,jdbcType=VARCHAR},
+			</if>
+			<if test="unused3 != null">
+				#{unused3,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.point.entity.point.Point">
+		update point
+		<set>
+			<if test="title != null">
+				Title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="longitude != null">
+				Longitude = #{longitude,jdbcType=CHAR},
+			</if>
+			<if test="latitude != null">
+				Latitude = #{latitude,jdbcType=CHAR},
+			</if>
+			<if test="createtime != null">
+				CreateTime = #{createtime,jdbcType=DATE},
+			</if>
+			<if test="city != null">
+				City = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				Status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="bigphoto != null">
+				BigPhoto = #{bigphoto,jdbcType=VARCHAR},
+			</if>
+			<if test="smallphoto != null">
+				SmallPhoto = #{smallphoto,jdbcType=VARCHAR},
+			</if>
+			<if test="user != null">
+				Uid = #{user.uid,jdbcType=CHAR},
+			</if>
+			<if test="praise != null">
+				Praise = #{praise,jdbcType=INTEGER},
+			</if>
+			<if test="down != null">
+				Down = #{down,jdbcType=INTEGER},
+			</if>
+			<if test="label != null">
+				Label = #{label,jdbcType=VARCHAR},
+			</if>
+			<if test="unused1 != null">
+				UnUsed1 = #{unused1,jdbcType=VARCHAR},
+			</if>
+			<if test="unused2 != null">
+				UnUsed2 = #{unused2,jdbcType=VARCHAR},
+			</if>
+			<if test="unused3 != null">
+				UnUsed3 = #{unused3,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				Content = #{content,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where PointID = #{pointid,jdbcType=CHAR}
+	</update>
+
+	<select id="findPoint" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from point
+		<where>
+			<if test="uid !=null and uid != ''">
+				and Uid = #{uid}
+			</if>
+		</where>
+		<if test="start!=null and size!=null">
+			order by id offset ${start} rows fetch next ${size} rows
+			only
+		</if>
+	</select>
+
+	<select id="getTotalPoint" parameterType="Map" resultType="Long">
+		select count(*) from point
+		<where>
+			<if test="uid !=null and uid != ''">
+				and Uid = #{uid}
+			</if>
+		</where>
+	</select>
+
+	<select id="getMaxID" resultType="String">
+		select MAX(PointId) from point
+		<where>
+			<if test="prefix !=null and prefix != ''">
+				and PointId like #{prefix}
+			</if>
+		</where>
+	</select>
+</mapper>

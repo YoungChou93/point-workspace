@@ -45,7 +45,7 @@ public class UserController {
 	@RequestMapping("/login")
 	public ModelAndView login(HttpServletRequest httpServletRequest,
 			@Validated(value = { LoginValidation.class }) UserCustom userCustom, BindingResult bindingResult) {
-
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView();
 

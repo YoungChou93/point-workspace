@@ -26,31 +26,33 @@ html, body {
 </head>
 <body>
 
-	<div class="container" style="padding:5px;">
-<div class="row">
-<div class="col-md-10">
-		<form role="form" class="form-inline">
-			<div class="form-group">
-				<label>省份：</label> <select id="ddlProvince" onchange="selectMoreCity(this)" class="form-control">
-				</select>
+	<div class="container" style="padding: 5px;">
+		<div class="row">
+			<div class="col-md-10">
+				<form role="form" class="form-inline">
+					<div class="form-group">
+						<label>省份：</label> <select id="ddlProvince"
+							onchange="selectMoreCity(this)" class="form-control">
+						</select>
+					</div>
+					<div class="form-group">
+						<label>城市：</label> <select id="ddlCity" class="form-control">
+						</select>
+					</div>
+					<div class="form-group">
+						<label>数量：</label> <select class="form-control">
+							<option value="10">10</option>
+							<option value="20">20</option>
+							<option value="50">50</option>
+							<option value="100">全部</option>
+						</select>
+					</div>
+				</form>
 			</div>
-			<div class="form-group">
-				<label>城市：</label> <select id="ddlCity" class="form-control">
-				</select>
+			<div class="col-md-2">
+				<a href="${pageContext.request.contextPath}/jsps/point/addpoint.jsp"
+					class="btn btn-primary" target="main">添加</a>
 			</div>
-			<div class="form-group">
-				<label>数量：</label> <select class="form-control">
-					<option value="10">10</option>
-					<option value="20">20</option>
-					<option value="50">50</option>
-					<option value="100">全部</option>
-				</select>
-			</div>
-		</form>
-		</div>
-		<div class="col-md-2">
-		<a  href="${pageContext.request.contextPath}/jsps/point/addpoint.jsp" class="btn btn-primary" target="main">添加</a>
-		</div>
 		</div>
 	</div>
 
@@ -59,69 +61,41 @@ html, body {
 	</div>
 
 	<script type="text/javascript">
-	BindCity("武汉");
-	     
-		// 百度地图API功能
+		//切换城市
+		function searchcity() {
+			var cityname = $("#ddlCity").val();
+			map.centerAndZoom(cityname, 15);
+		}
+
+		BindCity("武汉");
+
 		var map = new BMap.Map("allmap");
-		var point = new BMap.Point(114.404, 39.915);
-		map.centerAndZoom(point, 13);
+		map.centerAndZoom(new BMap.Point(114.308525, 30.601381), 12);
+
+		var top_left_control = new BMap.ScaleControl({
+			anchor : BMAP_ANCHOR_TOP_LEFT
+		});// 左上角，添加比例尺
+		var top_left_navigation = new BMap.NavigationControl(); //左上角，添加默认缩放平移控件
 		var top_right_navigation = new BMap.NavigationControl({
 			anchor : BMAP_ANCHOR_TOP_RIGHT,
 			type : BMAP_NAVIGATION_CONTROL_SMALL
 		}); //右上角，仅包含平移和缩放按钮
 		/*缩放控件type有四种类型:
 		BMAP_NAVIGATION_CONTROL_SMALL：仅包含平移和缩放按钮；BMAP_NAVIGATION_CONTROL_PAN:仅包含平移按钮；BMAP_NAVIGATION_CONTROL_ZOOM：仅包含缩放按钮*/
-		map.addControl(top_right_navigation);
 
-		var navigationControl = new BMap.NavigationControl({
-			// 靠左上角位置
-			anchor : BMAP_ANCHOR_TOP_LEFT,
-			// LARGE类型
-			type : BMAP_NAVIGATION_CONTROL_LARGE,
-			// 启用显示定位
-			enableGeolocation : true
-		});
+		map.addControl(top_left_control);
+		map.addControl(top_left_navigation);
+		map.addControl(top_right_navigation);
 
 		map.enableScrollWheelZoom(); //启用滚轮放大缩小，默认禁用
 		map.enableContinuousZoom(); //启用地图惯性拖拽，默认禁用
 
-		var geolocationControl = new BMap.GeolocationControl();
-		geolocationControl.addEventListener("locationSuccess", function(e) {
-			// 定位成功事件
-			var address = '';
-			address += e.addressComponent.province;
-			address += e.addressComponent.city;
-			address += e.addressComponent.district;
-			address += e.addressComponent.street;
-			address += e.addressComponent.streetNumber;
-			alert("当前定位地址为：" + address);
+		$('#ddlProvince').change(function() {
+			searchcity();
 		});
-		geolocationControl.addEventListener("locationError", function(e) {
-			// 定位失败事件
-			alert(e.message);
-		});
-		map.addControl(geolocationControl);
-		function myFun(result) {
-			var cityName = result.name;
-			map.setCenter(cityName);
-		}
-		var myCity = new BMap.LocalCity();
-		myCity.get(myFun);
 
-		function searchcity() {
-			var cityname = document.getElementById("ddlCity").value
-			map.centerAndZoom(cityname, 15);
-		}
-
-		map.addEventListener("click", function(e) {
-			if (addppoint == true) {
-				map.clearOverlays();
-				var marker = new BMap.Marker(new BMap.Point(e.point.lng,
-						e.point.lat));
-				map.addOverlay(marker);
-				document.getElementById("mapaddlng").value = e.point.lng;
-				document.getElementById("mapaddlat").value = e.point.lat;
-			}
+		$('#ddlCity').change(function() {
+			searchcity();
 		});
 	</script>
 </body>

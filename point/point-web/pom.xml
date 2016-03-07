@@ -46,6 +46,11 @@
 		</dependency>
 		<dependency>
 			<groupId>com.point</groupId>
+			<artifactId>point-controller-point</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.point</groupId>
 			<artifactId>point-interceptor</artifactId>
 			<version>${project.version}</version>
 		</dependency>

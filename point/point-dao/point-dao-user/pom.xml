@@ -17,11 +17,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.point</groupId>
-			<artifactId>point-configfile</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.point</groupId>
 			<artifactId>point-entity-user</artifactId>
 			<version>${project.version}</version>
 		</dependency>
