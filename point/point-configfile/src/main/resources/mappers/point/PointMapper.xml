@@ -19,7 +19,7 @@
 		<result column="UnUsed3" property="unused3" jdbcType="VARCHAR" />
 
 		<association column="Uid" property="user"
-			select="com.point.dao.user.UserDao.selectByPrimaryKey"></association>
+			select="com.point.dao.user.UserDao.selectPartByPrimaryKey"></association>
 	</resultMap>
 
 	<resultMap id="ResultMapWithBLOBs" type="com.point.entity.point.Point"
@@ -248,10 +248,12 @@
 			<if test="uid !=null and uid != ''">
 				and Uid = #{uid}
 			</if>
+			<if test="city !=null and city != ''">
+				and City = #{city}
+			</if>
 		</where>
 		<if test="start!=null and size!=null">
-			order by id offset ${start} rows fetch next ${size} rows
-			only
+			order by PointID  limit ${start},${size};
 		</if>
 	</select>
 

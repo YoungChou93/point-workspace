@@ -13,7 +13,7 @@
 	href="${pageContext.request.contextPath}/res/css/style.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
+<title>CityPoint</title>
 <script type="text/javascript">
 
 $(function () {

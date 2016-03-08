@@ -25,17 +25,37 @@
 		<result column="UnUsed2" property="unused2" jdbcType="VARCHAR" />
 		<result column="UnUsed3" property="unused3" jdbcType="VARCHAR" />
 	</resultMap>
+	
+	<resultMap id="PartResultMap" type="com.point.entity.user.UserPart">
+	    <id column="Uid" property="uid" jdbcType="CHAR" />
+	    <result column="Nickname" property="nickname" jdbcType="VARCHAR" />
+	    <result column="HeadPicture" property="headpicture" jdbcType="VARCHAR" />
+	</resultMap>
 	<sql id="Base_Column_List">
-		Uid, Email, Password, Nickname, Gender, Status, ActivationCode,
+		Uid, Email, Password, Nickname, Gender, Status,
+		ActivationCode,
 		HeadPicture, RegisterTime,
-		LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1,
+		LoginCounts, Score, Role,
+		Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1,
 		UnUsed2, UnUsed3
+	</sql>
+
+	<sql id="Base_Column_List_Part">
+		Uid,Nickname, HeadPicture
 	</sql>
 
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
+		from user
+		where Uid = #{uid,jdbcType=CHAR}
+	</select>
+
+	<select id="selectPartByPrimaryKey" resultMap="PartResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List_Part" />
 		from user
 		where Uid = #{uid,jdbcType=CHAR}
 	</select>
@@ -51,6 +71,20 @@
 			</if>
 			<if test="activationcode !=null and activationcode !=''">
 				and ActivationCode = #{activationcode}
+			</if>
+			<if test="nickname !=null and nickname !=''">
+				and Nickname = #{nickname}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectPartByMap" parameterType="Map" resultMap="PartResultMap">
+		select
+		<include refid="Base_Column_List_Part" />
+		from User
+		<where>
+			<if test="uid !=null and uid !=''">
+				and Uid = #{uid}
 			</if>
 			<if test="nickname !=null and nickname !=''">
 				and Nickname = #{nickname}

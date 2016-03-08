@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.point.entity.user.User;
+import com.point.entity.user.UserPart;
 
 public interface UserDao {
 
@@ -24,5 +25,9 @@ public interface UserDao {
     Long getTotalUser( Map<String, Object> map );
     
     String getMaxID(  Map<String, Object> map  ) ;
+    
+    UserPart selectPartByPrimaryKey(String uid);
+    
+    UserPart selectPartByMap(Map<String, Object> map);
 
 }

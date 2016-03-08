@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.validation.constraints.Size;
 
 import com.point.entity.user.User;
+import com.point.entity.user.UserPart;
 
 public class Point {
 	
@@ -28,7 +29,7 @@ public class Point {
 
     private String smallphoto;
 
-    private User user;
+    private UserPart user;
 
     private Integer praise;
 
@@ -125,11 +126,11 @@ public class Point {
 		this.smallphoto = smallphoto;
 	}
 
-	public User getUser() {
+	public UserPart getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserPart user) {
 		this.user = user;
 	}
 
@@ -187,6 +188,15 @@ public class Point {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	@Override
+	public String toString() {
+		return "Point [pointid=" + pointid + ", title=" + title + ", longitude=" + longitude + ", latitude=" + latitude
+				+ ", createtime=" + createtime + ", city=" + city + ", status=" + status + ", bigphoto=" + bigphoto
+				+ ", smallphoto=" + smallphoto + ", user=" + user + ", praise=" + praise + ", down=" + down + ", label="
+				+ label + ", unused1=" + unused1 + ", unused2=" + unused2 + ", unused3=" + unused3 + ", content="
+				+ content + "]";
 	}
 
     

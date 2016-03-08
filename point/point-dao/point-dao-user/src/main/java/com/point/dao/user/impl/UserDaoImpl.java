@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.point.dao.user.UserDao;
 import com.point.entity.user.User;
+import com.point.entity.user.UserPart;
 
 public class UserDaoImpl implements UserDao {
 
@@ -59,6 +60,16 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public String getMaxID(Map<String, Object> map) {
 		return sessionTemplate.selectOne( "com.point.dao.user.UserDao.getMaxID", map);
+	}
+
+	@Override
+	public UserPart selectPartByPrimaryKey(String uid) {
+		return sessionTemplate.selectOne( "com.point.dao.user.UserDao.selectPartByPrimaryKey", uid);
+	}
+
+	@Override
+	public UserPart selectPartByMap(Map<String, Object> map) {
+		return sessionTemplate.selectOne( "com.point.dao.user.UserDao.selectPartByMap", map);
 	}
 
 }

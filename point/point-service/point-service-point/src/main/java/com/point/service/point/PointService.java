@@ -31,6 +31,16 @@ public interface PointService {
 	 * @author zhouyang
 	 * @date 2016年3月7日 下午5:01:32
 	 */
-	public Map<String,Object> getPoints(HttpSession httpSession,String city);
+	public Map<String,Object> getPoints(String number,String city);
+	
+	/**
+	 * 
+	 * @brief 通过id查找摄影点
+	 * @param pointid
+	 * @return
+	 * @author zhouyang
+	 * @date 2016年3月8日 下午7:41:54
+	 */
+	public Map<String,Object> getOnePoint(String pointid);
 
 }

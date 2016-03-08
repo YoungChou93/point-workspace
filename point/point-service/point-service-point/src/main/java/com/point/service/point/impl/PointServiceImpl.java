@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,12 +15,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.point.dao.point.PointDao;
 import com.point.entity.point.Point;
 import com.point.entity.user.User;
+import com.point.entity.user.UserPart;
 import com.point.service.point.PointService;
 import com.point.util.CommonUtils;
 import com.point.util.GenerateCode;
 
 public class PointServiceImpl implements PointService {
-	
+
 	private PointDao pointDao;
 
 	public void setPointDao(PointDao pointDao) {
@@ -27,68 +29,85 @@ public class PointServiceImpl implements PointService {
 	}
 
 	@Override
-	public Map<String, Object> addPoint(HttpServletRequest httpServletRequest,MultipartFile photo,Point point) {
-		
+	public Map<String, Object> addPoint(HttpServletRequest httpServletRequest, MultipartFile photo, Point point) {
+
 		Map<String, Object> result = new HashMap<String, Object>();
-		HttpSession httpSession=httpServletRequest.getSession();
-		User user=(User) httpSession.getAttribute("user");
-		
-		if(null==user){
+		HttpSession httpSession = httpServletRequest.getSession();
+		User user = (User) httpSession.getAttribute("user");
+
+		if (null == user) {
 			result.put("errorMsg", "未登陆");
 			return result;
 		}
-		
-		if(null== photo){
+
+		if (null == photo) {
 			result.put("errorMsg", "未上传照片");
 			return result;
 		}
-		
-		String oldFileNme=photo.getOriginalFilename();
-		
+
+		String oldFileNme = photo.getOriginalFilename();
+
 		System.out.println(oldFileNme);
-		
-		if(null==oldFileNme || oldFileNme.length()<=0){
+
+		if (null == oldFileNme || oldFileNme.length() <= 0) {
 			result.put("errorMsg", "未上传照片");
 			return result;
 		}
 		SimpleDateFormat myformat = new SimpleDateFormat("yyyyMMdd");
-		String date=myformat.format(new Date()); // id前缀
-		
-		String path=httpServletRequest.getSession().getServletContext().getRealPath("/");
-		
-		String newFileName=date+CommonUtils.uuid()+oldFileNme.substring(oldFileNme.lastIndexOf("."));
-		
-		System.out.println(path+ "file\\user\\pointphoto\\" +newFileName);
-		
-		File newFile=new File(path+ "file\\user\\pointphoto\\" +newFileName);
-		
+		String date = myformat.format(new Date()); // id前缀
+
+		String path = httpServletRequest.getSession().getServletContext().getRealPath("/");
+
+		String newFileName = date + CommonUtils.uuid() + oldFileNme.substring(oldFileNme.lastIndexOf("."));
+
+		System.out.println(path + "file\\user\\pointphoto\\" + newFileName);
+
+		File newFile = new File(path + "file\\user\\pointphoto\\" + newFileName);
+
 		try {
 			photo.transferTo(newFile);
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.put("errorMsg", "照片存储失败");
 			return result;
-		} 
-		
-		//设置主键
+		}
+
+		// 设置主键
 		point.setPointid(this.getPointId());
-		//设置照片路径
-		point.setBigphoto("/file/pointphoto/"+newFileName);
-		//设置创建人
-		point.setUser(user);
-		//设置创建时间
+		// 设置照片路径
+		point.setBigphoto("/file/user/pointphoto/" + newFileName);
+		// 设置创建人
+		point.setUser(new UserPart(user.getUid()));
+		// 设置创建时间
 		point.setCreatetime(new Date());
 		pointDao.insertSelective(point);
-		
+
 		return result;
 	}
 
 	@Override
-	public Map<String, Object> getPoints(HttpSession httpSession, String city) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> getPoints(String number, String city) {
+
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("city", city);
+		if (!"100".equals(number)) {
+			map.put("start", 0);
+			map.put("size", number);
+		}
+
+		List<Point> points = pointDao.findPoint(map);
+
+		if (null == points || points.size()<1) {
+			result.put("errorMsg", city+"还没有摄影点，赶紧添加一个吧!");
+		}else{
+			result.put("points", points);
+		}
+
+		return result;
 	}
-	
+
 	private String getPointId() {
 		String pointid = null;
 		SimpleDateFormat myformat = new SimpleDateFormat("yyyyMMdd");
@@ -104,6 +123,20 @@ public class PointServiceImpl implements PointService {
 		}
 		return pointid;
 
+	}
+
+	@Override
+	public Map<String, Object> getOnePoint(String pointid) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Point point =pointDao.selectByPrimaryKey(pointid);
+		
+		if(null==point || null==point.getPointid()){
+			result.put("errorMsg", "不存在该摄影点");
+		}
+		
+		result.put("point", point);
+		
+		return result;
 	}
 
 }

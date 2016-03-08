@@ -1,6 +1,8 @@
 package com.point.dao.user.test;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +25,7 @@ public class UserDaoTest {
 	
 	@Test
 	public void test(){
-	User user =new User("2016030100000001");
+	/*User user =new User("2016030100000001");
 	user.setActivationcode("qwertyuioplkjhgf");
 	user.setEmail("329088816@qq.com");
 	user.setNickname("与中秋有约");
@@ -36,7 +38,8 @@ public class UserDaoTest {
 	user.setRegistertime(new Date());
 	user.setRole((byte)0);
 	
-	userDao.insertSelective(user);
-		
+	userDao.insertSelective(user);*/
+		Map<String, Object> map=new HashMap<String,Object>();
+		System.out.println(userDao.selectPartByMap(map));
 	}
 }
