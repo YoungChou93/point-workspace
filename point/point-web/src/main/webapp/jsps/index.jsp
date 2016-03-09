@@ -14,33 +14,9 @@
 	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 <title>首页</title>
 <style type="text/css">
-.index-bottom {
-	background: #555;
-	padding: 2em 0;
-	text-align: center;
-}
-
-ul#footer-links {
-	padding: 0;
-	margin: 0;
-	list-style: none;
-}
-
-ul#footer-links li {
-	display: inline-block;
-}
-
-ul#footer-links li a {
-	color: #fff;
-	font-size: 0.85em;
-	margin: 0 12px;
-}
-
-.index-bottom p {
-	color: #fff;
-	font-size: 0.85em;
-	margin: 1em 0 0 0;
-}
+body{
+    width: 100%;
+	height: 100%;
 }
 </style>
 </head>
@@ -143,7 +119,7 @@ ul#footer-links li a {
 				<li><a href="https://github.com/" target="_Blank">GitHub</a></li>
 			
 			</ul>
-			<p>Copyright &copy; 2016.City Point All rights reserved.</p>
+			<p>Copyright &copy; 2016.City Point All rights reserved.这里是爱好城市摄影者们的无名小站</p>
 			<p>未经允许，不得擅自使用本站照片。</p>
 		</div>
 	</div>

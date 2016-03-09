@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.point.entity.user.User;
 import com.point.entity.user.custom.UserCustom;
 import com.point.service.user.UserService;
 import com.point.util.ResponseUtil;
@@ -141,6 +142,14 @@ public class UserController {
 		return mav;
 	}
 	
+	/**
+	 * 
+	 * @brief 退出登录
+	 * @param httpSession
+	 * @return
+	 * @author zhouyang
+	 * @date 2016年3月9日 下午9:01:20
+	 */
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpSession httpSession){
 		ModelAndView mav = new ModelAndView();
@@ -150,6 +159,18 @@ public class UserController {
 		
 		return mav;
 	}
+	
+	@RequestMapping("/getUserInfo")
+	public ModelAndView getUserInfo(HttpSession httpSession){
+        ModelAndView mav = new ModelAndView();
+		
+		User user=(User) httpSession.getAttribute("user");
+		mav.addObject(user);
+		mav.setViewName("/user/userinfo");
+		
+		return mav;
+	}
+	
 	
 	@RequestMapping("/timer")
 	public String timer(HttpSession httpSession, HttpServletResponse response) throws Exception{

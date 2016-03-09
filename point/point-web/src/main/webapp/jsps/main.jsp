@@ -13,7 +13,7 @@
 	href="${pageContext.request.contextPath}/res/css/style.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-<title>CityPoint</title>
+<title>CityPoint-这里是爱好城市摄影者们的无名小站</title>
 <script type="text/javascript">
 
 $(function () {
@@ -82,7 +82,7 @@ body {
 									<li><a href="#"><span class="glyphicon glyphicon-home"></span>个人主页</a></li>
 									<li class="divider"></li>
 									<li><a
-										href="${pageContext.request.contextPath}/jsps/user/userinfo.jsp"
+										href="${pageContext.request.contextPath}/user/getUserInfo.action"
 										target="main"><span class="glyphicon glyphicon-user"></span>我的资料</a></li>
 									<li class="divider"></li>
 									<c:if test="${sessionScope.user.role==0}">

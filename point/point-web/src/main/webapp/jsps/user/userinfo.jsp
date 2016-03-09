@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,78 +12,250 @@
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/res/css/style.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/res/js/cropbox.js"></script>
+<title>个人资料</title>
 
 <style type="text/css">
- html,body {
-     width:100%;
-     height:100%;
-	}
- 
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+.td-name {
+	width: 40%;
+	padding: 10px;
+}
+
+.td-value {
+	width: 60%;
+	padding: 10px;
+}
+
+.action {
+	width: 400px;
+	height: 30px;
+	margin: 0 auto;
+}
+
+.cropped {
+	margin: 0 auto;
+	padding:5px;
+}
+
+.imageBox {
+	position: relative;
+	height: 400px;
+	width: 400px;
+	border: 1px solid #aaa;
+	background: #fff;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	cursor: move;
+	margin: 0 auto;
+}
+
+.imageBox .thumbBox {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 200px;
+	height: 200px;
+	margin-top: -100px;
+	margin-left: -100px;
+	box-sizing: border-box;
+	border: 1px solid rgb(102, 102, 102);
+	box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+	background: none repeat scroll 0% 0% transparent;
+}
+
+.imageBox .spinner {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	text-align: center;
+	line-height: 400px;
+	background: rgba(0, 0, 0, 0.7);
+}
 </style>
 </head>
 <body>
-<div class="container" style="margin-top:10px">
-<div class="row">
-<div class="col-md-1"></div>
-<div class="col-md-3">
-<div class="panel panel-primary">
-   <div class="panel-heading">
-      <h3 class="panel-title">面板标题</h3>
-   </div>
-   <div class="panel-body">
-      这是一个基本的面板
-   </div>
-</div>
-<a href="#" class="list-group-item">
-修改资料
-</a>
-<a href="#" class="list-group-item">修改密码</a>
-<a href="#" class="list-group-item">修改头像</a>
-<a href="#" class="list-group-item">图像的数量</a>
-<a href="#" class="list-group-item">每年更新成本</a>
+	<div class="container" style="margin-top: 10px">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">编辑</h3>
+					</div>
+
+					<ul class="list-group text-center">
+						<li class="list-group-item"><a href="#"> 修改资料 </a></li>
+						<li class="list-group-item"><a href="#password"> 修改密码 </a></li>
+						<li class="list-group-item"><a href="#headpicture"> 修改头像
+						</a></li>
+					</ul>
+
+				</div>
+
+			</div>
+			<div class="col-md-7">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">个人资料</h3>
+					</div>
+					<div class="panel-body">
+						<table cellspacing="20px" style="width: 100%;">
+							<tr>
+								<td align="right" class="td-name">邮箱：</td>
+								<td class="td-value">${user.email}</td>
+							</tr>
+							<tr>
+								<td align="right" class="td-name">昵称：</td>
+								<td class="td-value">${user.nickname}</td>
+							</tr>
+							<tr>
+								<td align="right" class="td-name">性别：</td>
+								<td class="td-value"><c:if test="${user.gender==0}">未知</c:if>
+									<c:if test="${user.gender==1}">男</c:if> <c:if
+										test="${user.gender==2}">女</c:if></td>
+							</tr>
+							<tr>
+								<td align="right" class="td-name">地区：</td>
+								<td class="td-value">${user.location}</td>
+							</tr>
+							<tr>
+								<td align="right" class="td-name">简介：</td>
+								<td class="td-value">${user.brief}</td>
+							</tr>
+							<tr>
+								<td align="right" class="td-name">注册时间：</td>
+								<td class="td-value"><fmt:formatDate
+										value="${user.registertime}" type="date" /></td>
+							</tr>
+							<tr>
+								<td align="right" class="td-name">微博：</td>
+								<td class="td-value">${user.weibo}</td>
+							</tr>
+							<tr>
+								<td align="right" class="td-name">QQ：</td>
+								<td class="td-value">${user.qq}</td>
+							</tr>
+							<tr>
+								<td align="right" class="td-name">积分：</td>
+								<td class="td-value">${user.score}</td>
+							</tr>
+						</table>
+
+
+					</div>
+				</div>
+				<div class="panel panel-default" id="password">
+					<div class="panel-heading">
+						<h3 class="panel-title">密码</h3>
+					</div>
+					<div class="panel-body text-center">
+
+						<form class="form-horizontal">
+							<div class="form-group form-inline">
+								<label>旧密码：</label> <input type="password" class="form-control" />
+							</div>
+
+							<div class="form-group form-inline">
+								<label>新密码：</label> <input type="password" class="form-control" />
+							</div>
+
+							<div class="form-group form-inline">
+								<label>确认密码：</label> <input type="password" class="form-control" />
+							</div>
+
+							<button type="submit" class="btn btn-primary">确定</button>
+
+						</form>
 
 
 
-</div>
-<div class="col-md-7">
-<div class="panel panel-primary">
-   <div class="panel-heading">
-      <h3 class="panel-title">个人资料</h3>
-   </div>
-   <div class="panel-body">
-      <table class="table">
-   <tbody>
-      <tr>
-         <td>邮箱</td>
-         <td>Bangalore</td>
-      </tr>
-      <tr>
-         <td>昵称</td>
-         <td>Mumbai</td>
-      </tr>
-       <tr>
-         <td>年龄</td>
-         <td>Mumbai</td>
-      </tr>
-       <tr>
-         <td>性别</td>
-         <td>Mumbai</td>
-      </tr>
-       <tr>
-         <td>昵称</td>
-         <td>Mumbai</td>
-      </tr>
-   </tbody>
-</table>
+					</div>
+				</div>
+				<div class="panel panel-default" id="headpicture">
+					<div class="panel-heading">
+						<h3 class="panel-title">头像</h3>
+					</div>
+					<div class="panel-body text-center">
+
+						<div class="imageBox">
+							<div class="thumbBox"></div>
+							<div class="spinner" style="display: none">Loading...</div>
+						</div>
+
+						<div class="action">
+							<input type="file" id="file"  accept=".jpg,.png" style="float: left; width: 250px">
+							<input type="button" id="btnCrop" value="Crop"
+								style="float: right"> <input type="button"
+								id="btnZoomIn" value="+" style="float: right"> <input
+								type="button" id="btnZoomOut" value="-" style="float: right">
+						</div>
+
+						<div class="cropped"></div>
+						
+						<button class="btn btn-primary">上传</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
-   </div>
-</div>
-</div>
-</div>
+	</div>
+	
+	<div class="index-bottom">
+		<div class="container">
+			<ul id="footer-links">
+				<li><a href="#">友情链接</a></li>
+				<li><a href="https://tuchong.com/" target="_Blank">图虫</a></li>
+				<li><a href="http://www.lofter.com/" target="_Blank">Lofter</a></li>
+				<li><a href="http://photo.poco.cn/" target="_Blank">POCO摄影</a></li>
+				<li><a href="https://500px.com" target="_Blank">500px</a></li>
+				<li><a href="http://www.fengniao.com/" target="_Blank">蜂鸟网</a></li>
+				<li><a href="https://github.com/" target="_Blank">GitHub</a></li>
+			
+			</ul>
+			<p>Copyright &copy; 2016.City Point All rights reserved.这里是爱好城市摄影者们的无名小站</p>
+			<p>未经允许，不得擅自使用本站照片。</p>
+		</div>
+	</div>
 
-
-</div>
+	<script type="text/javascript">
+		$(window).load(function() {
+			var options = {
+				thumbBox : '.thumbBox',
+				spinner : '.spinner',
+				imgSrc : 'images/avatar.png'
+			}
+			var cropper = $('.imageBox').cropbox(options);
+			$('#file').on('change', function() {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					options.imgSrc = e.target.result;
+					cropper = $('.imageBox').cropbox(options);
+				}
+				reader.readAsDataURL(this.files[0]);
+				this.files = [];
+			})
+			$('#btnCrop').on('click', function() {
+				var img = cropper.getDataURL();
+				$('.cropped').append('<img src="'+img+'">');
+			})
+			$('#btnZoomIn').on('click', function() {
+				cropper.zoomIn();
+			})
+			$('#btnZoomOut').on('click', function() {
+				cropper.zoomOut();
+			})
+		});
+	</script>
 </body>
 </html>

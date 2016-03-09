@@ -28,46 +28,46 @@ html, body {
 </head>
 <body>
 
-	<div class="container">
 
-		<div class="row">
-			<div class="col-md-5"
+
+	
+			<div 
 				style="padding: 5px; position: absolute; z-index: 3; top: 10%; left: 5%;">
 				
 				<form role="form" class="form-horizontal" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/point/addPoint.action"
-					style="background: rgba(228, 232, 246, 0.7); padding: 20px;">
+					style="background: rgba(10, 10, 10, 0.6); padding: 20px;">
 					<div class="form-group form-inline text-center">
 					     <font color="red">${errorMsg}${message}</font>
 					</div>
 					<div class="form-group form-inline">
-						<label class="col-md-3">标题：</label> <input type="text" name="title"
+						<label class="col-md-3" style="color:white">标题：</label> <input type="text" name="title"
 							id="" class="form-control" placeholder="title" value="${point.title}">
 					</div>
 
 					<div class="form-group form-inline">
-						<label class="col-md-3">地点：</label> <select id="ddlProvince"
+						<label class="col-md-3" style="color:white">地点：</label> <select id="ddlProvince"
 							onchange="selectMoreCity(this)" class="form-control">
 						</select> <select id="ddlCity" class="form-control " name="city">
 						</select>
 					</div>
 
 					<div class="form-group form-inline">
-						<label class="col-md-3">经度：</label> 
+						<label class="col-md-3" style="color:white">经度：</label> 
 						<input type="text" name="longitude" id="longitude" class="form-control" readonly="readonly" placeholder="在地图上点击" value="${point.longitude}"/>
 					</div>
 					<div class="form-group form-inline">
-						<label class="col-md-3">纬度：</label> 
+						<label class="col-md-3" style="color:white">纬度：</label> 
 						<input type="text" name="latitude" id="latitude" class="form-control" readonly="readonly" placeholder="在地图上点击" value="${point.latitude}"/>
 					</div>
 					<div class="form-group form-inline">
-						<label class="col-md-3">描述：</label>
+						<label class="col-md-3" style="color:white">描述：</label>
 						<textarea name="content" id="" class="form-control" >${point.content}</textarea>
 					</div>
 					<div class="form-group">
-						<label class="col-md-3">照片</label> 
+						<label class="col-md-3" style="color:white">照片:</label> 
 						<div class="col-md-9">
 						<input  type="file" name="photo" id="" accept=".jpg">
-						<p class="help-block">选择一张照片，不大于5MB</p>
+						<p class="help-block" style="color:white">选择一张照片，不大于5MB</p>
 						</div>
 					</div>
                     <div class="form-group">
@@ -78,8 +78,6 @@ html, body {
 
 				</form>
 			</div>
-		</div>
-	</div>
 
 	<div id="allmap"
 		style="width: 100%; height: 100%; position: absolute; z-index: 2;">

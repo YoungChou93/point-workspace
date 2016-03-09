@@ -11,6 +11,8 @@
 	src="${pageContext.request.contextPath}/bootstrap/js/jquery-2.2.1.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/res/css/style.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript"
@@ -23,7 +25,9 @@ html, body {
 	overflow: hidden;
 }
 </style>
-
+<script type="text/javascript">
+    $('#bus').hide();
+</script>
 </head>
 <body>
 
@@ -64,9 +68,29 @@ html, body {
 	<div id="allmap"
 		style="width: 100%; height: 100%; position: absolute; z-index: 2;">
 	</div>
+    <div id="bus" style="overflow-y:scroll;position: absolute; z-index: 3;left:5%;top:15%;width:350px;height:450px;background: rgba(10, 10, 10, 0.6); padding-left:10px; padding-right:10px;">
 
+    <h3 style="color:white">公交查询</h3>
+    <div class="form-group form-inline">
+    <label style="color:white">起点：</label> 
+		<input type="text"  id="origin" class="form-control" >
+		<button onclick="closeBus()"  class="btn btn-default" style="float:right;">关闭</button>
+	</div>
+	<div class="form-group form-inline">
+	    <label style="color:white">终点：</label> 
+		<input type="text"  id="longitude" class="form-control" readonly="readonly"  style="width:100px;"/>
+		<input type="text"  id="latitude" class="form-control" readonly="readonly" style="width:100px;"/>
+		<button onclick="busSearch()"  class="btn btn-primary">查询</button>
+	</div>
+    
+    <div id="busResult"></div>
+    
+    </div>
 
 	<script type="text/javascript">
+	
+	    var localpoints=null;
+	    $('#bus').hide();
 		//切换城市
 		function searchcity() {
 			var cityname = $("#ddlCity").val();
@@ -82,19 +106,29 @@ html, body {
 			anchor : BMAP_ANCHOR_TOP_LEFT
 		});// 左上角，添加比例尺
 		var top_left_navigation = new BMap.NavigationControl(); //左上角，添加默认缩放平移控件
-		var top_right_navigation = new BMap.NavigationControl({
+		/* var top_right_navigation = new BMap.NavigationControl({
 			anchor : BMAP_ANCHOR_TOP_RIGHT,
 			type : BMAP_NAVIGATION_CONTROL_SMALL
-		}); //右上角，仅包含平移和缩放按钮
+		}); //右上角，仅包含平移和缩放按钮 */
 		/*缩放控件type有四种类型:
 		BMAP_NAVIGATION_CONTROL_SMALL：仅包含平移和缩放按钮；BMAP_NAVIGATION_CONTROL_PAN:仅包含平移按钮；BMAP_NAVIGATION_CONTROL_ZOOM：仅包含缩放按钮*/
 
 		map.addControl(top_left_control);
 		map.addControl(top_left_navigation);
-		map.addControl(top_right_navigation);
+		//map.addControl(top_right_navigation);
 
 		map.enableScrollWheelZoom(); //启用滚轮放大缩小，默认禁用
 		map.enableContinuousZoom(); //启用地图惯性拖拽，默认禁用
+		
+		
+		var stCtrl = new BMap.PanoramaControl(); //构造全景控件
+		stCtrl.setOffset(new BMap.Size(20, 20));
+		map.addControl(stCtrl);//添加全景控件
+		
+		var transit = new BMap.TransitRoute(map, {
+			renderOptions: {map: map, panel: "busResult"}
+		});
+		
 
 		$('#ddlProvince').change(function() {
 			searchcity();
@@ -112,6 +146,8 @@ html, body {
 
 		});
 
+		
+		/* 从后台服务器获取摄影点*/
 		function getPoint() {
 			$.post("${pageContext.request.contextPath}/point/getPoints.action",
 					{
@@ -123,29 +159,32 @@ html, body {
 							alert(result.errorMsg);
 						}
 						if (null != result.points) {
+							localpoints=result.points;
 							showPoints(result.points);
 						}
 						return;
 					}, 'json');
 		}
 
+		
+		/* 为摄影点添加信息窗口并显示*/
 		function showPoints(points) {
 			map.clearOverlays();
 			for (var i = 0; i < points.length; i++) {
 				var point = points[i];
 				showOnePoint(point);
-
 			}
 		}
-
 		function showOnePoint(point) {
-
-			var content = "<div style='width:310px;'><h4 style='margin:0 0 5px 0;padding:0.2em 0'><h4>"
+			var content = "<div style='width:310px;'><h4 style='margin:0 0 5px 0;padding:0.2em 0'><h3>"
 					+ point.title
-					+ "</h4>"
+					+ "</h3>"
 					+ "<img style='float:right;margin:4px' id='"+point.pointid+"' src='${pageContext.request.contextPath}"+point.bigphoto+"' width='300' height='200' />"
 					+ "<a href='${pageContext.request.contextPath}/point/getOnePoint.action?pointid="+ point.pointid+"'"
-					+ " class='btn btn-primary' target='main'>详细</a>"
+					+ " class='btn btn-primary' target='_Blank' style='margin-right:10px;'>详细</a>"
+					+ "<button onclick='showBus("+point.longitude+","+point.latitude+")' class='btn btn-primary' style='margin-right:10px;'>路线</button>"
+					+ "<p style='float:right;'>"+point.user.nickname+"</p>"
+					+ "<img style='width:30px;float:right;' src='${pageContext.request.contextPath}"+point.user.headpicture+"'/>"
 					+ "</div>";
 
 			var marker = new BMap.Marker(new BMap.Point(point.longitude,
@@ -168,6 +207,37 @@ html, body {
 
 			});
 		}
+		
+		
+		/* 显示公交查询面板*/
+		function showBus(longitude, latitude){
+			$("#longitude").val(longitude);
+			$("#latitude").val(latitude);
+			$('#bus').show();
+		}
+		
+		/* 公交查询路线*/
+		function busSearch(){
+			var origin=$("#origin").val();
+			if(origin!=null && ""!=origin){
+			var point = new BMap.Point($("#longitude").val(),$("#latitude").val());
+			transit.search(origin, point);
+			}else{
+				alert("请输入起点");
+			}
+			
+		}
+		
+		/* 关闭公交查询面板*/
+		function closeBus(){
+			$('#bus').hide();
+			if(localpoints!=null){
+				showPoints(localpoints);
+			}else{
+				getPoint();
+			}
+		}
+		
 		
 		$(function() {
 			getPoint();
