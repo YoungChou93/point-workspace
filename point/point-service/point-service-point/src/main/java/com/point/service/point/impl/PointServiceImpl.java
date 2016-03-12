@@ -47,8 +47,6 @@ public class PointServiceImpl implements PointService {
 
 		String oldFileNme = photo.getOriginalFilename();
 
-		System.out.println(oldFileNme);
-
 		if (null == oldFileNme || oldFileNme.length() <= 0) {
 			result.put("errorMsg", "未上传照片");
 			return result;

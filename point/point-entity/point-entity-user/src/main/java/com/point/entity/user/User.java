@@ -4,21 +4,28 @@ import java.util.Date;
 
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Range;
+
 import com.point.validation.LoginValidation;
+import com.point.validation.ModifyPassword;
+import com.point.validation.ModifyUserInfo;
 import com.point.validation.RegisterValidation;
 
 public class User {
     private String uid;
 
+    @Email(message="{user.email.error}",groups={RegisterValidation.class})
     @Size(min=1,max=40,message="{user.email.length.error}",groups={LoginValidation.class,RegisterValidation.class})
     private String email;
 
-    @Size(min=1,max=15,message="{user.password.length.error}",groups={LoginValidation.class,RegisterValidation.class})
+    @Size(min=1,max=15,message="{user.password.length.error}",groups={LoginValidation.class,RegisterValidation.class,ModifyPassword.class})
     private String password;
 
     @Size(min=1,max=10,message="{user.nickname.length.error}",groups={RegisterValidation.class})
     private String nickname;
 
+    @Range(min=0, max=1,message="{user.gender.Range.error}",groups={ModifyUserInfo.class})
     private Byte gender;
 
     private Byte status;
@@ -35,12 +42,16 @@ public class User {
 
     private Byte role;
 
+    @Size(min=0, max=15,message="{user.weibo.length.error}",groups={ModifyUserInfo.class})
     private String weibo;
 
+    @Size(min=0, max=15,message="{user.qq.length.error}",groups={ModifyUserInfo.class})
     private String qq;
 
+    @Size(min=0, max=100,message="{user.brief.length.error}",groups={ModifyUserInfo.class})
     private String brief;
-
+    
+    @Size(min=0, max=15,message="{user.location.length.error}",groups={ModifyUserInfo.class})
     private String location;
 
     private Date lasttime;

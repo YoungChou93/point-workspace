@@ -16,6 +16,8 @@
 	href="${pageContext.request.contextPath}/res/css/style.css">
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/res/js/cropbox.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/res/js/chinacity.js"></script>
 <title>个人资料</title>
 
 <style type="text/css">
@@ -31,6 +33,16 @@ html, body {
 
 .td-value {
 	width: 60%;
+	padding: 10px;
+}
+
+.td-name-modify {
+	width: 25%;
+	padding: 10px;
+}
+
+.td-value-modify {
+	width: 75%;
 	padding: 10px;
 }
 
@@ -94,7 +106,7 @@ html, body {
 					</div>
 
 					<ul class="list-group text-center">
-						<li class="list-group-item"><a href="#"> 修改资料 </a></li>
+						<li class="list-group-item"><a href="#userinfo"> 修改资料 </a></li>
 						<li class="list-group-item"><a href="#password"> 修改密码 </a></li>
 						<li class="list-group-item"><a href="#headpicture"> 修改头像
 						</a></li>
@@ -159,26 +171,62 @@ html, body {
 						<h3 class="panel-title">密码</h3>
 					</div>
 					<div class="panel-body text-center">
-
-						<form class="form-horizontal">
+                        <p id="passwordResult"></p>
+						<form class="form-horizontal" action="${pageContext.request.contextPath}/user/modifyPassword.action">
 							<div class="form-group form-inline">
-								<label>旧密码：</label> <input type="password" class="form-control" />
+								<label>原密码：</label> <input type="password" id="oldPassword" class="form-control" />
 							</div>
 
 							<div class="form-group form-inline">
-								<label>新密码：</label> <input type="password" class="form-control" />
+								<label>新密码：</label> <input type="password" id="newPassword" class="form-control" />
 							</div>
 
 							<div class="form-group form-inline">
-								<label>确认密码：</label> <input type="password" class="form-control" />
+								<label>确认密码：</label> <input type="password" id="confirmPassword" class="form-control" />
 							</div>
-
-							<button type="submit" class="btn btn-primary">确定</button>
-
 						</form>
+						
+						     <button  class="btn btn-primary" onclick="modifyPassword()">确定</button>
 
-
-
+					</div>
+				</div>
+				<div class="panel panel-default" id="userinfo">
+					<div class="panel-heading">
+						<h3 class="panel-title">编辑资料</h3>
+					</div>
+					<div class="panel-body">
+						<table cellspacing="20px" style="width: 100%;">
+							<tr>
+								<td align="right" class="td-name-modify">性别：</td>
+								
+								<td class="td-value-modify"><select name="gender" id="gender">
+							        <option value="0">未知</option>
+							        <option value="1">男</option>
+							        <option value="2">女</option>
+						        </select></td>
+							</tr>
+							<tr>
+								<td align="right" class="td-name-modify">地区：</td>
+								<td class="td-value-modify"><select id="ddlProvince" onchange="selectMoreCity(this)">
+						        </select> <select id="ddlCity"  name="city">
+						        </select></td>
+							</tr>
+							<tr>
+								<td align="right" class="td-name-modify">简介：</td>
+								<td class="td-value-modify"><input type="text" id="brief" class="form-control"  value="${user.brief}"/></td>
+							</tr>
+							<tr>
+								<td align="right" class="td-name-modify">微博：</td>
+								<td class="td-value-modify"><input type="text" id="weibo" class="form-control"  value="${user.weibo}"/></td>
+							</tr>
+							<tr>
+								<td align="right" class="td-name-modify">QQ：</td>
+								<td class="td-value-modify"><input type="text" id="qq" class="form-control"  value="${user.qq}"/></td>
+							</tr>
+						</table>
+					    <div style="width:100%;" class=" text-center">
+                           <button class="btn btn-primary" onclick="modifyUserInfo()">确定</button>
+                        </div>
 					</div>
 				</div>
 				<div class="panel panel-default" id="headpicture">
@@ -202,7 +250,7 @@ html, body {
 
 						<div class="cropped"></div>
 						
-						<button class="btn btn-primary">上传</button>
+						<button class="btn btn-primary" onclick="modifyHeadPicture()">上传</button>
 					</div>
 				</div>
 			</div>
@@ -229,11 +277,19 @@ html, body {
 	</div>
 
 	<script type="text/javascript">
+	    
+	    BindCity("${user.location}");
+	
+	    $("#gender").val(${user.gender});
+	
+	
+	    var headpicture=null;
+	
 		$(window).load(function() {
 			var options = {
 				thumbBox : '.thumbBox',
 				spinner : '.spinner',
-				imgSrc : 'images/avatar.png'
+				imgSrc : '${pageContext.request.contextPath}${sessionScope.user.headpicture}'
 			}
 			var cropper = $('.imageBox').cropbox(options);
 			$('#file').on('change', function() {
@@ -247,6 +303,7 @@ html, body {
 			})
 			$('#btnCrop').on('click', function() {
 				var img = cropper.getDataURL();
+				headpicture=cropper.getDataURL();
 				$('.cropped').append('<img src="'+img+'">');
 			})
 			$('#btnZoomIn').on('click', function() {
@@ -256,6 +313,71 @@ html, body {
 				cropper.zoomOut();
 			})
 		});
+		
+		function modifyPassword(){
+			$.post("${pageContext.request.contextPath}/user/modifyPassword.action",
+					{
+						oldPassword : $('#oldPassword').val(),
+						password : $('#newPassword').val(),
+						confirmPassword : $('#confirmPassword').val()
+
+					}, function(result) {
+						if (result.success) {
+							alert("修改成功！");
+							$('#oldPassword').val("");
+							 $('#newPassword').val("");
+							 $('#confirmPassword').val("");
+						}else{
+							//$('#passwordResult').val(result.errorMsg);
+							alert(result.errorMsg);
+						}
+						return;
+					}, 'json');
+		}
+		
+		function modifyHeadPicture(){
+			if(headpicture!=null){
+				 $.post("${pageContext.request.contextPath}/user/modifyHeadPicture.action",{
+					headpicture : headpicture
+				},
+				function(result) {
+					if (result.success) {
+						alert("修改成功！");
+						headpicture=null;
+						$('.cropped').empty();
+					}else{
+						//$('#passwordResult').val(result.errorMsg);
+						alert(result.errorMsg);
+					}
+					return;
+				}, 'json'); 
+				
+			}else{
+				alert("请选择一张头像并裁剪");
+			}
+		}
+		
+		function modifyUserInfo(){
+			
+			 $.post("${pageContext.request.contextPath}/user/modifyUserInfo.action",{
+					gender   :  $("#gender").val(),
+				    location :  $("#ddlCity").val(),
+				    brief    :  $("#brief").val(),
+				    weibo    :  $("#weibo").val(),
+				    qq       :  $("#qq").val()
+				}, 
+				function(result) {
+					if (result.success) {
+						alert("修改成功！");
+					}else{
+						alert(result.errorMsg);
+					}
+					return;
+				}, 'json'); 
+			
+		}
+		
+		
 	</script>
 </body>
 </html>

@@ -24,7 +24,11 @@ public class SessionTimeOutListener implements HttpSessionListener {
 				.getRequiredWebApplicationContext(e.getSession().getServletContext());
 		if (session.getAttribute("user") != null) {
 			UserService userService = (UserService) ctx.getBean("userService");
-			userService.loginOut(session);
+			try {
+				userService.loginOut(session);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
 		System.out.println("session:" + session.getId() + " is delete from Table OnlineUser");
 	}

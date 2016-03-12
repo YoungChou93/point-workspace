@@ -1,15 +1,17 @@
 package com.point.entity.user.custom;
 
-import javax.validation.constraints.NotNull;
-
 import com.point.entity.user.User;
 
 public class UserCustom extends User {
 
-	@NotNull(message="{usercustom.verifyCode.isnull}")
+	/* 验证码*/
 	private String verifyCode;
 	
+	/* 确认密码*/
 	private String confirmPassword;
+	
+	/* 原密码*/
+	private String oldPassword;
 	
 	public UserCustom() {
 		super();
@@ -35,4 +37,13 @@ public class UserCustom extends User {
 		this.confirmPassword = confirmPassword;
 	}
 
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+	
 }

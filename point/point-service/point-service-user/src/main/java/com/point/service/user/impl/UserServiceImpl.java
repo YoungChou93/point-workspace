@@ -1,5 +1,8 @@
 package com.point.service.user.impl;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,7 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpRequest;
+import sun.misc.BASE64Decoder;
 
 import com.point.dao.user.LoginRecordDao;
 import com.point.dao.user.OnlineUserDao;
@@ -96,7 +99,7 @@ public class UserServiceImpl implements UserService {
 		userDao.insertSelective(userCustom);
 
 		/* 发送激活邮件邮件 */
-		 //SendMail sendMail = new SendMail();
+		// SendMail sendMail = new SendMail();
 		// sendMail.send(userCustom.getEmail(),userCustom.getActivationcode());
 
 		return result;
@@ -155,7 +158,7 @@ public class UserServiceImpl implements UserService {
 			result.put("errorMsg", "验证码为空！");
 			return result;
 		}
-		if (null==loginVerifyCode || !loginVerifyCode.equals(userCustom.getVerifyCode())) {
+		if (null == loginVerifyCode || !loginVerifyCode.equals(userCustom.getVerifyCode())) {
 			result.put("errorMsg", "验证码错误！");
 			return result;
 		}
@@ -185,10 +188,11 @@ public class UserServiceImpl implements UserService {
 		map.put("uid", loginUser.getUid());
 		OnlineUser loginOnlineUser = onlineUserDao.selectByMap(map);
 		if (null != loginOnlineUser) {
-			/*User user = (User) httpSession.getAttribute("user");
-			if (null == user || !user.getUid().equals(loginUser.getUid())) {
-				result.put("errorMsg", "账号已登录！");
-			}*/
+			/*
+			 * User user = (User) httpSession.getAttribute("user"); if (null ==
+			 * user || !user.getUid().equals(loginUser.getUid())) {
+			 * result.put("errorMsg", "账号已登录！"); }
+			 */
 			result.put("errorMsg", "账号已登录！");
 			return result;
 		}
@@ -254,19 +258,132 @@ public class UserServiceImpl implements UserService {
 		httpSession.removeAttribute("loginRecord");
 
 	}
-	
+
 	@Override
 	public Map<String, Object> getOnlineExisting(HttpSession httpSession) {
-		User loginUser=(User) httpSession.getAttribute("user");
-		Map<String, Object> restlt=new HashMap<String, Object>();
-		if(loginUser!=null){
+		User loginUser = (User) httpSession.getAttribute("user");
+		Map<String, Object> restlt = new HashMap<String, Object>();
+		if (loginUser != null) {
 			restlt.put("success", null);
-		}else{
+		} else {
 			restlt.put("fail", null);
 		}
-		
+
 		return restlt;
+
+	}
+
+	@Override
+	public Map<String, Object> modifyPassword(HttpSession httpSession, UserCustom userCustom) {
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		if (null == userCustom.getOldPassword() || "".equals(userCustom.getOldPassword())
+				|| null == userCustom.getPassword() || "".equals(userCustom.getPassword())
+				|| null == userCustom.getConfirmPassword() || "".equals(userCustom.getConfirmPassword())) {
+			result.put("errorMsg", "不能为空!");
+			return result;
+		}
+
+		if (!userCustom.getPassword().equals(userCustom.getConfirmPassword())) {
+			result.put("errorMsg", "两次密码输入不同!");
+			return result;
+		}
+
+		User user = (User) httpSession.getAttribute("user");
+
+		if (!user.getPassword().equals(userCustom.getOldPassword())) {
+			result.put("errorMsg", "原密码输入有误!");
+			return result;
+		}
+
+		User modifyUser = new User(user.getUid());
+
+		modifyUser.setPassword(userCustom.getPassword());
+
+		userDao.updateByPrimaryKeySelective(modifyUser);
+
+		user.setPassword(userCustom.getPassword());
+
+		return result;
+	}
+
+	@Override
+	public Map<String, Object> modifyHeadPicture(HttpSession httpSession, String headpicture) {
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		if (null == headpicture) {
+			result.put("errorMsg", "未上传头像");
+			return result;
+		}
+
+		BASE64Decoder decoder = new BASE64Decoder();
+
+		// Base64解码
+		String imageString = headpicture.split(",")[1];
+
+		SimpleDateFormat myformat = new SimpleDateFormat("yyyyMMdd");
+		String date = myformat.format(new Date());
+
+		String path = httpSession.getServletContext().getRealPath("/");
+
+		String newFileName = date + CommonUtils.uuid() + ".jpg";
+
+		File newFile = new File(path + "file\\user\\headpicture\\" + newFileName);
+
+		try {
+			byte[] b = decoder.decodeBuffer(imageString);
+			OutputStream out = new FileOutputStream(newFile);
+			out.write(b);
+			out.flush();
+			out.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("errorMsg", "照片存储失败");
+			return result;
+		}
+		User user = (User) httpSession.getAttribute("user");
+
+		User modifyUser = new User(user.getUid());
+		modifyUser.setHeadpicture("/file/user/headpicture/" + newFileName);
+
+		userDao.updateByPrimaryKeySelective(modifyUser);
+
+		user.setHeadpicture("/file/user/headpicture/" + newFileName);
+		return result;
+	}
+
+	@Override
+	public Map<String, Object> modifyUserInfo(HttpSession httpSession, User user)throws Exception {
 		
+		User onlineUser = (User) httpSession.getAttribute("user");
+		
+		User modifyUser=new User(onlineUser.getUid());
+		
+		
+		modifyUser.setGender(user.getGender());
+		
+		modifyUser.setBrief(user.getBrief());
+		
+		modifyUser.setLocation(user.getLocation());
+		
+		modifyUser.setWeibo(user.getWeibo());
+		
+		modifyUser.setQq(user.getQq());
+		
+		userDao.updateByPrimaryKeySelective(modifyUser);
+		
+		onlineUser.setGender(user.getGender());
+		
+		onlineUser.setBrief(user.getBrief());
+		
+		onlineUser.setLocation(user.getLocation());
+		
+		onlineUser.setWeibo(user.getWeibo());
+		
+		onlineUser.setQq(user.getQq());
+		
+		return null;
 	}
 
 	private String getUid() {
@@ -319,7 +436,5 @@ public class UserServiceImpl implements UserService {
 		return loginRecordId;
 
 	}
-
-	
 
 }
