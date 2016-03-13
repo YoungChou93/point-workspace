@@ -16,6 +16,8 @@
 		<property name="sessionTemplate" ref="sessionTemplate" />
 	</bean>
 	
-
+    <bean id="pointCommentDao" class="com.point.dao.point.impl.PointCommentDaoImpl">
+		<property name="sessionTemplate" ref="sessionTemplate" />
+	</bean>
     
 </beans>

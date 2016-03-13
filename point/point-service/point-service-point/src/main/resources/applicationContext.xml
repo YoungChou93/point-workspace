@@ -16,5 +16,7 @@
 		<property name="pointDao" ref="pointDao" />
 	</bean>
 
+    <bean id="pointCommentService" class="com.point.service.point.impl.PointCommentServiceImpl">
+	</bean>
 
 </beans>
