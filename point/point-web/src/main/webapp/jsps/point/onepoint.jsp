@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,6 +16,8 @@
 	src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/res/js/chinacity.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/res/js/jquery.twbsPagination.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/res/css/style.css">
 
@@ -24,6 +26,7 @@ html, body {
 	width: 100%;
 	height: 100%;
 }
+
 .index-bottom {
 	background: #555;
 	padding: 2em 0;
@@ -51,7 +54,6 @@ ul#footer-links li a {
 	font-size: 0.85em;
 	margin: 1em 0 0 0;
 }
-
 </style>
 
 
@@ -63,11 +65,16 @@ ul#footer-links li a {
 
 			<div class="col-md-1"></div>
 			<div class="col-md-11">
-				<img src="${pageContext.request.contextPath}${point.user.headpicture}"
-					style="width: 50px;float:left;margin-right:10px;" />
-				<div >
-					<p><strong>${point.user.nickname}</strong></p>
-					<p><fmt:formatDate value="${point.createtime}" type="both"/></p>
+				<img
+					src="${pageContext.request.contextPath}${point.user.headpicture}"
+					style="width: 50px; float: left; margin-right: 10px;" />
+				<div>
+					<p>
+						<strong>${point.user.nickname}</strong>
+					</p>
+					<p>
+						<fmt:formatDate value="${point.createtime}" type="both" />
+					</p>
 				</div>
 			</div>
 			<div class="col-md-1"></div>
@@ -90,7 +97,24 @@ ul#footer-links li a {
 			</div>
 		</div>
 	</div>
-	
+
+	<div class="container" style="margin-top: 10px">
+		<div class="col-md-1"></div>
+		<div class="col-md-7 text-center">
+			<div class="form-group text-left">
+				<h3>评论</h3>
+			</div>
+			<textarea rows="" cols="3" class="form-control"
+				style="height: 100px;"></textarea>
+			<div class="form-group text-right">
+				<button class="btn btn-primary" style="margin-top: 10px;">确定</button>
+			</div>
+
+
+			<ul id="pagination-page" class="pagination-sm"></ul>
+		</div>
+	</div>
+
 	<div class="index-bottom">
 		<div class="container">
 			<ul id="footer-links">
@@ -101,7 +125,7 @@ ul#footer-links li a {
 				<li><a href="https://500px.com" target="_Blank">500px</a></li>
 				<li><a href="http://www.fengniao.com/" target="_Blank">蜂鸟网</a></li>
 				<li><a href="https://github.com/" target="_Blank">GitHub</a></li>
-			
+
 			</ul>
 			<p>Copyright &copy; 2016.City Point All rights reserved.</p>
 			<p>未经允许，不得擅自使用本站照片。</p>
@@ -109,7 +133,13 @@ ul#footer-links li a {
 	</div>
 
 	<script type="text/javascript">
-		
+		$('#pagination-page').twbsPagination({
+			totalPages : 15,
+			version : '1.1',
+			onPageClick : function(event, page) {
+				alert(page);
+			}
+		});
 	</script>
 </body>
 

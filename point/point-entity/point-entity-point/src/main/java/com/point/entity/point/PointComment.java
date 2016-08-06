@@ -2,15 +2,21 @@ package com.point.entity.point;
 
 import java.util.Date;
 
-import com.point.entity.user.User;
+import javax.validation.constraints.Size;
+
+import com.point.entity.user.UserPart;
 
 public class PointComment {
    
 	private String id;
 
+	@Size(min=16,max=16,message="{PointComment.pointid.length.error}")
     private String pointid;
 
-    private User user;
+    private UserPart user;
+    
+    @Size(min=1,max=109,message="{PointComment.Comment.length.error}")
+    private String Comment;
 
     private Integer praise;
 
@@ -29,13 +35,12 @@ public class PointComment {
 	public PointComment(String id) {
 		this.id = id;
 	}
-	
 
 	@Override
 	public String toString() {
-		return "PointComment [id=" + id + ", pointid=" + pointid + ", user=" + user + ", praise=" + praise
-				+ ", createtime=" + createtime + ", status=" + status + ", unused1=" + unused1 + ", unused2=" + unused2
-				+ "]";
+		return "PointComment [id=" + id + ", pointid=" + pointid + ", user=" + user + ", Comment=" + Comment
+				+ ", praise=" + praise + ", createtime=" + createtime + ", status=" + status + ", unused1=" + unused1
+				+ ", unused2=" + unused2 + "]";
 	}
 
 	public String getId() {
@@ -54,12 +59,20 @@ public class PointComment {
 		this.pointid = pointid;
 	}
 
-	public User getUser() {
+	public UserPart getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserPart user) {
 		this.user = user;
+	}
+
+	public String getComment() {
+		return Comment;
+	}
+
+	public void setComment(String comment) {
+		Comment = comment;
 	}
 
 	public Integer getPraise() {
@@ -101,6 +114,6 @@ public class PointComment {
 	public void setUnused2(String unused2) {
 		this.unused2 = unused2;
 	}
-    
+	
 
 }

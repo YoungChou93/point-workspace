@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.point.entity.point.PointComment" >
     <id column="Id" property="id" jdbcType="CHAR" />
     <result column="PointId" property="pointid" jdbcType="CHAR" />
+    <result column="Comment" property="comment" jdbcType="VARCHAR" />
     <result column="Praise" property="praise" jdbcType="INTEGER" />
     <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="Status" property="status" jdbcType="INTEGER" />
@@ -16,7 +17,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    Id, PointId, Uid, Praise, CreateTime, Status, UnUsed1, UnUsed2
+    Id, PointId, Uid,Comment, Praise, CreateTime, Status, UnUsed1, UnUsed2
   </sql>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -62,6 +63,9 @@
       <if test="user != null" >
         Uid,
       </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
       <if test="praise != null" >
         Praise,
       </if>
@@ -88,6 +92,9 @@
       <if test="user != null" >
         #{user.uid,jdbcType=CHAR},
       </if>
+       <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
       <if test="praise != null" >
         #{praise,jdbcType=INTEGER},
       </if>
@@ -113,6 +120,9 @@
       </if>
       <if test="user != null" >
         Uid = #{user.uid,jdbcType=CHAR},
+      </if>
+       <if test="comment != null" >
+        Comment = #{comment,jdbcType=VARCHAR},
       </if>
       <if test="praise != null" >
         Praise = #{praise,jdbcType=INTEGER},

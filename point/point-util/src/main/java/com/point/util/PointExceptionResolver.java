@@ -3,8 +3,10 @@ package com.point.util;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
+
 
 /**
  * 
@@ -14,21 +16,30 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 public class PointExceptionResolver implements HandlerExceptionResolver {
+	
+	private static final Logger logger = Logger.getLogger("com.point");
 
 	@Override
 	public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
 			Object object, Exception exception) {
 
-		PointException pointException = null;
+		String message = null;
 		if (exception instanceof PointException) {
-			pointException = (PointException) exception;
+			message = exception.getMessage();
+		} else if (exception instanceof DaoDataAccessException) {
+			message = exception.getMessage();
+		} else if (exception instanceof PointServiceException) {
+			message = exception.getMessage();
 		} else {
-			pointException = new PointException("未知错误!");
+			message = "未知错误!";
+			
+			logger.error("errorMsg", exception);
+			
 		}
 
 		ModelAndView mav = new ModelAndView();
 
-		mav.addObject("message", pointException.getMessage());
+		mav.addObject("message", message);
 
 		mav.setViewName("/error");
 
