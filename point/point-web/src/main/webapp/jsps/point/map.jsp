@@ -55,6 +55,13 @@ html, body {
 							<option value="100">全部</option>
 						</select>
 					</div>
+					<div class="form-group">
+						<label>类别：</label> <select id="category" name="category"
+							class="form-control">
+							<option value="1">所有</option>
+							<option value="2">自己</option>
+						</select>
+					</div>
 				</form>
 				<font color="red" id="message"></font>
 			</div>
@@ -68,7 +75,7 @@ html, body {
 	<div id="allmap"
 		style="width: 100%; height: 100%; position: absolute; z-index: 2;">
 	</div>
-    <div id="bus" style="overflow-y:scroll;position: absolute; z-index: 3;left:5%;top:15%;width:350px;height:450px;background: rgba(10, 10, 10, 0.6); padding-left:10px; padding-right:10px;">
+    <div id="bus" style="visibility:hidden;overflow-y:scroll;position: absolute; z-index: 3;left:5%;top:15%;width:350px;height:450px;background: rgba(10, 10, 10, 0.6); padding-left:10px; padding-right:10px;">
 
     <h3 style="color:white">公交查询</h3>
     <div class="form-group form-inline">
@@ -90,7 +97,6 @@ html, body {
 	<script type="text/javascript">
 	
 	    var localpoints=null;
-	    $('#bus').hide();
 		//切换城市
 		function searchcity() {
 			var cityname = $("#ddlCity").val();
@@ -145,6 +151,12 @@ html, body {
 			getPoint();
 
 		});
+		
+		$('#category').change(function() {
+			searchcity();
+			getPoint();
+
+		});
 
 		
 		/* 从后台服务器获取摄影点*/
@@ -152,11 +164,13 @@ html, body {
 			$.post("${pageContext.request.contextPath}/point/getPoints.action",
 					{
 						city : $('#ddlCity').val(),
-						number : $('#number').val()
-
+						number : $('#number').val(),
+                        category :$('#category').val()
+                        
 					}, function(result) {
 						if (null != result.errorMsg) {
 							alert(result.errorMsg);
+							map.clearOverlays();
 						}
 						if (null != result.points) {
 							localpoints=result.points;
@@ -213,7 +227,9 @@ html, body {
 		function showBus(longitude, latitude){
 			$("#longitude").val(longitude);
 			$("#latitude").val(latitude);
-			$('#bus').show();
+			//$('#bus').show();
+			$('#bus').css("visibility","visible");
+			
 		}
 		
 		/* 公交查询路线*/

@@ -48,10 +48,17 @@ public class LoginUserInterceptor implements HandlerInterceptor {
 			return true;
 		}
 		
+        if(user!=null && url.indexOf("admin")>=0 && !user.getRole().equals((byte)0)){
+        	request.getSession().setAttribute("message", "没有权限");
+        	request.getRequestDispatcher("/jsps/error.jsp").forward(request, response);
+		}
 		
 		if(user!=null){
 			return true;
 		}
+		
+		
+		
 		
 		request.getRequestDispatcher("/jsps/user/login.jsp").forward(request, response);
 		

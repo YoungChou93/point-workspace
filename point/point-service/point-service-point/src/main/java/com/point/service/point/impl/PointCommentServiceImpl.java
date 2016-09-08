@@ -1,24 +1,22 @@
 package com.point.service.point.impl;
 
-import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpSession;
-
-import org.springframework.dao.DataAccessException;
 
 import com.point.dao.point.PointCommentDao;
 import com.point.entity.point.PointComment;
-import com.point.entity.user.User;
 import com.point.entity.user.UserPart;
 import com.point.service.point.PointCommentService;
-import com.point.util.DaoDataAccessException;
+import com.point.util.DateJsonValueProcessor;
 import com.point.util.GenerateCode;
-import com.point.util.PointServiceException;
+import com.point.util.PageBean;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 
 public class PointCommentServiceImpl implements PointCommentService {
 
@@ -29,31 +27,43 @@ public class PointCommentServiceImpl implements PointCommentService {
 	}
 
 	@Override
-	public Map<String, Object> addPointComment(HttpSession httpSession, PointComment pointComment) throws Exception {
+	public Map<String, Object> addPointComment(String uid, PointComment pointComment) throws Exception {
 
-		Map<String,Object> map=new HashMap<String,Object>();
-		
-		try {
-			User user = (User) httpSession.getAttribute("user");
-			pointComment.setId(this.getPointCommentId(pointComment.getPointid()));
-			pointComment.setUser(new UserPart(user.getUid()));
-			pointComment.setCreatetime(new Date());
+		Map<String, Object> map = new HashMap<String, Object>();
 
-			pointCommentDao.insertSelective(pointComment);
-			
-		} catch (DataAccessException e) {
-            throw new DaoDataAccessException("Dao层出错！");
-		} catch (Exception e) {
-            throw new PointServiceException("Service层出错！");
-		}
+		pointComment.setId(this.getPointCommentId(pointComment.getPointid()));
+		pointComment.setUser(new UserPart(uid));
+		pointComment.setCreatetime(new Date());
+
+		pointCommentDao.insertSelective(pointComment);
 
 		return map;
 	}
 
 	@Override
-	public JSONObject getPointComment(String pointId) {
-		// TODO Auto-generated method stub
-		return null;
+	public JSONObject getPointComment(String page,String rows,String pointId) {
+		JSONObject result = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
+		JSONObject data = new JSONObject();
+		result.put("errormsg", null);
+		
+		Map<String, Object> map=new HashMap<String,Object>();
+		PageBean pageBean=new PageBean(Integer.parseInt(page),Integer.parseInt(rows));
+		map.put("start", pageBean.getStart());
+		map.put("size", pageBean.getPageSize());
+		map.put("pointid", pointId);
+		List<PointComment> pointComments=pointCommentDao.findPointComment(map);
+		
+		Long total=pointCommentDao.getTotalPointComment(map);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(java.util.Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+		jsonArray = JSONArray.fromObject(pointComments, jsonConfig);
+		data.put("rows", jsonArray);
+		data.put("total", total);	
+		result.put("data", data);
+		
+		return result;
 	}
 
 	@Override

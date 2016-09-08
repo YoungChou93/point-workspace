@@ -148,10 +148,13 @@
 		<where>
 			<if test="id !=null and id != ''">
 				and Id = #{id}
-			</if>	
+			</if>
+			<if test="pointid !=null and pointid != ''">
+				and pointid = #{pointid}
+			</if>
 		</where>
 		<if test="start!=null and size!=null">
-		    order by id  limit ${start},${size};
+		    order by id desc limit ${start},${size};
 		</if>	
 	</select>
 	
@@ -161,6 +164,9 @@
 			<if test="id !=null and id != ''">
 				and Id = #{uid}
 			</if>	
+			<if test="pointid !=null and pointid != ''">
+				and pointid = #{pointid}
+			</if>
 		</where>
 	</select>
 	

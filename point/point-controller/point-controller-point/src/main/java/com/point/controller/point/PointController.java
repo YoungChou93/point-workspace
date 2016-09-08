@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.filefilter.FalseFileFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.point.entity.point.Point;
+import com.point.entity.user.User;
 import com.point.service.point.PointService;
 import com.point.util.ResponseUtil;
 
@@ -67,22 +69,22 @@ public class PointController {
 
 	@RequestMapping("/getPoints")
 	public String getPoints(@RequestParam(value = "number", required = true) String number,
-			@RequestParam(value = "city", required = true) String city,HttpServletResponse httpServletResponse) throws Exception {
+			@RequestParam(value = "city", required = true) String city,
+			@RequestParam(value = "category", required = true) String category,
+			HttpServletResponse httpServletResponse) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		JSONObject jsonObject=new JSONObject();
-		JsonConfig jsonConfig = new JsonConfig();
-		//jsonConfig.registerJsonValueProcessor(java.util.Date.class, new DateJsonValueProcessor("yyyy-MM-dd")); // 设置时间格式
 		
 		JSONArray jsonArray = new JSONArray();
 
-		result = pointService.getPoints(number, city);
+		result = pointService.getPoints(number, city,category);
 
 		if (result.containsKey("errorMsg")) {
 			jsonObject.put("errorMsg", result.get("errorMsg"));
 
 		} else if (result.containsKey("points")) {
 			List<Point> points = (List<Point>) result.get("points");
-			jsonArray = JSONArray.fromObject(points,jsonConfig);
+			jsonArray = JSONArray.fromObject(points);
 			jsonObject.put("points", jsonArray);
 		}
 		ResponseUtil.write(httpServletResponse,jsonObject);
@@ -102,12 +104,30 @@ public class PointController {
 		}
 		
 		if(result.containsKey("point")){
-			
 			mav.addObject("point", result.get("point"));
+		}
+		if(result.containsKey("total")){
+			mav.addObject("total", result.get("total"));
 		}
 		mav.setViewName("/point/onepoint");
 		
 		return mav;
 	}
 
+	@RequestMapping("/deletePoint")
+	public String deletePoint(@RequestParam(value = "pointid", required = true) String pointid,
+			HttpServletResponse httpServletResponse,HttpServletRequest httpServletRequest) throws Exception{
+		Map<String, Object> result = new HashMap<String, Object>();
+		JSONObject jsonObject=new JSONObject();
+		User user=(User) httpServletRequest.getSession().getAttribute("user");
+		pointService.deletePoint(pointid, user.getUid());
+		if (result.containsKey("errorMsg")) {
+			jsonObject.put("errorMsg", result.get("errorMsg"));
+		}else{
+			jsonObject.put("success", true);
+		}
+		ResponseUtil.write(httpServletResponse, jsonObject);
+		return null;
+	}
+	
 }

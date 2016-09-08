@@ -62,12 +62,12 @@ body {
 							<li class="active"><a
 								href="${pageContext.request.contextPath}/jsps/index.jsp"
 								target="main">首页</a></li>
-							<li><a href="" target="main">照片</a></li>
+							<li><a href="${pageContext.request.contextPath}/jsps/user/userindex.jsp" target="main">照片</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/jsps/point/map.jsp"
 								target="main">城市</a></li>
-							<li><a href="" target="main">分享</a></li>
-							<li><a href="" target="main">关于</a></li>
+							<li><a href="${pageContext.request.contextPath}/jsps/user/userindex.jsp" target="main">分享</a></li>
+							<li><a href="${pageContext.request.contextPath}/jsps/user/userindex.jsp" target="main">关于</a></li>
 						</ul>
 
 						<ul class="nav navbar-nav navbar-right">
@@ -79,7 +79,9 @@ body {
 									class="caret"></b>
 							</a>
 								<ul class="dropdown-menu ">
-									<li><a href="#"><span class="glyphicon glyphicon-home"></span>个人主页</a></li>
+									<li><a 
+									    href="${pageContext.request.contextPath}/jsps/user/userindex.jsp"
+									    target="main"><span class="glyphicon glyphicon-home"></span>个人主页</a></li>
 									<li class="divider"></li>
 									<li><a
 										href="${pageContext.request.contextPath}/user/getUserInfo.action"
@@ -87,8 +89,8 @@ body {
 									<li class="divider"></li>
 									<c:if test="${sessionScope.user.role==0}">
 									<li><a
-										href=""
-										target="main"><span class="glyphicon glyphicon-asterisk"></span>管理员</a></li>
+										href="${pageContext.request.contextPath}/jsps/admin/main.jsp"
+										target="_Blank"><span class="glyphicon glyphicon-asterisk"></span>管理员</a></li>
 									
 									<li class="divider"></li>
 									</c:if>

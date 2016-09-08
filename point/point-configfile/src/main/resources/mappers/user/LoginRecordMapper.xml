@@ -126,11 +126,14 @@
 		select * from loginrecord
 		<where>
 			<if test="uid !=null and uid != ''">
-				and uid = #{uid}
+				and Uid = #{uid}
+			</if>
+			<if test="filter !=null and filter != ''">
+				and Uid in(select uid from user where Nickname like #{filter}) 
 			</if>	
 		</where>
 		<if test="start!=null and size!=null">
-			order by id offset ${start} rows fetch next ${size} rows only
+			order by id limit ${start},${size};
 		</if>	
 	</select>
 	
@@ -138,7 +141,10 @@
 		select count(*) from loginrecord
 		<where>
 			<if test="uid !=null and uid != ''">
-				and uid = #{uid}
+				and Uid = #{uid}
+			</if>
+			<if test="filter !=null and filter != ''">
+				and Uid in(select uid from user where Nickname like #{filter}) 
 			</if>	
 		</where>
 	</select>

@@ -27,9 +27,9 @@ public class LoginController {
 	@RequestMapping("/getVerifyCode")
 	public void getVerifyCode(HttpServletResponse response,HttpSession httpSession) throws IOException{
 		
-		OutputStream out = response.getOutputStream();
+		response.setHeader("Content-Type","image/jped");
 		VerifyCode vc = new VerifyCode();
-		vc.output(vc.getImage(), out);
+		VerifyCode.output(vc.getImage(), response.getOutputStream());
 		httpSession.setAttribute("verifyCode", vc.getText());
 		
 		

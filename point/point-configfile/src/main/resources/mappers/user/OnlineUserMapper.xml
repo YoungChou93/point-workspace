@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.point.dao.user.OnlineUserDao" >
-  <resultMap id="BaseResultMap" type="com.point.entity.user.OnlineUser" >
-    <id column="Id" property="id" jdbcType="CHAR" />
-    <result column="SessionID" property="sessionid" jdbcType="VARCHAR" />
-    <result column="IpCode" property="ipcode" jdbcType="VARCHAR" />
-    <result column="UnUsed1" property="unused1" jdbcType="VARCHAR" />
-    <result column="UnUsed2" property="unused2" jdbcType="VARCHAR" />
-    
-    <association column="Uid" property="user"
+<mapper namespace="com.point.dao.user.OnlineUserDao">
+	<resultMap id="BaseResultMap" type="com.point.entity.user.OnlineUser">
+		<id column="Id" property="id" jdbcType="CHAR" />
+		<result column="SessionID" property="sessionid" jdbcType="VARCHAR" />
+		<result column="IpCode" property="ipcode" jdbcType="VARCHAR" />
+		<result column="UnUsed1" property="unused1" jdbcType="VARCHAR" />
+		<result column="UnUsed2" property="unused2" jdbcType="VARCHAR" />
+
+		<association column="Uid" property="user"
 			select="com.point.dao.user.UserDao.selectByPrimaryKey"></association>
-  </resultMap>
-  
-  <sql id="Base_Column_List" >
-    Id, Uid, SessionID, IpCode, UnUsed1, UnUsed2
-  </sql>
-  
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from onlineuser
-    where Id = #{id,jdbcType=CHAR}
-  </select>
-  
-  <select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		Id, Uid, SessionID, IpCode, UnUsed1, UnUsed2
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from onlineuser
+		where Id = #{id,jdbcType=CHAR}
+	</select>
+
+	<select id="selectByMap" parameterType="Map" resultMap="BaseResultMap">
 		select * from onlineuser
 		<where>
 			<if test="uid !=null and uid !=''">
@@ -31,13 +32,14 @@
 			</if>
 		</where>
 	</select>
-  
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from onlineuser
-    where Id = #{id,jdbcType=CHAR}
-  </delete>
-  
-  <delete id="deleteByMap" parameterType="Map">
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		onlineuser
+		where Id = #{id,jdbcType=CHAR}
+	</delete>
+
+	<delete id="deleteByMap" parameterType="Map">
 		delete from onlineuser
 		<where>
 			<if test="uid !=null and uid !=''">
@@ -45,95 +47,103 @@
 			</if>
 		</where>
 	</delete>
-	
-  <insert id="insertSelective" parameterType="com.point.entity.user.OnlineUser" >
-    insert into onlineuser
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        Id,
-      </if>
-      <if test="user != null" >
-        Uid,
-      </if>
-      <if test="sessionid != null" >
-        SessionID,
-      </if>
-      <if test="ipcode != null" >
-        IpCode,
-      </if>
-      <if test="unused1 != null" >
-        UnUsed1,
-      </if>
-      <if test="unused2 != null" >
-        UnUsed2,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=CHAR},
-      </if>
-      <if test="user != null" >
-        #{user.uid,jdbcType=CHAR},
-      </if>
-      <if test="sessionid != null" >
-        #{sessionid,jdbcType=VARCHAR},
-      </if>
-      <if test="ipcode != null" >
-        #{ipcode,jdbcType=VARCHAR},
-      </if>
-      <if test="unused1 != null" >
-        #{unused1,jdbcType=VARCHAR},
-      </if>
-      <if test="unused2 != null" >
-        #{unused2,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  
-  <update id="updateByPrimaryKeySelective" parameterType="com.point.entity.user.OnlineUser" >
-    update onlineuser
-    <set >
-      <if test="user != null" >
-        Uid = #{user.uid,jdbcType=CHAR},
-      </if>
-      <if test="sessionid != null" >
-        SessionID = #{sessionid,jdbcType=VARCHAR},
-      </if>
-      <if test="ipcode != null" >
-        IpCode = #{ipcode,jdbcType=VARCHAR},
-      </if>
-      <if test="unused1 != null" >
-        UnUsed1 = #{unused1,jdbcType=VARCHAR},
-      </if>
-      <if test="unused2 != null" >
-        UnUsed2 = #{unused2,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where Id = #{id,jdbcType=CHAR}
-  </update>
-  
-  <select id="findOnlineUser" parameterType="Map" resultMap="BaseResultMap">
+
+	<insert id="insertSelective" parameterType="com.point.entity.user.OnlineUser">
+		insert into onlineuser
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				Id,
+			</if>
+			<if test="user != null">
+				Uid,
+			</if>
+			<if test="sessionid != null">
+				SessionID,
+			</if>
+			<if test="ipcode != null">
+				IpCode,
+			</if>
+			<if test="unused1 != null">
+				UnUsed1,
+			</if>
+			<if test="unused2 != null">
+				UnUsed2,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=CHAR},
+			</if>
+			<if test="user != null">
+				#{user.uid,jdbcType=CHAR},
+			</if>
+			<if test="sessionid != null">
+				#{sessionid,jdbcType=VARCHAR},
+			</if>
+			<if test="ipcode != null">
+				#{ipcode,jdbcType=VARCHAR},
+			</if>
+			<if test="unused1 != null">
+				#{unused1,jdbcType=VARCHAR},
+			</if>
+			<if test="unused2 != null">
+				#{unused2,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.point.entity.user.OnlineUser">
+		update onlineuser
+		<set>
+			<if test="user != null">
+				Uid = #{user.uid,jdbcType=CHAR},
+			</if>
+			<if test="sessionid != null">
+				SessionID = #{sessionid,jdbcType=VARCHAR},
+			</if>
+			<if test="ipcode != null">
+				IpCode = #{ipcode,jdbcType=VARCHAR},
+			</if>
+			<if test="unused1 != null">
+				UnUsed1 = #{unused1,jdbcType=VARCHAR},
+			</if>
+			<if test="unused2 != null">
+				UnUsed2 = #{unused2,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where Id = #{id,jdbcType=CHAR}
+	</update>
+
+	<select id="findOnlineUser" parameterType="Map" resultMap="BaseResultMap">
 		select * from onlineuser
 		<where>
 			<if test="uid !=null and uid != ''">
 				and Uid = #{uid}
-			</if>	
+			</if>
+			<if test="filter !=null and filter != ''">
+				and Uid in (select Uid from user where Nickname like #{filter})
+			</if>
 		</where>
+
 		<if test="start!=null and size!=null">
-		    order by id  limit ${start},${size};
-		</if>	
+			order by id limit ${start},${size};
+		</if>
 	</select>
-	
-	<select id="getTotalUser" parameterType="Map" resultType="Long">
+
+	<select id="getTotalOnlineUser" parameterType="Map" resultType="Long">
 		select count(*) from onlineuser
 		<where>
 			<if test="uid !=null and uid != ''">
 				and Uid = #{uid}
-			</if>	
+			</if>
+			<if test="filter !=null and filter != ''">
+				and Uid in (select Uid from user where Nickname like
+				#{filter})
+			</if>
 		</where>
 	</select>
-	
-	<select id="getMaxID"  resultType="String">
+
+	<select id="getMaxID" resultType="String">
 		select MAX(id) from onlineuser
 		<where>
 			<if test="prefix !=null and prefix != ''">

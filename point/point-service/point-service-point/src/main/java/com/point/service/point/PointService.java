@@ -31,7 +31,7 @@ public interface PointService {
 	 * @author zhouyang
 	 * @date 2016年3月7日 下午5:01:32
 	 */
-	public Map<String,Object> getPoints(String number,String city);
+	public Map<String,Object> getPoints(String number,String city,String category);
 	
 	/**
 	 * 
@@ -42,5 +42,16 @@ public interface PointService {
 	 * @date 2016年3月8日 下午7:41:54
 	 */
 	public Map<String,Object> getOnePoint(String pointid);
+	
+	/**
+	 * 
+	 * @brief 通过id删除摄影点
+	 * @logic
+	 * @param pointid
+	 * @return
+	 * @author zhouyang
+	 * @date 2016年8月16日 下午9:40:33
+	 */
+	public Map<String,Object> deletePoint(String pointid,String uid);
 
 }

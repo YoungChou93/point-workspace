@@ -21,6 +21,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/res/css/style.css">
 
+
+
 <style type="text/css">
 html, body {
 	width: 100%;
@@ -54,9 +56,103 @@ ul#footer-links li a {
 	font-size: 0.85em;
 	margin: 1em 0 0 0;
 }
+
+.pointcomment {
+	background-color: rgb(245, 245, 245);
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.pointcommet-content {
+	margin-top: 20px;
+	margin-left: 30px;
+	padding: 20px;
+	letter-spacing: 2px;
+	line-height: 110%;
+	font-size: 20px;
+	word-break: break-all;
+}
+
+.pointcommet-img {
+	width: 25px;
+	float: left;
+	margin-right: 10px;
+}
+.pointcommet-time {
+	font-size: 10px;
+	position:relative;
+	top:10px;
+}
 </style>
+<script type="text/javascript">
+	
+	function onComment() {
 
-
+		var comment = $('#comment').val();
+		if (null == comment || '' == comment) {
+			alert("评论不能为空");
+			return;
+		}
+		$.post('${pageContext.request.contextPath}/pointcomment/addPointComment.action',
+				{
+					pointid : "${point.pointid}",
+					comment : comment
+				}, function(result) {
+					if (result.errorMsg == null) {
+						alert("评论成功");
+						$('#comment').val("");
+					} else {
+						alert(result.errorMsg);
+					}
+		});
+	}
+	
+	function getDiv(object){
+		 var div="<div class='pointcomment panel panel-default'>"+
+			"<div class='text-left'>"+
+			"<img src='${pageContext.request.contextPath}"+object.user.headpicture+
+			"' class='pointcommet-img'/>"+
+			"<p>"+object.user.nickname+"</p></div>"+
+		    "<p class='pointcomment-content text-left'>"+object.comment+"</p>"+
+		     "<div class='pointcommet-time text-right'><p>"+object.createtime+"</p></div></div>";
+		return div;
+	}
+	$(function() {	
+		var totalpage=Math.ceil(${total}/10);
+	$('#pagination-page').twbsPagination(
+			{
+				totalPages : totalpage,
+			    version : '1.1',
+				onPageClick : function(event, page) {
+					$.post('${pageContext.request.contextPath}/pointcomment/getPointComment.action',
+						{
+							rows : 10,
+							page : page,
+							pointid : "${point.pointid}"
+						},
+						function(result) {
+				
+							 if (result.errorMsg == null) {
+								$('#divforComment').empty();
+								result=eval("("+result+")");
+                                var data=result.data.rows;
+                                var length = data.length;
+								for (var i = 0; i < length; i=i + 1) {
+									 var object=data[i];
+                                     $("#divforComment").append(getDiv(object));
+								} 
+								
+							} else {
+								alert(result.errorMsg);
+							}  
+						
+							});
+				}
+	});
+	
+	
+	});
+</script>
 </head>
 <body>
 
@@ -104,10 +200,25 @@ ul#footer-links li a {
 			<div class="form-group text-left">
 				<h3>评论</h3>
 			</div>
-			<textarea rows="" cols="3" class="form-control"
+			<textarea id="comment" rows="" cols="3" class="form-control"
 				style="height: 100px;"></textarea>
 			<div class="form-group text-right">
-				<button class="btn btn-primary" style="margin-top: 10px;">确定</button>
+				<button class="btn btn-primary" style="margin-top: 10px;"
+					onclick="onComment()">确定</button>
+			</div>
+			<div id="divforComment" style="word-break: break-all;">
+				<div class="pointcomment panel panel-default">
+					<div class="text-left">
+						<img
+							src="${pageContext.request.contextPath}${point.user.headpicture}"
+							style="width: 30px; float: left; margin-right: 10px;" />
+						<p>${point.user.nickname}</p>
+					</div>
+					<p class="pointcomment-content text-left"></p>
+					<div class="text-right">
+						<p>wwwwwww</p>
+					</div>
+				</div>
 			</div>
 
 
@@ -133,13 +244,7 @@ ul#footer-links li a {
 	</div>
 
 	<script type="text/javascript">
-		$('#pagination-page').twbsPagination({
-			totalPages : 15,
-			version : '1.1',
-			onPageClick : function(event, page) {
-				alert(page);
-			}
-		});
+		
 	</script>
 </body>
 

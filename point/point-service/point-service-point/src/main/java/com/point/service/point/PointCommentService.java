@@ -20,7 +20,7 @@ public interface PointCommentService {
 	 * @throws Exception 
 	 * @date 2016年3月14日 下午1:55:47
 	 */
-	public Map<String, Object> addPointComment(HttpSession httpSession,PointComment pointComment) throws Exception;
+	public Map<String, Object> addPointComment(String uid,PointComment pointComment) throws Exception;
 	
 	/**
 	 * 
@@ -30,7 +30,7 @@ public interface PointCommentService {
 	 * @author zhouyang
 	 * @date 2016年3月14日 下午1:56:11
 	 */
-	public JSONObject getPointComment(String pointId);
+	public JSONObject getPointComment(String page,String rows,String pointId);
 	
 	/**
 	 * 

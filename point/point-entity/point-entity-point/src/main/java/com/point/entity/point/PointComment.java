@@ -16,7 +16,7 @@ public class PointComment {
     private UserPart user;
     
     @Size(min=1,max=109,message="{PointComment.Comment.length.error}")
-    private String Comment;
+    private String comment;
 
     private Integer praise;
 
@@ -38,7 +38,7 @@ public class PointComment {
 
 	@Override
 	public String toString() {
-		return "PointComment [id=" + id + ", pointid=" + pointid + ", user=" + user + ", Comment=" + Comment
+		return "PointComment [id=" + id + ", pointid=" + pointid + ", user=" + user + ", comment=" + comment
 				+ ", praise=" + praise + ", createtime=" + createtime + ", status=" + status + ", unused1=" + unused1
 				+ ", unused2=" + unused2 + "]";
 	}
@@ -68,11 +68,11 @@ public class PointComment {
 	}
 
 	public String getComment() {
-		return Comment;
+		return comment;
 	}
 
 	public void setComment(String comment) {
-		Comment = comment;
+		this.comment = comment;
 	}
 
 	public Integer getPraise() {

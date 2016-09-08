@@ -152,6 +152,8 @@ public class UserServiceImpl implements UserService {
 			result.put("errorMsg", "邮箱或密码为空！");
 			return result;
 		}
+		
+		
 
 		/* 校验验证码 */
 		if (null == userCustom.getVerifyCode() || "".equals(userCustom.getVerifyCode())) {

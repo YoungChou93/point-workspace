@@ -3,6 +3,7 @@ package com.point.util;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -84,8 +85,11 @@ public class VerifyCode {
 
 	// 调用这个方法得到验证码
 	public BufferedImage getImage() {
-		BufferedImage image = createImage();// 创建图片缓冲区
-		Graphics2D g2 = (Graphics2D) image.getGraphics();// 得到绘制环境
+		BufferedImage image = new BufferedImage(w, h,
+				BufferedImage.TYPE_INT_RGB);
+		Graphics g2 = image.getGraphics();
+		g2.setColor(this.bgColor);
+		g2.fillRect(0, 0, w, h);
 		StringBuilder sb = new StringBuilder();// 用来装载生成的验证码文本
 		// 向图片中画4个字符
 		for (int i = 0; i < 4; i++) {// 循环四次，每次生成一个字符
@@ -94,8 +98,10 @@ public class VerifyCode {
 			float x = i * 1.0F * w / 4; // 设置当前字符的x轴坐标
 			g2.setFont(randomFont()); // 设置随机字体
 			g2.setColor(randomColor()); // 设置随机颜色
-			g2.drawString(s, x, h - 5); // 画图
+			//g2.drawString(s, x, h-5); // 画图
+			g2.drawString(s, (int)x, h-5);
 		}
+		g2.dispose();
 		this.text = sb.toString(); // 把生成的字符串赋给了this.text
 		drawLine(image); // 添加干扰线
 		return image;

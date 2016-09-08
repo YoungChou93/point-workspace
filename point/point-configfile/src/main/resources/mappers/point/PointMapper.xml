@@ -6,7 +6,7 @@
 		<result column="Title" property="title" jdbcType="VARCHAR" />
 		<result column="Longitude" property="longitude" jdbcType="CHAR" />
 		<result column="Latitude" property="latitude" jdbcType="CHAR" />
-		<result column="CreateTime" property="createtime" jdbcType="DATE" />
+		<result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
 		<result column="City" property="city" jdbcType="VARCHAR" />
 		<result column="Status" property="status" jdbcType="INTEGER" />
 		<result column="BigPhoto" property="bigphoto" jdbcType="VARCHAR" />
@@ -142,7 +142,7 @@
 				#{latitude,jdbcType=CHAR},
 			</if>
 			<if test="createtime != null">
-				#{createtime,jdbcType=DATE},
+				#{createtime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="city != null">
 				#{city,jdbcType=VARCHAR},
@@ -196,7 +196,7 @@
 				Latitude = #{latitude,jdbcType=CHAR},
 			</if>
 			<if test="createtime != null">
-				CreateTime = #{createtime,jdbcType=DATE},
+				CreateTime = #{createtime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="city != null">
 				City = #{city,jdbcType=VARCHAR},
@@ -251,6 +251,12 @@
 			<if test="city !=null and city != ''">
 				and City = #{city}
 			</if>
+			<if test="status !=null and status != ''">
+				and Status = #{status}
+			</if>
+			<if test="status ==null or status == ''">
+				and Status ! = -1
+			</if>
 		</where>
 		<if test="start!=null and size!=null">
 			order by PointID  limit ${start},${size};
@@ -262,6 +268,15 @@
 		<where>
 			<if test="uid !=null and uid != ''">
 				and Uid = #{uid}
+			</if>
+			<if test="city !=null and city != ''">
+				and City = #{city}
+			</if>
+			<if test="status !=null and status != ''">
+				and Status = #{status}
+			</if>
+			<if test="status ==null or status == ''">
+				and Status ! = -1
 			</if>
 		</where>
 	</select>

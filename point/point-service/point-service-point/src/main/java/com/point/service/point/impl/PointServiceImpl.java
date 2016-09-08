@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.point.dao.point.PointCommentDao;
 import com.point.dao.point.PointDao;
 import com.point.entity.point.Point;
 import com.point.entity.user.User;
@@ -24,6 +25,11 @@ public class PointServiceImpl implements PointService {
 
 	private PointDao pointDao;
 
+	private PointCommentDao pointCommentDao;
+
+	public void setPointCommentDao(PointCommentDao pointCommentDao) {
+		this.pointCommentDao = pointCommentDao;
+	}
 	public void setPointDao(PointDao pointDao) {
 		this.pointDao = pointDao;
 	}
@@ -58,9 +64,9 @@ public class PointServiceImpl implements PointService {
 
 		String newFileName = date + CommonUtils.uuid() + oldFileNme.substring(oldFileNme.lastIndexOf("."));
 
-		System.out.println(path + "file\\user\\pointphoto\\" + newFileName);
+	
 
-		File newFile = new File(path + "file\\user\\pointphoto\\" + newFileName);
+		File newFile = new File(path + "file"+System.getProperty("file.separator")+"user"+System.getProperty("file.separator")+"pointphoto"+System.getProperty("file.separator") + newFileName);
 
 		try {
 			photo.transferTo(newFile);
@@ -84,12 +90,20 @@ public class PointServiceImpl implements PointService {
 	}
 
 	@Override
-	public Map<String, Object> getPoints(String number, String city) {
+	public Map<String, Object> getPoints(String number, String city,String category) {
 
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		map.put("city", city);
+		map.put("status", "1");//查找已通过审核的
+	
+		/* 类别二表示查找自己的摄影点*/
+		if ("2".equals(category)) {
+			map.put("uid", category);
+			map.put("status", null);
+		}
+		
 		if (!"100".equals(number)) {
 			map.put("start", 0);
 			map.put("size", number);
@@ -132,7 +146,29 @@ public class PointServiceImpl implements PointService {
 			result.put("errorMsg", "不存在该摄影点");
 		}
 		
+		Map<String, Object> map=new HashMap<String,Object>();
+		map.put("pointid", pointid);
+		Long total=pointCommentDao.getTotalPointComment(map);
+		
 		result.put("point", point);
+		result.put("total", total);
+		
+		return result;
+	}
+
+	
+	@Override
+	public Map<String, Object> deletePoint(String pointid,String uid) {
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		Point point =pointDao.selectByPrimaryKey(pointid);
+		
+		if(uid.equals(point.getUser().getUid())){
+			pointDao.deleteByPrimaryKey(pointid);
+		}else{
+			result.put("errorMsg", "无删除权限");
+		}
 		
 		return result;
 	}

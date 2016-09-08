@@ -13,5 +13,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappers/user/OnlineUserMapper.xml" />
 		
 		<mapper resource="mappers/point/PointMapper.xml" />
+		<mapper resource="mappers/point/PointCommentMapper.xml" />
 	</mappers>
 </configuration>
