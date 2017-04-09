@@ -11,6 +11,8 @@ buildNumber.properties
 #ignore some project files
 bootstrap
 jquery-easyui-1.4.4
+file
+
 
 #ignore vi/vim temperate file
 *.sw*
