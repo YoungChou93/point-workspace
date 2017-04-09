@@ -12,7 +12,10 @@ buildNumber.properties
 bootstrap
 jquery-easyui-1.4.4
 file
-
+.settings
+.project
+.classpath
+target
 
 #ignore vi/vim temperate file
 *.sw*
