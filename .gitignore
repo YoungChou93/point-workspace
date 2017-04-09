@@ -9,24 +9,12 @@ buildNumber.properties
 .mvn/timing.properties
 
 #ignore some project files
-target
-META-INF
-.settings
-.project
-.classpath
-
-#ignore photoes and logs in his-web
-logs
-photo
+bootstrap
+jquery-easyui-1.4.4
 
 #ignore vi/vim temperate file
 *.sw*
 
 #ignore eclipse files
-.metadata
-.recommenders
-RemoteSystemsTempFiles
-
-# project release file
-*.war
-.gitignore
+.idea
+*.iml
