@@ -1,0 +1,640 @@
+0:0:0:0:0:0:0:1 2017-04-15 21:09:29,196 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:09:29,198 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:09:29,213 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:09:29,223 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:09:29,224 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:09:29,224 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:09:29,225 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:09:29,227 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,571 DEBUG [com.point.dao.user.UserDao.selectByMap] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,571 DEBUG [com.point.dao.user.UserDao.selectByMap] - ==>  Preparing: select * from user WHERE Email = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,571 DEBUG [com.point.dao.user.UserDao.selectByMap] - ==> Parameters: 329088816@qq.com(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,573 DEBUG [com.point.dao.user.UserDao.selectByMap] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,575 DEBUG [com.point.dao.user.OnlineUserDao.selectByMap] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,575 DEBUG [com.point.dao.user.OnlineUserDao.selectByMap] - ==>  Preparing: select * from onlineuser WHERE Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,575 DEBUG [com.point.dao.user.OnlineUserDao.selectByMap] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,578 DEBUG [com.point.dao.user.OnlineUserDao.selectByMap] - <==      Total: 0
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,582 DEBUG [com.point.dao.user.UserDao.updateByPrimaryKeySelective] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,582 DEBUG [com.point.dao.user.UserDao.updateByPrimaryKeySelective] - ==>  Preparing: update user SET Email = ?, Password = ?, Nickname = ?, Gender = ?, Status = ?, ActivationCode = ?, HeadPicture = ?, RegisterTime = ?, LoginCounts = ?, Score = ?, Role = ?, Weibo = ?, QQ = ?, Brief = ?, Location = ?, LastTime = ?, LastIp = ? where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,584 DEBUG [com.point.dao.user.UserDao.updateByPrimaryKeySelective] - ==> Parameters: 329088816@qq.com(String), 123456(String), 与中秋有约(String), 1(Byte), 1(Byte), 2A0E2015D59040AA9AAF3D550DC61397ABF9EF03E51C4FB69D9538FB5491920F(String), /file/user/headpicture/2016093000E0064E07FB48AABF717F9716E3E805.jpg(String), 2016-03-01(Date), 150(Integer), 34(Integer), 0(Byte), (String), (String), 哈哈哈(String), 杭州(String), 2017-04-15 21:10:05.579(Timestamp), 0:0:0:0:0:0:0:1(String), 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,619 DEBUG [com.point.dao.user.UserDao.updateByPrimaryKeySelective] - <==    Updates: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,621 DEBUG [com.point.dao.user.OnlineUserDao.getMaxID] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,621 DEBUG [com.point.dao.user.OnlineUserDao.getMaxID] - ==>  Preparing: select MAX(id) from onlineuser WHERE id like ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,621 DEBUG [com.point.dao.user.OnlineUserDao.getMaxID] - ==> Parameters: 20170415%(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,622 DEBUG [com.point.dao.user.OnlineUserDao.getMaxID] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,623 DEBUG [com.point.dao.user.OnlineUserDao.insertSelective] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,623 DEBUG [com.point.dao.user.OnlineUserDao.insertSelective] - ==>  Preparing: insert into onlineuser ( Id, Uid, SessionID, IpCode ) values ( ?, ?, ?, ? ) 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,642 DEBUG [com.point.dao.user.OnlineUserDao.insertSelective] - ==> Parameters: 2017041500000001(String), 2016030100000001(String), rmpwufmvxg2u(String), 0:0:0:0:0:0:0:1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,682 DEBUG [com.point.dao.user.OnlineUserDao.insertSelective] - <==    Updates: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,683 DEBUG [com.point.dao.user.LoginRecordDao.getMaxID] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,683 DEBUG [com.point.dao.user.LoginRecordDao.getMaxID] - ==>  Preparing: select MAX(id) from loginrecord WHERE id like ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,683 DEBUG [com.point.dao.user.LoginRecordDao.getMaxID] - ==> Parameters: 20170415%(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,684 DEBUG [com.point.dao.user.LoginRecordDao.getMaxID] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,686 DEBUG [com.point.dao.user.LoginRecordDao.insertSelective] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,686 DEBUG [com.point.dao.user.LoginRecordDao.insertSelective] - ==>  Preparing: insert into loginrecord ( Id, Uid, LoginTime, LoginIp ) values ( ?, ?, ?, ? ) 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,687 DEBUG [com.point.dao.user.LoginRecordDao.insertSelective] - ==> Parameters: 2017041500000004(String), 2016030100000001(String), 2017-04-15 21:10:05.685(Timestamp), 0:0:0:0:0:0:0:1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:05,724 DEBUG [com.point.dao.user.LoginRecordDao.insertSelective] - <==    Updates: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:11,368 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:11,368 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:11,369 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:11,371 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:11,371 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:11,371 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:11,372 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:11,378 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-15 21:10:18,576 DEBUG [com.point.dao.user.UserDao.findUser] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:18,576 DEBUG [com.point.dao.user.UserDao.findUser] - ==>  Preparing: select * from user order by Uid limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:18,576 DEBUG [com.point.dao.user.UserDao.findUser] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:18,579 DEBUG [com.point.dao.user.UserDao.findUser] - <==      Total: 8
+0:0:0:0:0:0:0:1 2017-04-15 21:10:18,581 DEBUG [com.point.dao.user.UserDao.getTotalUser] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:18,581 DEBUG [com.point.dao.user.UserDao.getTotalUser] - ==>  Preparing: select count(*) from user 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:18,581 DEBUG [com.point.dao.user.UserDao.getTotalUser] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:18,582 DEBUG [com.point.dao.user.UserDao.getTotalUser] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:20,223 DEBUG [com.point.dao.user.OnlineUserDao.findOnlineUser] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:20,223 DEBUG [com.point.dao.user.OnlineUserDao.findOnlineUser] - ==>  Preparing: select * from onlineuser order by id limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:20,223 DEBUG [com.point.dao.user.OnlineUserDao.findOnlineUser] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:20,226 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:20,226 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:20,226 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:20,229 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:20,229 DEBUG [com.point.dao.user.OnlineUserDao.findOnlineUser] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:20,232 DEBUG [com.point.dao.user.OnlineUserDao.getTotalOnlineUser] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:20,232 DEBUG [com.point.dao.user.OnlineUserDao.getTotalOnlineUser] - ==>  Preparing: select count(*) from onlineuser 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:20,232 DEBUG [com.point.dao.user.OnlineUserDao.getTotalOnlineUser] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:20,233 DEBUG [com.point.dao.user.OnlineUserDao.getTotalOnlineUser] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,412 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,412 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ==>  Preparing: select * from loginrecord order by id limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,412 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,416 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,416 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,417 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,418 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,419 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,419 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,419 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016093000000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,421 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,421 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,440 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,440 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ==>  Preparing: select count(*) from loginrecord 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,441 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:22,442 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,458 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,458 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ==>  Preparing: select * from loginrecord order by id limit 0,40; 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,459 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,461 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,461 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,461 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,462 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,464 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,465 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,465 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016093000000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,466 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,467 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,467 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,467 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016093000000002(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,468 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,471 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - <==      Total: 40
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,473 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,473 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ==>  Preparing: select count(*) from loginrecord 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,473 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:26,473 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,336 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,336 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ==>  Preparing: select * from loginrecord order by id limit 40,40; 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,336 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,337 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,337 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,337 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016101000000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,340 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,341 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,341 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,341 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016101000000002(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,342 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,343 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,346 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,347 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016101000000003(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,348 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,349 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,349 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,349 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,350 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,351 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,351 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,351 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016101000000004(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,352 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,353 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,353 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,353 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016101000000006(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,354 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,355 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - <==      Total: 26
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,356 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,356 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ==>  Preparing: select count(*) from loginrecord 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,356 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:29,357 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,249 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,249 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ==>  Preparing: select * from loginrecord order by id limit 0,40; 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,249 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,250 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,250 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,250 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,251 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,252 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,253 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,253 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016093000000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,253 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,254 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,260 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,260 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016093000000002(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,261 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,264 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - <==      Total: 40
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,265 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,265 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ==>  Preparing: select count(*) from loginrecord 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,265 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:35,266 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,848 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,848 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ==>  Preparing: select * from loginrecord order by id limit 40,40; 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,848 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,849 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,849 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,849 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016101000000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,851 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,851 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,851 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,852 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016101000000002(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,852 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,853 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,853 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,853 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016101000000003(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,854 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,854 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,854 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,854 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,855 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,856 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,856 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,856 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016101000000004(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,857 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,858 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,858 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,858 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016101000000006(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,859 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,861 DEBUG [com.point.dao.user.LoginRecordDao.findLoginRecord] - <==      Total: 26
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,862 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,862 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ==>  Preparing: select count(*) from loginrecord 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,862 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:40,863 DEBUG [com.point.dao.user.LoginRecordDao.getTotalLoginRecord] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:52,528 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:52,528 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:52,528 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 0(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:52,528 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 0
+0:0:0:0:0:0:0:1 2017-04-15 21:10:52,529 DEBUG [com.point.dao.point.PointDao.getTotalPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:52,529 DEBUG [com.point.dao.point.PointDao.getTotalPoint] - ==>  Preparing: select count(*) from point WHERE Status = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:52,529 DEBUG [com.point.dao.point.PointDao.getTotalPoint] - ==> Parameters: 0(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:52,531 DEBUG [com.point.dao.point.PointDao.getTotalPoint] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:10:53,871 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:53,871 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:53,871 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 0(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:53,871 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 0
+0:0:0:0:0:0:0:1 2017-04-15 21:10:53,872 DEBUG [com.point.dao.point.PointDao.getTotalPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:10:53,872 DEBUG [com.point.dao.point.PointDao.getTotalPoint] - ==>  Preparing: select count(*) from point WHERE Status = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:10:53,873 DEBUG [com.point.dao.point.PointDao.getTotalPoint] - ==> Parameters: 0(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:10:53,878 DEBUG [com.point.dao.point.PointDao.getTotalPoint] - <==      Total: 1
+ 2017-04-15 21:14:16,134 DEBUG [com.point.dao.user.OnlineUserDao.deleteByMap] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+ 2017-04-15 21:14:16,135 DEBUG [com.point.dao.user.OnlineUserDao.deleteByMap] - ==>  Preparing: delete from onlineuser 
+ 2017-04-15 21:14:16,135 DEBUG [com.point.dao.user.OnlineUserDao.deleteByMap] - ==> Parameters: 
+ 2017-04-15 21:14:16,201 DEBUG [com.point.dao.user.OnlineUserDao.deleteByMap] - <==    Updates: 1
+ 2017-04-15 21:14:16,203 DEBUG [com.point.dao.user.LoginRecordDao.updateByPrimaryKeySelective] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+ 2017-04-15 21:14:16,203 DEBUG [com.point.dao.user.LoginRecordDao.updateByPrimaryKeySelective] - ==>  Preparing: update loginrecord SET Uid = ?, LoginTime = ?, LoginIp = ?, LogoutTime = ? where Id = ? 
+ 2017-04-15 21:14:16,203 DEBUG [com.point.dao.user.LoginRecordDao.updateByPrimaryKeySelective] - ==> Parameters: 2016030100000001(String), 2017-04-15 21:10:05.685(Timestamp), 0:0:0:0:0:0:0:1(String), 2017-04-15 21:14:16.202(Timestamp), 2017041500000004(String)
+ 2017-04-15 21:14:16,268 DEBUG [com.point.dao.user.LoginRecordDao.updateByPrimaryKeySelective] - <==    Updates: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:15:10,701 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:15:10,704 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:15:10,720 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:15:10,731 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:15:10,731 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:15:10,731 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:15:10,732 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:15:10,735 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,239 DEBUG [com.point.dao.user.UserDao.selectByMap] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,239 DEBUG [com.point.dao.user.UserDao.selectByMap] - ==>  Preparing: select * from user WHERE Email = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,240 DEBUG [com.point.dao.user.UserDao.selectByMap] - ==> Parameters: 329088816@qq.com(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,241 DEBUG [com.point.dao.user.UserDao.selectByMap] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,244 DEBUG [com.point.dao.user.OnlineUserDao.selectByMap] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,244 DEBUG [com.point.dao.user.OnlineUserDao.selectByMap] - ==>  Preparing: select * from onlineuser WHERE Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,244 DEBUG [com.point.dao.user.OnlineUserDao.selectByMap] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,246 DEBUG [com.point.dao.user.OnlineUserDao.selectByMap] - <==      Total: 0
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,250 DEBUG [com.point.dao.user.UserDao.updateByPrimaryKeySelective] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,250 DEBUG [com.point.dao.user.UserDao.updateByPrimaryKeySelective] - ==>  Preparing: update user SET Email = ?, Password = ?, Nickname = ?, Gender = ?, Status = ?, ActivationCode = ?, HeadPicture = ?, RegisterTime = ?, LoginCounts = ?, Score = ?, Role = ?, Weibo = ?, QQ = ?, Brief = ?, Location = ?, LastTime = ?, LastIp = ? where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,252 DEBUG [com.point.dao.user.UserDao.updateByPrimaryKeySelective] - ==> Parameters: 329088816@qq.com(String), 123456(String), 与中秋有约(String), 1(Byte), 1(Byte), 2A0E2015D59040AA9AAF3D550DC61397ABF9EF03E51C4FB69D9538FB5491920F(String), /file/user/headpicture/2016093000E0064E07FB48AABF717F9716E3E805.jpg(String), 2016-03-01(Date), 151(Integer), 34(Integer), 0(Byte), (String), (String), 哈哈哈(String), 杭州(String), 2017-04-15 21:16:06.246(Timestamp), 0:0:0:0:0:0:0:1(String), 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,345 DEBUG [com.point.dao.user.UserDao.updateByPrimaryKeySelective] - <==    Updates: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,348 DEBUG [com.point.dao.user.OnlineUserDao.getMaxID] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,348 DEBUG [com.point.dao.user.OnlineUserDao.getMaxID] - ==>  Preparing: select MAX(id) from onlineuser WHERE id like ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,348 DEBUG [com.point.dao.user.OnlineUserDao.getMaxID] - ==> Parameters: 20170415%(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,349 DEBUG [com.point.dao.user.OnlineUserDao.getMaxID] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,352 DEBUG [com.point.dao.user.OnlineUserDao.insertSelective] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,352 DEBUG [com.point.dao.user.OnlineUserDao.insertSelective] - ==>  Preparing: insert into onlineuser ( Id, Uid, SessionID, IpCode ) values ( ?, ?, ?, ? ) 
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,356 DEBUG [com.point.dao.user.OnlineUserDao.insertSelective] - ==> Parameters: 2017041500000001(String), 2016030100000001(String), 1wau5gqwwbasn(String), 0:0:0:0:0:0:0:1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,374 DEBUG [com.point.dao.user.OnlineUserDao.insertSelective] - <==    Updates: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,375 DEBUG [com.point.dao.user.LoginRecordDao.getMaxID] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,375 DEBUG [com.point.dao.user.LoginRecordDao.getMaxID] - ==>  Preparing: select MAX(id) from loginrecord WHERE id like ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,375 DEBUG [com.point.dao.user.LoginRecordDao.getMaxID] - ==> Parameters: 20170415%(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,376 DEBUG [com.point.dao.user.LoginRecordDao.getMaxID] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,378 DEBUG [com.point.dao.user.LoginRecordDao.insertSelective] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,378 DEBUG [com.point.dao.user.LoginRecordDao.insertSelective] - ==>  Preparing: insert into loginrecord ( Id, Uid, LoginTime, LoginIp ) values ( ?, ?, ?, ? ) 
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,379 DEBUG [com.point.dao.user.LoginRecordDao.insertSelective] - ==> Parameters: 2017041500000005(String), 2016030100000001(String), 2017-04-15 21:16:06.377(Timestamp), 0:0:0:0:0:0:0:1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:16:06,405 DEBUG [com.point.dao.user.LoginRecordDao.insertSelective] - <==    Updates: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:16:12,665 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:16:12,665 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:16:12,665 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:16:12,667 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:16:12,668 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:16:12,668 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:16:12,668 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:16:12,673 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-15 21:17:05,020 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:17:05,020 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:17:05,020 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:17:05,022 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:17:05,022 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:17:05,022 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:17:05,023 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:17:05,024 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-15 21:24:01,669 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:24:01,669 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:24:01,670 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:24:01,673 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:24:01,674 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:24:01,675 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:24:01,676 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:24:01,678 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-15 21:24:03,320 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:24:03,320 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:24:03,321 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:24:03,322 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:24:03,322 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:24:03,322 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:24:03,323 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:24:03,327 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-15 21:24:04,644 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:24:04,644 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:24:04,645 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:24:04,647 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:24:04,647 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:24:04,647 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:24:04,648 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:24:04,651 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-15 21:24:05,878 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:24:05,878 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:24:05,878 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:24:05,879 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:24:05,880 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:24:05,880 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:24:05,880 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:24:05,881 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-15 21:24:12,181 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:24:12,182 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:24:12,182 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:24:12,183 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:24:12,184 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:24:12,184 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:24:12,184 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:24:12,186 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-15 21:25:28,650 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:25:28,650 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,20; 
+0:0:0:0:0:0:0:1 2017-04-15 21:25:28,650 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:25:28,651 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:25:28,651 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:25:28,651 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:25:28,652 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:25:28,654 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 20
+0:0:0:0:0:0:0:1 2017-04-15 21:25:33,097 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:25:33,097 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,50; 
+0:0:0:0:0:0:0:1 2017-04-15 21:25:33,097 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:25:33,098 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:25:33,098 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:25:33,099 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:25:33,099 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:25:33,102 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 21
+0:0:0:0:0:0:0:1 2017-04-15 21:26:43,544 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:26:43,544 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:26:43,544 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:26:43,545 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:26:43,546 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:26:43,546 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:26:43,546 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:26:43,547 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-15 21:29:39,899 DEBUG [com.point.dao.user.OnlineUserDao.findOnlineUser] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:29:39,900 DEBUG [com.point.dao.user.OnlineUserDao.findOnlineUser] - ==>  Preparing: select * from onlineuser order by id limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:29:39,900 DEBUG [com.point.dao.user.OnlineUserDao.findOnlineUser] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:29:39,901 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:29:39,901 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==>  Preparing: select Uid, Email, Password, Nickname, Gender, Status, ActivationCode, HeadPicture, RegisterTime, LoginCounts, Score, Role, Weibo, QQ, Brief, Location, LastTime, LastIp, UnUsed1, UnUsed2, UnUsed3 from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:29:39,901 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:29:39,902 DEBUG [com.point.dao.user.UserDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:29:39,903 DEBUG [com.point.dao.user.OnlineUserDao.findOnlineUser] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:29:39,906 DEBUG [com.point.dao.user.OnlineUserDao.getTotalOnlineUser] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:29:39,906 DEBUG [com.point.dao.user.OnlineUserDao.getTotalOnlineUser] - ==>  Preparing: select count(*) from onlineuser 
+0:0:0:0:0:0:0:1 2017-04-15 21:29:39,906 DEBUG [com.point.dao.user.OnlineUserDao.getTotalOnlineUser] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-15 21:29:39,906 DEBUG [com.point.dao.user.OnlineUserDao.getTotalOnlineUser] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:31:20,379 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:31:20,382 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:31:20,405 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:31:20,417 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:31:20,418 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:31:20,418 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:31:20,419 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:31:20,423 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-15 21:31:27,460 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:31:27,460 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point where PointID = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:31:27,461 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:31:27,464 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:31:27,465 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:31:27,465 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:31:27,466 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:31:27,466 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:31:27,477 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:31:27,478 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==>  Preparing: select count(*) from pointcomment WHERE pointid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:31:27,478 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:31:27,501 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:31:51,464 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:31:51,464 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point where PointID = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:31:51,464 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:31:51,465 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:31:51,465 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:31:51,465 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:31:51,466 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:31:51,466 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:31:51,467 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:31:51,467 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==>  Preparing: select count(*) from pointcomment WHERE pointid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:31:51,467 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:31:51,468 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:32:16,416 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:32:16,416 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point where PointID = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:32:16,416 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:32:16,417 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:32:16,417 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:32:16,418 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:32:16,418 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:32:16,418 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:32:16,419 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:32:16,419 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==>  Preparing: select count(*) from pointcomment WHERE pointid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:32:16,419 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:32:16,421 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:56,640 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:56,641 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point where PointID = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:56,641 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:56,643 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:56,643 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:56,643 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:56,644 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:56,644 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:56,645 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:56,645 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==>  Preparing: select count(*) from pointcomment WHERE pointid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:56,645 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:56,646 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,023 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,024 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point where PointID = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,024 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,026 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,026 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,027 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,028 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,028 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,031 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,031 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==>  Preparing: select count(*) from pointcomment WHERE pointid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,031 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,032 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,654 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,654 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point where PointID = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,654 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,659 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,659 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,659 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,659 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,660 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,661 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,661 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==>  Preparing: select count(*) from pointcomment WHERE pointid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,661 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:58,662 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,166 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,166 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point where PointID = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,166 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,167 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,167 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,167 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,168 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,168 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,169 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,169 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==>  Preparing: select count(*) from pointcomment WHERE pointid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,169 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,169 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,582 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,583 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point where PointID = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,583 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,584 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,584 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,584 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,584 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,584 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,585 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,585 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==>  Preparing: select count(*) from pointcomment WHERE pointid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,585 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,586 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,761 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,761 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point where PointID = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,761 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,763 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,763 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,763 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,763 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,763 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,764 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,764 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==>  Preparing: select count(*) from pointcomment WHERE pointid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,764 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,765 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,930 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,931 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point where PointID = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,931 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,932 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,932 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,932 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,933 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,933 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,934 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,934 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==>  Preparing: select count(*) from pointcomment WHERE pointid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,934 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:33:59,934 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:34:00,118 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:34:00,118 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point where PointID = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:34:00,118 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:34:00,119 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:34:00,119 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:34:00,119 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:34:00,119 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:34:00,119 DEBUG [com.point.dao.point.PointDao.selectByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:34:00,120 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:34:00,120 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==>  Preparing: select count(*) from pointcomment WHERE pointid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:34:00,120 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - ==> Parameters: 2016093000000007(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:34:00,121 DEBUG [com.point.dao.point.PointCommentDao.getTotalPointComment] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:36:50,661 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:36:50,661 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-15 21:36:50,661 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:36:50,663 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-15 21:36:50,663 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-15 21:36:50,663 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-15 21:36:50,664 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-15 21:36:50,665 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 13:00:12,545 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 13:00:12,548 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-16 13:00:12,563 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 13:00:12,575 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 13:00:12,575 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 13:00:12,576 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 13:00:12,577 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 13:00:12,579 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,005 DEBUG [com.point.dao.user.UserDao.selectByMap] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,005 DEBUG [com.point.dao.user.UserDao.selectByMap] - ==>  Preparing: select * from user WHERE Email = ? 
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,006 DEBUG [com.point.dao.user.UserDao.selectByMap] - ==> Parameters: 329088816@qq.com(String)
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,009 DEBUG [com.point.dao.user.UserDao.selectByMap] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,012 DEBUG [com.point.dao.user.OnlineUserDao.selectByMap] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,012 DEBUG [com.point.dao.user.OnlineUserDao.selectByMap] - ==>  Preparing: select * from onlineuser WHERE Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,012 DEBUG [com.point.dao.user.OnlineUserDao.selectByMap] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,014 DEBUG [com.point.dao.user.OnlineUserDao.selectByMap] - <==      Total: 0
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,019 DEBUG [com.point.dao.user.UserDao.updateByPrimaryKeySelective] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,019 DEBUG [com.point.dao.user.UserDao.updateByPrimaryKeySelective] - ==>  Preparing: update user SET Email = ?, Password = ?, Nickname = ?, Gender = ?, Status = ?, ActivationCode = ?, HeadPicture = ?, RegisterTime = ?, LoginCounts = ?, Score = ?, Role = ?, Weibo = ?, QQ = ?, Brief = ?, Location = ?, LastTime = ?, LastIp = ? where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,021 DEBUG [com.point.dao.user.UserDao.updateByPrimaryKeySelective] - ==> Parameters: 329088816@qq.com(String), 123456(String), 与中秋有约(String), 1(Byte), 1(Byte), 2A0E2015D59040AA9AAF3D550DC61397ABF9EF03E51C4FB69D9538FB5491920F(String), /file/user/headpicture/2016093000E0064E07FB48AABF717F9716E3E805.jpg(String), 2016-03-01(Date), 152(Integer), 35(Integer), 0(Byte), (String), (String), 哈哈哈(String), 杭州(String), 2017-04-16 13:39:30.014(Timestamp), 0:0:0:0:0:0:0:1(String), 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,039 DEBUG [com.point.dao.user.UserDao.updateByPrimaryKeySelective] - <==    Updates: 1
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,041 DEBUG [com.point.dao.user.OnlineUserDao.getMaxID] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,041 DEBUG [com.point.dao.user.OnlineUserDao.getMaxID] - ==>  Preparing: select MAX(id) from onlineuser WHERE id like ? 
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,041 DEBUG [com.point.dao.user.OnlineUserDao.getMaxID] - ==> Parameters: 20170416%(String)
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,042 DEBUG [com.point.dao.user.OnlineUserDao.getMaxID] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,048 DEBUG [com.point.dao.user.OnlineUserDao.insertSelective] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,048 DEBUG [com.point.dao.user.OnlineUserDao.insertSelective] - ==>  Preparing: insert into onlineuser ( Id, Uid, SessionID, IpCode ) values ( ?, ?, ?, ? ) 
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,068 DEBUG [com.point.dao.user.OnlineUserDao.insertSelective] - ==> Parameters: 2017041600000001(String), 2016030100000001(String), 9pqsewoe8o6y(String), 0:0:0:0:0:0:0:1(String)
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,101 DEBUG [com.point.dao.user.OnlineUserDao.insertSelective] - <==    Updates: 1
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,102 DEBUG [com.point.dao.user.LoginRecordDao.getMaxID] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,102 DEBUG [com.point.dao.user.LoginRecordDao.getMaxID] - ==>  Preparing: select MAX(id) from loginrecord WHERE id like ? 
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,102 DEBUG [com.point.dao.user.LoginRecordDao.getMaxID] - ==> Parameters: 20170416%(String)
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,103 DEBUG [com.point.dao.user.LoginRecordDao.getMaxID] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,105 DEBUG [com.point.dao.user.LoginRecordDao.insertSelective] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,105 DEBUG [com.point.dao.user.LoginRecordDao.insertSelective] - ==>  Preparing: insert into loginrecord ( Id, Uid, LoginTime, LoginIp ) values ( ?, ?, ?, ? ) 
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,106 DEBUG [com.point.dao.user.LoginRecordDao.insertSelective] - ==> Parameters: 2017041600000001(String), 2016030100000001(String), 2017-04-16 13:39:30.103(Timestamp), 0:0:0:0:0:0:0:1(String)
+0:0:0:0:0:0:0:1 2017-04-16 13:39:30,130 DEBUG [com.point.dao.user.LoginRecordDao.insertSelective] - <==    Updates: 1
+0:0:0:0:0:0:0:1 2017-04-16 13:39:33,304 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 13:39:33,304 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-16 13:39:33,305 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 13:39:33,309 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 13:39:33,309 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 13:39:33,309 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 13:39:33,310 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 13:39:33,320 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 13:41:07,541 DEBUG [com.point.dao.user.OnlineUserDao.deleteByMap] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 13:41:07,541 DEBUG [com.point.dao.user.OnlineUserDao.deleteByMap] - ==>  Preparing: delete from onlineuser 
+0:0:0:0:0:0:0:1 2017-04-16 13:41:07,541 DEBUG [com.point.dao.user.OnlineUserDao.deleteByMap] - ==> Parameters: 
+0:0:0:0:0:0:0:1 2017-04-16 13:41:07,578 DEBUG [com.point.dao.user.OnlineUserDao.deleteByMap] - <==    Updates: 1
+0:0:0:0:0:0:0:1 2017-04-16 13:41:07,581 DEBUG [com.point.dao.user.LoginRecordDao.updateByPrimaryKeySelective] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 13:41:07,581 DEBUG [com.point.dao.user.LoginRecordDao.updateByPrimaryKeySelective] - ==>  Preparing: update loginrecord SET Uid = ?, LoginTime = ?, LoginIp = ?, LogoutTime = ? where Id = ? 
+0:0:0:0:0:0:0:1 2017-04-16 13:41:07,581 DEBUG [com.point.dao.user.LoginRecordDao.updateByPrimaryKeySelective] - ==> Parameters: 2016030100000001(String), 2017-04-16 13:39:30.103(Timestamp), 0:0:0:0:0:0:0:1(String), 2017-04-16 13:41:07.579(Timestamp), 2017041600000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 13:41:07,646 DEBUG [com.point.dao.user.LoginRecordDao.updateByPrimaryKeySelective] - <==    Updates: 1
+0:0:0:0:0:0:0:1 2017-04-16 14:03:26,317 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:03:26,320 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-16 14:03:26,338 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:03:26,350 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:03:26,350 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 14:03:26,350 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:03:26,351 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 14:03:26,354 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 14:12:41,554 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:12:41,554 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-16 14:12:41,555 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:12:41,557 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:12:41,557 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 14:12:41,557 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:12:41,561 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 14:12:41,565 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 14:12:53,565 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:12:53,565 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-16 14:12:53,565 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:12:53,567 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:12:53,567 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 14:12:53,567 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:12:53,568 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 14:12:53,570 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 14:15:12,438 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:15:12,439 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-16 14:15:12,439 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:15:12,445 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:15:12,445 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 14:15:12,445 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:15:12,446 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 14:15:12,448 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 14:16:54,501 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:16:54,501 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-16 14:16:54,501 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:16:54,506 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:16:54,506 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 14:16:54,506 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:16:54,509 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 14:16:54,511 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 14:17:36,436 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:17:36,436 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-16 14:17:36,438 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:17:36,440 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:17:36,440 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 14:17:36,440 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:17:36,441 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 14:17:36,442 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 14:17:44,551 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:17:44,551 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-16 14:17:44,552 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:17:44,556 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:17:44,556 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 14:17:44,556 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:17:44,557 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 14:17:44,558 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 14:36:25,278 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:36:25,281 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-16 14:36:25,300 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:36:25,314 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:36:25,314 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 14:36:25,315 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:36:25,316 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 14:36:25,320 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 14:39:13,139 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:39:13,142 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-16 14:39:13,158 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:39:13,172 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:39:13,173 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 14:39:13,173 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:39:13,174 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 14:39:13,176 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 14:39:14,749 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:39:14,749 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-16 14:39:14,750 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:39:14,753 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:39:14,753 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 14:39:14,753 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:39:14,755 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 14:39:14,759 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 14:39:31,393 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:39:31,393 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-16 14:39:31,394 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:39:31,395 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:39:31,395 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 14:39:31,396 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:39:31,396 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 14:39:31,398 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 14:45:35,651 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:45:35,651 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,10; 
+0:0:0:0:0:0:0:1 2017-04-16 14:45:35,651 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:45:35,658 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:45:35,658 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 14:45:35,658 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:45:35,659 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 14:45:35,662 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 10
+0:0:0:0:0:0:0:1 2017-04-16 14:45:41,482 DEBUG [com.point.dao.point.PointDao.findPoint] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:45:41,482 DEBUG [com.point.dao.point.PointDao.findPoint] - ==>  Preparing: select PointID, Title, Longitude, Latitude, CreateTime, City, Status, BigPhoto, SmallPhoto, Uid, Praise, Down, Label, UnUsed1, UnUsed2, UnUsed3 , Content from point WHERE City = ? and Status = ? order by PointID limit 0,50; 
+0:0:0:0:0:0:0:1 2017-04-16 14:45:41,483 DEBUG [com.point.dao.point.PointDao.findPoint] - ==> Parameters: 武汉(String), 1(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:45:41,484 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ooo Using Connection [jdbc:mysql://localhost:3306/photographypoint?characterEncoding=utf-8, UserName=root@localhost, MySQL Connector Java]
+0:0:0:0:0:0:0:1 2017-04-16 14:45:41,484 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==>  Preparing: select Uid,Nickname, HeadPicture from user where Uid = ? 
+0:0:0:0:0:0:0:1 2017-04-16 14:45:41,485 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - ==> Parameters: 2016030100000001(String)
+0:0:0:0:0:0:0:1 2017-04-16 14:45:41,485 DEBUG [com.point.dao.user.UserDao.selectPartByPrimaryKey] - <==      Total: 1
+0:0:0:0:0:0:0:1 2017-04-16 14:45:41,488 DEBUG [com.point.dao.point.PointDao.findPoint] - <==      Total: 21

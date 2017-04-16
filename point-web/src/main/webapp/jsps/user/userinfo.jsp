@@ -21,7 +21,13 @@
 <title>个人资料</title>
 
 <style type="text/css">
-html, body {
+html{
+	width: 100%;
+	height: 100%;
+}
+
+body{
+	margin-top: 60px;
 	width: 100%;
 	height: 100%;
 }
@@ -96,7 +102,8 @@ html, body {
 </style>
 </head>
 <body>
-	<div class="container" style="margin-top: 10px">
+<jsp:include page="/jsps/main.jsp" flush="true" />
+	<div class="container" style="margin-top: 20px">
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-3">

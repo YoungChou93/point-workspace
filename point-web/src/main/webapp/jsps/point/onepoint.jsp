@@ -30,6 +30,8 @@ html, body {
 }
 
 .index-bottom {
+	position:relative;
+	bottom:0px;
 	background: #555;
 	padding: 2em 0;
 	text-align: center;
@@ -155,8 +157,8 @@ ul#footer-links li a {
 </script>
 </head>
 <body>
-
-	<div class="container" style="margin-top: 10px">
+<jsp:include page="/jsps/main.jsp" flush="true" />
+	<div class="container" style="margin-top:60px">
 		<div class="row">
 
 			<div class="col-md-1"></div>
@@ -197,6 +199,7 @@ ul#footer-links li a {
 	<div class="container" style="margin-top: 10px">
 		<div class="col-md-1"></div>
 		<div class="col-md-7 text-center">
+            <c:if test="${!empty user}">
 			<div class="form-group text-left">
 				<h3>评论</h3>
 			</div>
@@ -206,21 +209,7 @@ ul#footer-links li a {
 				<button class="btn btn-primary" style="margin-top: 10px;"
 					onclick="onComment()">确定</button>
 			</div>
-			<div id="divforComment" style="word-break: break-all;">
-				<div class="pointcomment panel panel-default">
-					<div class="text-left">
-						<img
-							src="${pageContext.request.contextPath}${point.user.headpicture}"
-							style="width: 30px; float: left; margin-right: 10px;" />
-						<p>${point.user.nickname}</p>
-					</div>
-					<p class="pointcomment-content text-left"></p>
-					<div class="text-right">
-						<p>wwwwwww</p>
-					</div>
-				</div>
-			</div>
-
+			</c:if>
 
 			<ul id="pagination-page" class="pagination-sm"></ul>
 		</div>

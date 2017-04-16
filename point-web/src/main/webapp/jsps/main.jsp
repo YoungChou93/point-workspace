@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%--<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -20,12 +20,12 @@ $(function () {
     window.setInterval(function () {
        $.post("${pageContext.request.contextPath}/user/timer.action", function (result) {
     	   if( true != result.success ){
-              	 window.location.href = '${pageContext.request.contextPath}/login.action';   		   
+              	 window.location.href = '${pageContext.request.contextPath}/login.action';
     	   }
     	   return;
-       	},'json');    		
+       	},'json');
     }, 30000);
-  });		
+  });
 
 
 </script>
@@ -37,9 +37,9 @@ body {
 }
 </style>
 </head>
-<body>
+<body>--%>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" >
 	<div class="container">
 		<div class="row">
 			<div class="col-md-1"></div>
@@ -51,25 +51,28 @@ body {
 							class="icon-bar"></span> <span class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand"
-						href="${pageContext.request.contextPath}/jsps/index.jsp"
-						target="main"> <img
+						href="${pageContext.request.contextPath}/index.action"
+						> <img
 						src="${pageContext.request.contextPath}/res/img/logo2.png"
 						style="height: 50px; margin-top: -15px;" /></a>
 				</div>
 				<div>
 					<div class="collapse navbar-collapse">
+
 						<ul class="nav navbar-nav">
-							<li class="active"><a
-								href="${pageContext.request.contextPath}/jsps/index.jsp"
-								target="main">首页</a></li>
-							<li><a href="${pageContext.request.contextPath}/jsps/user/userindex.jsp" target="main">照片</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/jsps/point/map.jsp"
-								target="main">城市</a></li>
-							<li><a href="${pageContext.request.contextPath}/jsps/user/userindex.jsp" target="main">分享</a></li>
-							<li><a href="${pageContext.request.contextPath}/jsps/user/userindex.jsp" target="main">关于</a></li>
+							<li id="homepage"><a
+								href="${pageContext.request.contextPath}/index.action"
+								>首页</a></li>
+							<%--<li><a href="${pageContext.request.contextPath}/jsps/user/userindex.jsp" target="main">照片</a></li>--%>
+							<li id="citypage"><a
+								href="${pageContext.request.contextPath}/map.action"
+								>城市</a></li>
+							<%--<li><a href="${pageContext.request.contextPath}/jsps/user/userindex.jsp" target="main">分享</a></li>
+							<li><a href="${pageContext.request.contextPath}/jsps/user/userindex.jsp" target="main">关于</a></li>--%>
 						</ul>
 
+						<!--已登陆-->
+						<c:if test="${!empty user}">
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="#" target="main"><img
 									src="${pageContext.request.contextPath}${sessionScope.user.headpicture}"
@@ -80,12 +83,12 @@ body {
 							</a>
 								<ul class="dropdown-menu ">
 									<li><a 
-									    href="${pageContext.request.contextPath}/jsps/user/userindex.jsp"
+									    href="${pageContext.request.contextPath}/userindex.action"
 									    target="main"><span class="glyphicon glyphicon-home"></span>个人主页</a></li>
 									<li class="divider"></li>
 									<li><a
-										href="${pageContext.request.contextPath}/user/getUserInfo.action"
-										target="main"><span class="glyphicon glyphicon-user"></span>我的资料</a></li>
+										href="${pageContext.request.contextPath}/userinfo.action"
+										><span class="glyphicon glyphicon-user"></span>我的资料</a></li>
 									<li class="divider"></li>
 									<c:if test="${sessionScope.user.role==0}">
 									<li><a
@@ -101,6 +104,15 @@ body {
 								</ul></li>
 
 						</ul>
+						</c:if>
+
+						<!--未登陆-->
+                        <c:if test="${empty user}">
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="${pageContext.request.contextPath}/login.action"  style="background-color: sandybrown"><font style="font-size: 18px;">登陆</font></a></li>
+							<li><a href="${pageContext.request.contextPath}/register.action" style="background-color: indianred"><font style="font-size: 18px;">注册</font></a></li>
+						</ul>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -108,6 +120,7 @@ body {
 	</div>
 
 	</nav>
+<%--
 	<div style="width: 100%; height: 100%;">
 		<iframe frameborder="0"
 			src="${pageContext.request.contextPath}/jsps/index.jsp" name="main"
@@ -126,4 +139,4 @@ body {
 		
 	</script>
 </body>
-</html>
+</html>--%>

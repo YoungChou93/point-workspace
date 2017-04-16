@@ -15,15 +15,7 @@ import com.point.util.VerifyCode;
 
 @Controller
 public class LoginController {
-	
-	@RequestMapping("/login")
-	public ModelAndView login(){
-		ModelAndView mav=new ModelAndView();
-			mav.setViewName("/user/login");
-		return mav;
-	}
-	
-	
+
 	@RequestMapping("/getVerifyCode")
 	public void getVerifyCode(HttpServletResponse response,HttpSession httpSession) throws IOException{
 		

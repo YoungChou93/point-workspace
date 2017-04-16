@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="/jsps/main.jsp" flush="true" />
 	<font color="red">${message}</font>
 </body>
 </html>

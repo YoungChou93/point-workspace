@@ -72,7 +72,7 @@ public class UserController {
 			mav.addObject("userCustom", userCustom);// 数据回显
 			mav.setViewName("/user/login");// 设置视图
 		} else {
-			mav.setViewName("/main");
+			mav.setViewName("redirect:/index.action");
 		}
 
 		return mav;
@@ -158,20 +158,8 @@ public class UserController {
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpSession httpSession) throws Exception {
 		ModelAndView mav = new ModelAndView();
-
 		userService.loginOut(httpSession);
-		mav.setViewName("/user/login");
-
-		return mav;
-	}
-
-	@RequestMapping("/getUserInfo")
-	public ModelAndView getUserInfo(HttpSession httpSession) {
-		ModelAndView mav = new ModelAndView();
-
-		User user = (User) httpSession.getAttribute("user");
-		mav.addObject(user);
-		mav.setViewName("/user/userinfo");
+		mav.setViewName("redirect:/login.action");
 
 		return mav;
 	}

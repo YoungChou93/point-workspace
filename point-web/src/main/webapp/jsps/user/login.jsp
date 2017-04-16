@@ -19,6 +19,8 @@
 <style type="text/css">
 html, body {
 	font-size: 100%;
+	width: 100%;
+	height:100%;
 	background: #fff;
 }
 
@@ -28,13 +30,12 @@ body {
 
 .banner {
 	background:
-		url(${pageContext.request.contextPath}/res/img/loginbackground1.jpg)
-		no-repeat center top;
+		url(${pageContext.request.contextPath}/res/img/loginbackground.jpg)
+		fixed center center no-repeat;
 	background-size: cover;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	min-height: 700px;
+	width: 100%;
+	height:100%;
+
 }
 
 .banner-top {
@@ -68,6 +69,11 @@ body {
 	line-height: 1.5em;
 	text-transform: uppercase;
 }
+.error{
+	font-family: 微软雅黑;
+	font-size: 15px;
+	color:red;
+}
 </style>
 </head>
 <body>
@@ -76,30 +82,24 @@ body {
 			<div class="welcome">
 				<h1>WElCOME TO CHINA CITYSCAPE</h1>
 			</div>
-			<div class="banner-top">
-				<ul id="myTab" class="nav nav-tabs">
-					<li class="active"><a href="#login" data-toggle="tab"
-						style="background: rgba(228, 232, 246, 0.1);"> 登录 </a></li>
-					<li><a href="#register" data-toggle="tab"
-						style="background: rgba(228, 232, 246, 0.1);">注册</a></li>
-				</ul>
-
-				<div class="tab-content" align="center">
+			<div class="banner-top text-center">
 					<img src="${pageContext.request.contextPath}/res/img/logo.png"
 						style="height: 90px; text-align: center;" />
 					<!-- <h1 class="text-center">CityPoint</h1> -->
 					<div class="tab-pane fade in active" id="login">
 
 						<font color="red">${errorMsg}</font>
-						<form class="form-horizontal" method="post" style="margin: 20px;"
+						<form class="form-horizontal" method="post" style="margin: 20px;" id="loginform"
 							action="${pageContext.request.contextPath}/user/login.action">
 							<div class="form-group">
 								<input type="text" name="email" class="form-control"
 									id="inputEmail" placeholder="Email" value="${userCustom.email}">
+								<label id="emailError" class="error"></label>
 							</div>
 							<div class="form-group">
 								<input type="password" name="password" class="form-control"
 									id="inputPassword" placeholder="Password">
+								<label id="passwordError" class="error"></label>
 							</div>
 							<div class="form-group">
 								<div class="bnr-left">
@@ -110,54 +110,153 @@ body {
 								</div>
 								<div class="bnr-right">
 									<input type="text" name="verifyCode" class="form-control"
-										placeholder="VerifyCode">
+										   id="inputVerifyCode" placeholder="VerifyCode">
 								</div>
+								<label id="verifyCodeError" class="error"></label>
 							</div>
 							<button type="submit" class="btn btn-primary btn-block">登录</button>
+							<a href="${pageContext.request.contextPath}/register.action" class="btn btn-warning btn-block"><strong>注册</strong></a>
 						</form>
+
 					</div>
-					<div class="tab-pane fade" id="register">
-						<font color="red">${errorMsg}</font>
-						<form class="form-horizontal" method="post" style="margin: 20px;"
-							action="${pageContext.request.contextPath}/user/register.action">
-							<div class="form-group">
-								<input type="text" class="form-control" name="email"
-									placeholder="Email" value="${registerUserCustom.email}">
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control" name="nickname"
-									placeholder="Nickname" value="${registerUserCustom.nickname}">
-							</div>
-							<div class="form-group">
-								<input type="password" class="form-control" name="password"
-									placeholder="Password">
-							</div>
-							<div class="form-group">
-								<input type="password" class="form-control"
-									name="confirmPassword" placeholder="Confirm Password">
-							</div>
-							<div class="form-group">
-								<div class="bnr-left">
-									<img
-										src="${pageContext.request.contextPath}/getVerifyCode.action"
-										id="registerVerifyCode" /> <a
-										href="javascript:changeRegisterVerifyCode()">换张图</a>
-								</div>
-								<div class="bnr-right">
-									<input type="text" class="form-control" name="verifyCode"
-										placeholder="VerifyCode">
-								</div>
-							</div>
-							<button type="submit" class="btn btn-primary btn-block">注册</button>
-						</form>
-					</div>
-				</div>
 			</div>
 
 		</div>
 	</div>
 
 	<script type="text/javascript">
+            $(function () {
+
+                $("#emailError").css("display", "none");
+                $("#passwordError").css("display", "none");
+                $("#verifyCodeError").css("display", "none");
+				/*
+				 * 2. 给注册按钮添加submit()事件，完成表单校验
+				 */
+                $("#loginform").submit(function () {
+                    $("#msg").text("");
+                    var bool = true;
+                    if (!validateEmail()) {
+                        bool = false;
+                    }
+
+                    if (!validatePassword()) {
+                        bool = false;
+                    }
+
+                    if (!validateVerifyCode()) {
+                        bool = false;
+                    }
+
+
+                    return bool;
+                });
+
+				/*
+				 * 输入框得到焦点时隐藏错误信息
+				 */
+                $("#inputEmail").focus(function () {
+                    $("#emailError").css("display", "none");
+                });
+
+                $("#inputPassword").focus(function () {
+                    $("#passwordError").css("display", "none");
+                });
+
+                $("#inputVerifyCode").focus(function () {
+                    $("#verifyCodeError").css("display", "none");
+                });
+				/*
+				 *  输入框推动焦点时进行校验
+				 */
+                $("#inputEmail").blur(function () {
+                    var inputName = $(this).attr("name");
+                    invokeValidateFunction(inputName);
+                })
+
+                $("#inputPassword").blur(function () {
+                    var inputName = $(this).attr("name");
+                    invokeValidateFunction(inputName);
+                })
+
+                $("#inputVerifyCode").blur(function () {
+                    var inputName = $(this).attr("name");
+                    invokeValidateFunction(inputName);
+                })
+            });
+
+		/*
+		 * 输入input名称，调用对应的validate方法。
+		 * 例如input名称为：loginname，那么调用validateLoginname()方法。
+		 */
+        function invokeValidateFunction(inputName) {
+            inputName = inputName.substring(0, 1).toUpperCase() + inputName.substring(1);
+            var functionName = "validate" + inputName;
+            return eval(functionName + "()");
+        }
+
+		/*
+		 * 校验登录名
+		 */
+        function validateEmail() {
+            var bool = true;
+            $("#emailError").css("display", "none");
+            var value = $("#inputEmail").val();
+            if (!value) {// 非空校验
+                $("#emailError").css("display", "");
+                $("#emailError").text("用户名不能为空！");
+                bool = false;
+            } else if (value.length < 10 || value.length > 40) {//长度校验
+                $("#emailError").css("display", "");
+                $("#emailError").text("邮箱长度在10 ~ 40之间！");
+                bool = false;
+            } else if (!value.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
+                $("#emailError").css("display", "");
+                $("#emailError").text("邮箱格式错误");
+                bool = false;
+            }
+            return bool;
+        }
+
+		/*
+		 * 校验密码
+		 */
+        function validatePassword() {
+            var bool = true;
+            $("#passwordError").css("display", "none");
+            var value = $("#inputPassword").val();
+            if (!value) {// 非空校验
+                $("#passwordError").css("display", "");
+                $("#passwordError").text("密码不能为空！");
+                bool = false;
+            } else if (value.length < 5 || value.length > 15) {//长度校验
+                $("#passwordError").css("display", "");
+                $("#passwordError").text("密码长度错误！");
+                bool = false;
+            }
+            return bool;
+        }
+
+		/*
+		 * 校验验证码
+		 */
+        function validateVerifyCode() {
+            var bool = true;
+            $("#verifyCodeError").css("display", "none");
+            var value = $("#inputVerifyCode").val();
+            if (!value) {//非空校验
+                $("#verifyCodeError").css("display", "");
+                $("#verifyCodeError").text("验证码不能为空！");
+                bool = false;
+            } else if (value.length != 4) {//长度不为4就是错误的
+                $("#verifyCodeError").css("display", "");
+                $("#verifyCodeError").text("验证码长度错误！");
+                bool = false;
+            }
+            return bool;
+        }
+
+
 		/*
 		 * 换一张验证码
 		 */
@@ -186,11 +285,6 @@ body {
 							+ new Date().getTime());
 
 		}
-		
-		<c:if test="${!empty registerUserCustom}"> 
-		      $('#myTab a:last').tab('show');
-		</c:if>
-		
 	</script>
 </body>
 </html>

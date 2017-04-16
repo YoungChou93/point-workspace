@@ -20,6 +20,7 @@
 
 <style type="text/css">
 html, body {
+
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
@@ -30,8 +31,8 @@ html, body {
 </script>
 </head>
 <body>
-
-	<div class="container" style="padding: 5px;">
+    <jsp:include page="/jsps/main.jsp" flush="true" />
+	<div class="container" style="padding: 5px;margin-top: 50px;">
 		<div class="row">
 			<div class="col-md-10">
 				<form id="getPointForm" role="form" class="form-inline"
@@ -55,20 +56,25 @@ html, body {
 							<option value="100">全部</option>
 						</select>
 					</div>
+
 					<div class="form-group">
 						<label>类别：</label> <select id="category" name="category"
 							class="form-control">
 							<option value="1">所有</option>
+						    <c:if test="${!empty user}">
 							<option value="2">自己</option>
+							</c:if>
 						</select>
 					</div>
 				</form>
 				<font color="red" id="message"></font>
 			</div>
+            <c:if test="${!empty user}">
 			<div class="col-md-2">
-				<a href="${pageContext.request.contextPath}/jsps/point/addpoint.jsp"
-					class="btn btn-primary" target="main">添加</a>
+				<a href="${pageContext.request.contextPath}/addpoint.action"
+					class="btn btn-primary" >添加</a>
 			</div>
+			</c:if>
 		</div>
 	</div>
 
@@ -259,7 +265,7 @@ html, body {
 		
 		/* 关闭公交查询面板*/
 		function closeBus(){
-			$('#bus').hide();
+            $('#bus').css("visibility","hidden");
 			if(localpoints!=null){
 				showPoints(localpoints);
 			}else{
@@ -271,8 +277,8 @@ html, body {
 		$(function() {
 			getPoint();
 		});
-		
-		
+
+        $("#citypage").addClass('active');
 		
 	</script>
 </body>

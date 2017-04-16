@@ -18,6 +18,7 @@
 <title>激活</title>
 </head>
 <body>
+<jsp:include page="/jsps/main.jsp" flush="true" />
 	<div class="container text-center">
 		<h1>${errorMsg}${message}</h1>
 		<p>${content}</p>
