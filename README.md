@@ -21,9 +21,9 @@
 [主要功能实例地址](http://115.159.56.151:8080/point)
 
 ## 部分界面
-![Image text](https://github.com/YoungChou93/point-workspace/blob/master/projectpicture/login.png)
-![Image text](https://github.com/YoungChou93/point-workspace/blob/master/projectpicture/homepage.png)
-![Image text](https://github.com/YoungChou93/point-workspace/blob/master/projectpicture/map.png)
+![登陆](https://github.com/YoungChou93/point-workspace/blob/master/projectpicture/login.png)
+![主页](https://github.com/YoungChou93/point-workspace/blob/master/projectpicture/homepage.png)
+![地图](https://github.com/YoungChou93/point-workspace/blob/master/projectpicture/map.png)
 ## 联系
 
 zhouyang.alan@gmail.com
